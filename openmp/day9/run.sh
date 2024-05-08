@@ -8,6 +8,7 @@ help(){
     echo "-n <iterations>   : number of times to execute"
     echo 
     echo "eg: bash run.sh -f main.c -t 8 -c -n 3"
+    echo
 }
 
 isCompiled=0
