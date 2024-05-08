@@ -3,21 +3,22 @@ help(){
     echo "Usage: submit.sh -[flags]"
     echo "-h                : help"
     echo "-f <filename>     : enter file"
-    echo "-N <threads>      : number of threads"
+    echo "-t <threads>      : number of threads"
     echo "-c <compile>      : first compile"
-    echo "-i <iterations>   : enter partition"
+    echo "-n <iterations>   : number of times to execute"
     echo 
+    echo "eg: bash run.sh -f main.c -t 8 -c -n 3"
 }
 
 isCompiled=0
 nthreads=8
 
-while getopts 'N:f:i:hc' flag; do
+while getopts 'n:f:t:hc' flag; do
   case "${flag}" in
-    N) nthreads="${OPTARG}" ;;
+    t) nthreads="${OPTARG}" ;;
     f) file=${OPTARG} ;;
     c) isCompiled=1 ;;
-    i) iterations="${OPTARG}" ;;
+    n) iterations="${OPTARG}" ;;
     h) help 
         exit 1 ;;
     *) echo "Invalid flag...(-h for help)"
