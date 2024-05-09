@@ -1,0 +1,29 @@
+#+title: Notes
+
+* Shavak loading packages
+- day8 folder in openmp contains a file ~loadModules~ is the script to load your modules after login to your shavak.
+- To run that file save it in your home folder (or at your desired location) and type the below command in terminal.
+#+begin_src bash
+. path_to_your_loadModules.sh
+# if you saved your file in your home folder then type
+. ~/loadModules.sh
+#+end_src
+- Remember if your spack is not working or giving errors then do the following fixes.
+  + First check if you are working in conda environment or not.
+  + (base) will be showing in the beginning of your shell prompt.
+  + Now deactivate the conda environment using command: ~conda deactivate~.
+  + After typing above command (base) will deactivate.
+  + Now relogin to your shavak and follow the above steps to load Modules.
+* Running openmp programs to run.sh script
+- day9 folder in your openmp contains a file called ~run.sh~ (which is a script to automate running openmp using a single line flag based command).
+- You are free to change the script according to your needs.
+- There is detailed help menu give in the script which can be invoked using -h flag
+- Copy this file to the folder where your codes are.
+- Run this script in your terminal (make sure this file is present in the folder from where you are running).
+- Below is the guide to run the script:
+#+begin_src bash
+# for help type -h
+bash run.sh -h
+# eg: for running the script type
+bash run.sh -f filename_with_extention -c -t 8 -n 5
+#+end_src
