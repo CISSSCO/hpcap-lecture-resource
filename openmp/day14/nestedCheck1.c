@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<omp.h>
 int main(){
-    omp_set_nested(1);
     if(omp_get_nested()){
         #pragma omp parallel num_threads(3)
         {
