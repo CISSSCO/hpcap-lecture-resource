@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <omp.h>
 
-#define N 1000
+#define N 10000
 
-void task_compute(int* arr, int start, int end, int* result) {
+void sum(int* arr, int start, int end, int* result) {
     int sum = 0;
     for (int i = start; i < end; i++) {
         sum += arr[i];
@@ -12,7 +12,7 @@ void task_compute(int* arr, int start, int end, int* result) {
     *result = sum;
 }
 
-void task_finalize(int* result1, int* result2, int* total) {
+void totalSum(int* result1, int* result2, int* total) {
     *total = *result1 + *result2;
 }
 
@@ -27,16 +27,20 @@ int main() {
 
     #pragma omp parallel
     {
-        #pragma omp task depend(out: result1)
-        task_compute(arr, 0, N/2, &result1);
-        
-        #pragma omp task depend(out: result2)
-        task_compute(arr, N/2, N, &result2);
+        #pragma omp single
+        {
+            #pragma omp task 
+            sum(arr, 0, N/2, &result1);
+            
+            #pragma omp task 
+            sum(arr, N/2, N, &result2);
 
-        #pragma omp task depend(in: result1, result2) depend(out: total)
-        task_finalize(&result1, &result2, &total);
+            #pragma omp taskwait
 
-        #pragma omp taskwait
+            #pragma omp task 
+            totalSum(&result1, &result2, &total);
+        }
+
     }
 
     printf("Total sum: %d\n", total);
