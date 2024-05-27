@@ -5,6 +5,7 @@
 #define N 10000
 
 void sum(int* arr, int start, int end, int* result) {
+    printf("task executed by %d\n", omp_get_thread_num());
     int sum = 0;
     for (int i = start; i < end; i++) {
         sum += arr[i];
@@ -21,8 +22,11 @@ int main() {
         arr[i] = i + 1;
     }
 
-    #pragma omp parallel
+    #pragma omp parallel num_threads(5)
     {
+        #pragma omp single
+        {
+            printf("task created by %d\n", omp_get_thread_num());
             #pragma omp task
             sum(arr, 0, N/2, &result1);
             
@@ -30,6 +34,7 @@ int main() {
             sum(arr, N/2, N, &result2);
 
             #pragma omp taskwait
+        }
     }
 
     total = result1 + result2;
