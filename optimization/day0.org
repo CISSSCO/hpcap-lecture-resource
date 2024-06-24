@@ -1,0 +1,367 @@
+#+title: Day0
+
+* The Syllabus
+** Uniprocessor optimization and Pthread
+- Compiler level optimizations
+- Arithmetic optimizations
+- loop unrolling
+- loop fusion
+- loop interchange
+- Loop invariant code motion
+- Inlining
+- Pthreads
+- Overview
+- What is thread
+- What are Pthreads
+- Why Pthreads
+- Designing Threaded Programs
+- Pthreads APIs
+- Creating and Terminating Threads
+- Passing Arguments to Threads
+- Joining and Detaching Threads
+- Stack Management
+- Miscellaneous Routines
+- Mutex Variables, and Condition Variables
+- DPDK /SPDK libraries
+** MPI
+- Basic MPI
+- MPI Point to Point
+- Type Matching
+- MPI Collective Communication
+  + Data Synchronization
+  + Data Movement
+  + Collective Computation
+- Advanced MPI
+  + Derived Data Types
+  + Derived Types
+- Special type Constructors
+- Packing/Unpacking
+- Data, Groups, and Communicators: Virtual Topologies
+- MPI3 Standard, and MPI Threads
+- Case Studies (Algorithms and Parallelization Approaches)
+- Micro benchmarking, macro benching
+- Application benchmarking and check the scalability of the applications
+* Compiler Optimization Demo
+** demo1.c
+*** code
+#+name: demo1.c
+#+begin_src C :tangle demo1.c
+#include<stdio.h>
+int main(){
+    int y = 3;
+    int x = y + 6;
+    printf("x = %d\n", x);
+    return 0;
+}
+#+end_src
+*** compile
+#+name: compile demo1.c
+#+begin_src bash :results output :exports both
+file=demo1
+gcc $file.c -O2 -o $file.out
+#gcc -E $file.c > "$file_generated".c
+#+end_src
+
+#+name: compile demo1.c optimized
+#+begin_src bash :results output :exports both
+file=demo1
+#gcc $file.c -O2 -fdump-tree-all -o $file.out
+gcc $file.c -O2 -fdump-tree-optimized
+cat a-$file*.optimized
+#gcc -E $file.c > "$file_generated".c
+#+end_src
+
+#+RESULTS: compile demo1.c optimized
+#+begin_src C
+;; Function main (main, funcdef_no=23, decl_uid=3375, cgraph_uid=24, symbol_order=23) (executed once)
+
+int main ()
+{
+  <bb 2> [local count: 1073741824]:
+  __printf_chk (1, "x = %d\n", 9);
+  return 0;
+
+}
+#+end_src
+
+*** run
+#+name: run demo1.c
+#+begin_src bash :results ouput :exports both
+file=demo1
+./$file.out
+#+end_src
+
+#+RESULTS: run demo1.c
+: x = 9
+** demo2.c
+*** code
+#+name: demo2.c
+#+begin_src C :tangle demo2.c
+#include<stdio.h>
+inline int square(int x) {
+    return x * x;
+}
+int main(){
+    int x = 10;
+    int y = square(x);
+    printf("Square of %d : %d\n", x, y);
+    return 0;
+}
+#+end_src
+*** compile
+#+name: compile demo2.c
+#+begin_src bash :results output :exports both
+file=demo2
+gcc -O2 $file.c -o $file.out
+#+end_src
+
+#+RESULTS: compile demo2.c
+
+#+name: compile demo2.c optimized
+#+begin_src bash :results output :exports both
+file=demo2
+#gcc $file.c -O2 -o $file.out
+gcc $file.c -O2 -fdump-tree-optimized
+cat a-$file*.optimized
+#+end_src
+
+#+RESULTS: compile demo2.c optimized
+#+begin_src C
+
+;; Function main (main, funcdef_no=24, decl_uid=3378, cgraph_uid=25, symbol_order=24) (executed once)
+
+int main ()
+{
+  <bb 2> [local count: 1073741824]:
+  __printf_chk (2, "Square of %d : %d\n", 10, 100);
+  return 0;
+
+}
+
+
+#+end_src
+
+*** run
+#+name: run demo2.c
+#+begin_src bash :results ouput :exports both
+file=demo2
+./$file.out
+#+end_src
+
+#+RESULTS: run demo2.c
+: Square of 10 : 100
+
+* Arithmetic Optimizations
+** Constant folding
+Simplifies constant expressions at compile time, reducing runtime calculations.
+#+name: Before constant folding
+#+begin_src C
+int x = 3 + 10;
+#+end_src
+
+#+name: After constant folding
+#+begin_src C
+int x = 13;
+#+end_src
+
+** Constant Propagation
+Replaces variables with constant values if they are known at compile time, enabling further optimizations.
+#+name: Before constant propagation
+#+begin_src C
+int x = 10;
+int y = x + 3;
+#+end_src
+
+#+name: After constant propagation
+#+begin_src C
+int x = 10;
+int y = 10 + 3;
+// which eventually will become
+// int y = 13;
+#+end_src
+** Strength Reduction
+Replaces expensive operations with cheaper ones.
+*** Multiplication to Bitwise
+#+name: Before strength reduction
+#+begin_src C
+x * 8;
+#+end_src
+
+#+name: After strength reduction
+#+begin_src C
+x << 3;
+#+end_src
+*** Division to Multiplication
+#+name: Before strength reduction
+#+begin_src
+x / 2;
+#+end_src
+
+#+name: After strength reduction
+#+begin_src
+x * 0.5;
+#+end_src
+** Algebraic Simplifications
+Simplifies algebraic expressions to more efficient forms.
+*** Removing Common Subexpressions
+#+name: Before Algebraic simplification
+#+begin_src C
+a * (b + c) + d * (b + c);
+#+end_src
+
+#+name: After Algebraic simplification
+#+begin_src C
+(a + d) * (b + c);
+#+end_src
+*** Simplifying Arithmetic
+#+name: Before simplification
+#+begin_src C
+x + 0;
+y * 1;
+#+end_src
+
+#+name: After simplification
+#+begin_src C
+x;
+y;
+#+end_src
+* Loop Optimizations
+** Loop Unrolling
+Increases the loop body size by replicating it multiple times, reducing the overhead of loop control.
+*** Example 1
+#+name: Before loop unrolling
+#+begin_src C
+for (int i = 0; i < 4; i++) {
+    // Loop body
+}
+#+end_src
+
+#+name: Before loop unrolling
+#+begin_src C
+//Loop body
+//Loop body
+//Loop body
+//Loop body
+#+end_src
+*** Example 2
+#+name: Before loop unrolling 1
+#+begin_src C
+int arr[N];
+for (int i = 0; i < N; i++) {
+    sum += arr[i];
+}
+#+end_src
+- N iterations required
+#+name: After loop unrolling 1
+#+begin_src C
+int arr[N];
+for (int i = 0; i < N - 1; i+=2) {
+    sum += arr[i];
+    sum += arr[i + 1];
+}
+#+end_src
+- N/2 iterations required
+** Loop Fusion
+Merges adjacent loops with the same iteration range into a single loop.
+#+name: Before loop fusion
+#+begin_src C
+int x = 0;
+int y = 0;
+for (int i = 0; i < n; i++) {
+    x++;
+}
+for (int i = 0; i < n; i++) {
+    y++;
+}
+printf("x = %d\n", x);
+printf("y = %d\n", y);
+#+end_src
+
+#+name: After loop fusion
+#+begin_src C
+int x = 0;
+int y = 0;
+for (int i = 0; i < n; i++) {
+    x++;
+    y++;
+}
+printf("x = %d\n", x);
+printf("y = %d\n", y);
+#+end_src
+** Loop Interchange
+Swaps inner and outer loops to improve cache performance.
+#+name: Before loop interchange
+#+begin_src C
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+        // Loop body
+    }
+}
+#+end_src
+
+#+name: After loop interchange
+#+begin_src C
+for (int j = 0; j < m; j++) {
+    for (int i = 0; i < n; i++) {
+        // Loop body
+    }
+}
+#+end_src
+** Loop Invariant Code Motion
+Moves code that does not change within the loop outside of the loop.
+#+name: Before loop invariant
+#+begin_src C
+int y = 0;
+for (int i = 0; i < n; i++) {
+    int x = 5; // Invariant code
+    y+= x;
+}
+printf("y = %d\n", y);
+#+end_src
+
+#+name: After loop invariant
+#+begin_src C
+int x = 5;
+for (int i = 0; i < n; i++) {
+    y+= x;
+}
+printf("y = %d\n", y);
+#+end_src
+* Function Inlining
+Replaces a function call with the function's code to avoid the overhead of a call and return.
+#+name: Before function inlining
+#+begin_src C
+inline int square(int x) {
+    return x * x;
+}
+
+int y = square(5);
+#+end_src
+
+#+name: After function inlining
+#+begin_src C
+int y = 5 * 5;
+#+end_src
+* Dead Code Elimination
+Removes code that will never be executed or whose results are never used.
+#+name: Before dead code elimination
+#+begin_src C
+int main(){
+    if (false) {
+    // Dead code
+    }
+    int x = 10;
+    printf("x = %d\n",x);
+    return x;
+    x = 20; // Dead code
+}
+#+end_src
+
+#+name: After dead code elimination
+#+begin_src C
+int main(){
+    int x = 10;
+    printf("x = %d\n",x);
+    return x;
+}
+#+end_src
