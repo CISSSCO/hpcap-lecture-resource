@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-06-24 Mon 15:47 -->
+<!-- 2024-06-25 Tue 15:11 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Day0</title>
@@ -201,72 +201,72 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgaaa7b8e">1. The Syllabus</a>
+<li><a href="#orgc225cf9">1. The Syllabus</a>
 <ul>
-<li><a href="#orga599c99">1.1. Uniprocessor optimization and Pthread</a></li>
-<li><a href="#org67f9735">1.2. MPI</a></li>
+<li><a href="#org808156f">1.1. Uniprocessor optimization and Pthread</a></li>
+<li><a href="#org53412eb">1.2. MPI</a></li>
 </ul>
 </li>
-<li><a href="#orgb0fbf9b">2. Compiler Optimization Demo</a>
+<li><a href="#org642a227">2. Compiler Optimization Demo</a>
 <ul>
-<li><a href="#org34eacf5">2.1. demo1.c</a>
+<li><a href="#orgafa42a1">2.1. demo1.c</a>
 <ul>
-<li><a href="#org3d3b194">2.1.1. code</a></li>
-<li><a href="#orgbe10cf7">2.1.2. compile</a></li>
-<li><a href="#orgfb3b2a2">2.1.3. run</a></li>
+<li><a href="#orge4627c9">2.1.1. code</a></li>
+<li><a href="#orga0ce483">2.1.2. compile</a></li>
+<li><a href="#orga57a271">2.1.3. run</a></li>
 </ul>
 </li>
-<li><a href="#org858d3a4">2.2. demo2.c</a>
+<li><a href="#org58a715e">2.2. demo2.c</a>
 <ul>
-<li><a href="#orgfb9c400">2.2.1. code</a></li>
-<li><a href="#org3640bfb">2.2.2. compile</a></li>
-<li><a href="#org4c0aefd">2.2.3. run</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#orgd11da55">3. Arithmetic Optimizations</a>
-<ul>
-<li><a href="#orgd8c40c6">3.1. Constant folding</a></li>
-<li><a href="#orgea3262b">3.2. Constant Propagation</a></li>
-<li><a href="#orge462f72">3.3. Strength Reduction</a>
-<ul>
-<li><a href="#orgc20e7c8">3.3.1. Multiplication to Bitwise</a></li>
-<li><a href="#orgeef6947">3.3.2. Division to Multiplication</a></li>
-</ul>
-</li>
-<li><a href="#org83afc46">3.4. Algebraic Simplifications</a>
-<ul>
-<li><a href="#org812555c">3.4.1. Removing Common Subexpressions</a></li>
-<li><a href="#org925d3a0">3.4.2. Simplifying Arithmetic</a></li>
+<li><a href="#org157d207">2.2.1. code</a></li>
+<li><a href="#org7cd0638">2.2.2. compile</a></li>
+<li><a href="#org5a71635">2.2.3. run</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org4622eb1">4. Loop Optimizations</a>
+<li><a href="#orga4aa01c">3. Arithmetic Optimizations</a>
 <ul>
-<li><a href="#org4deaa74">4.1. Loop Unrolling</a>
+<li><a href="#org4ba525d">3.1. Constant folding</a></li>
+<li><a href="#org307c202">3.2. Constant Propagation</a></li>
+<li><a href="#orgce667b4">3.3. Strength Reduction</a>
 <ul>
-<li><a href="#org2de2020">4.1.1. Example 1</a></li>
-<li><a href="#org9dc323a">4.1.2. Example 2</a></li>
+<li><a href="#org359950f">3.3.1. Multiplication to Bitwise</a></li>
+<li><a href="#org490dd77">3.3.2. Division to Multiplication</a></li>
 </ul>
 </li>
-<li><a href="#orgd1e8d47">4.2. Loop Fusion</a></li>
-<li><a href="#org6840ba0">4.3. Loop Interchange</a></li>
-<li><a href="#org94c1886">4.4. Loop Invariant Code Motion</a></li>
+<li><a href="#orge1ec306">3.4. Algebraic Simplifications</a>
+<ul>
+<li><a href="#orgcc27f5f">3.4.1. Removing Common Subexpressions</a></li>
+<li><a href="#orgeb9031c">3.4.2. Simplifying Arithmetic</a></li>
 </ul>
 </li>
-<li><a href="#org958bc3f">5. Function Inlining</a></li>
-<li><a href="#org7368882">6. Dead Code Elimination</a></li>
+</ul>
+</li>
+<li><a href="#orgd250bec">4. Loop Optimizations</a>
+<ul>
+<li><a href="#orgbbb79f6">4.1. Loop Unrolling</a>
+<ul>
+<li><a href="#org76037c8">4.1.1. Example 1</a></li>
+<li><a href="#org88ac72f">4.1.2. Example 2</a></li>
+</ul>
+</li>
+<li><a href="#org7acc5ac">4.2. Loop Fusion</a></li>
+<li><a href="#org7c884c1">4.3. Loop Interchange</a></li>
+<li><a href="#org48d0c9a">4.4. Loop Invariant Code Motion</a></li>
+</ul>
+</li>
+<li><a href="#org1519029">5. Function Inlining</a></li>
+<li><a href="#orga9d980e">6. Dead Code Elimination</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgaaa7b8e" class="outline-2">
-<h2 id="orgaaa7b8e"><span class="section-number-2">1.</span> The Syllabus</h2>
+<div id="outline-container-orgc225cf9" class="outline-2">
+<h2 id="orgc225cf9"><span class="section-number-2">1.</span> The Syllabus</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orga599c99" class="outline-3">
-<h3 id="orga599c99"><span class="section-number-3">1.1.</span> Uniprocessor optimization and Pthread</h3>
+<div id="outline-container-org808156f" class="outline-3">
+<h3 id="org808156f"><span class="section-number-3">1.1.</span> Uniprocessor optimization and Pthread</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>Compiler level optimizations</li>
@@ -293,8 +293,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org67f9735" class="outline-3">
-<h3 id="org67f9735"><span class="section-number-3">1.2.</span> MPI</h3>
+<div id="outline-container-org53412eb" class="outline-3">
+<h3 id="org53412eb"><span class="section-number-3">1.2.</span> MPI</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>Basic MPI</li>
@@ -322,19 +322,19 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgb0fbf9b" class="outline-2">
-<h2 id="orgb0fbf9b"><span class="section-number-2">2.</span> Compiler Optimization Demo</h2>
+<div id="outline-container-org642a227" class="outline-2">
+<h2 id="org642a227"><span class="section-number-2">2.</span> Compiler Optimization Demo</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org34eacf5" class="outline-3">
-<h3 id="org34eacf5"><span class="section-number-3">2.1.</span> demo1.c</h3>
+<div id="outline-container-orgafa42a1" class="outline-3">
+<h3 id="orgafa42a1"><span class="section-number-3">2.1.</span> demo1.c</h3>
 <div class="outline-text-3" id="text-2-1">
 </div>
-<div id="outline-container-org3d3b194" class="outline-4">
-<h4 id="org3d3b194"><span class="section-number-4">2.1.1.</span> code</h4>
+<div id="outline-container-orge4627c9" class="outline-4">
+<h4 id="orge4627c9"><span class="section-number-4">2.1.1.</span> code</h4>
 <div class="outline-text-4" id="text-2-1-1">
 <div class="org-src-container">
-<pre class="src src-C" id="orgfd514ff"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<pre class="src src-C" id="org12be1e2"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
 <span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(){
     <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">y</span> = <span style="color: #f78c6c; font-weight: bold;">3</span>;
     <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = y + <span style="color: #f78c6c; font-weight: bold;">6</span>;
@@ -345,18 +345,18 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgbe10cf7" class="outline-4">
-<h4 id="orgbe10cf7"><span class="section-number-4">2.1.2.</span> compile</h4>
+<div id="outline-container-orga0ce483" class="outline-4">
+<h4 id="orga0ce483"><span class="section-number-4">2.1.2.</span> compile</h4>
 <div class="outline-text-4" id="text-2-1-2">
 <div class="org-src-container">
-<pre class="src src-bash" id="org118ee6a"><span style="color: #ffcb6b;">file</span>=demo1
+<pre class="src src-bash" id="orgb7dc039"><span style="color: #ffcb6b;">file</span>=demo1
 gcc $<span style="color: #ffcb6b;">file</span>.c -O2 -o $<span style="color: #ffcb6b;">file</span>.out
 <span style="color: #676E95;">#</span><span style="color: #676E95;">gcc -E $file.c &gt; "$file_generated".c</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org5779ac6"><span style="color: #ffcb6b;">file</span>=demo1
+<pre class="src src-bash" id="orgc75045a"><span style="color: #ffcb6b;">file</span>=demo1
 <span style="color: #676E95;">#</span><span style="color: #676E95;">gcc $file.c -O2 -fdump-tree-all -o $file.out</span>
 gcc $<span style="color: #ffcb6b;">file</span>.c -O2 -fdump-tree-optimized
 <span style="color: #c792ea;">cat</span> a-$<span style="color: #ffcb6b;">file</span>*.optimized
@@ -364,7 +364,7 @@ gcc $<span style="color: #ffcb6b;">file</span>.c -O2 -fdump-tree-optimized
 </pre>
 </div>
 
-<pre class="example" id="org27693a8">
+<pre class="example" id="org3de0133">
 
 ;; Function main (main, funcdef_no=23, decl_uid=3375, cgraph_uid=24, symbol_order=23) (executed once)
 
@@ -380,11 +380,11 @@ int main ()
 </pre>
 </div>
 </div>
-<div id="outline-container-orgfb3b2a2" class="outline-4">
-<h4 id="orgfb3b2a2"><span class="section-number-4">2.1.3.</span> run</h4>
+<div id="outline-container-orga57a271" class="outline-4">
+<h4 id="orga57a271"><span class="section-number-4">2.1.3.</span> run</h4>
 <div class="outline-text-4" id="text-2-1-3">
 <div class="org-src-container">
-<pre class="src src-bash" id="orgf9e1df0"><span style="color: #ffcb6b;">file</span>=demo1
+<pre class="src src-bash" id="org4e21861"><span style="color: #ffcb6b;">file</span>=demo1
 ./$<span style="color: #ffcb6b;">file</span>.out
 </pre>
 </div>
@@ -395,15 +395,15 @@ x = 9
 </div>
 </div>
 </div>
-<div id="outline-container-org858d3a4" class="outline-3">
-<h3 id="org858d3a4"><span class="section-number-3">2.2.</span> demo2.c</h3>
+<div id="outline-container-org58a715e" class="outline-3">
+<h3 id="org58a715e"><span class="section-number-3">2.2.</span> demo2.c</h3>
 <div class="outline-text-3" id="text-2-2">
 </div>
-<div id="outline-container-orgfb9c400" class="outline-4">
-<h4 id="orgfb9c400"><span class="section-number-4">2.2.1.</span> code</h4>
+<div id="outline-container-org157d207" class="outline-4">
+<h4 id="org157d207"><span class="section-number-4">2.2.1.</span> code</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <div class="org-src-container">
-<pre class="src src-C" id="org0dad4d6"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<pre class="src src-C" id="org809f6f4"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
 <span style="color: #89DDFF;">inline</span> <span style="color: #c792ea;">int</span> <span style="color: #82aaff;">square</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span>) {
     <span style="color: #89DDFF;">return</span> x * x;
 }
@@ -417,24 +417,24 @@ x = 9
 </div>
 </div>
 </div>
-<div id="outline-container-org3640bfb" class="outline-4">
-<h4 id="org3640bfb"><span class="section-number-4">2.2.2.</span> compile</h4>
+<div id="outline-container-org7cd0638" class="outline-4">
+<h4 id="org7cd0638"><span class="section-number-4">2.2.2.</span> compile</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <div class="org-src-container">
-<pre class="src src-bash" id="orgac776ba"><span style="color: #ffcb6b;">file</span>=demo2
+<pre class="src src-bash" id="org952e86c"><span style="color: #ffcb6b;">file</span>=demo2
 gcc -O2 $<span style="color: #ffcb6b;">file</span>.c -o $<span style="color: #ffcb6b;">file</span>.out
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org24ae196"><span style="color: #ffcb6b;">file</span>=demo2
+<pre class="src src-bash" id="org5c3c3aa"><span style="color: #ffcb6b;">file</span>=demo2
 <span style="color: #676E95;">#</span><span style="color: #676E95;">gcc $file.c -O2 -o $file.out</span>
 gcc $<span style="color: #ffcb6b;">file</span>.c -O2 -fdump-tree-optimized
 <span style="color: #c792ea;">cat</span> a-$<span style="color: #ffcb6b;">file</span>*.optimized
 </pre>
 </div>
 
-<pre class="example" id="orgd029b1c">
+<pre class="example" id="orgb14a56d">
 
 ;; Function main (main, funcdef_no=24, decl_uid=3378, cgraph_uid=25, symbol_order=24) (executed once)
 
@@ -450,11 +450,11 @@ int main ()
 </pre>
 </div>
 </div>
-<div id="outline-container-org4c0aefd" class="outline-4">
-<h4 id="org4c0aefd"><span class="section-number-4">2.2.3.</span> run</h4>
+<div id="outline-container-org5a71635" class="outline-4">
+<h4 id="org5a71635"><span class="section-number-4">2.2.3.</span> run</h4>
 <div class="outline-text-4" id="text-2-2-3">
 <div class="org-src-container">
-<pre class="src src-bash" id="orgfc9c0cd"><span style="color: #ffcb6b;">file</span>=demo2
+<pre class="src src-bash" id="org732c08a"><span style="color: #ffcb6b;">file</span>=demo2
 ./$<span style="color: #ffcb6b;">file</span>.out
 </pre>
 </div>
@@ -466,41 +466,41 @@ Square of 10 : 100
 </div>
 </div>
 </div>
-<div id="outline-container-orgd11da55" class="outline-2">
-<h2 id="orgd11da55"><span class="section-number-2">3.</span> Arithmetic Optimizations</h2>
+<div id="outline-container-orga4aa01c" class="outline-2">
+<h2 id="orga4aa01c"><span class="section-number-2">3.</span> Arithmetic Optimizations</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgd8c40c6" class="outline-3">
-<h3 id="orgd8c40c6"><span class="section-number-3">3.1.</span> Constant folding</h3>
+<div id="outline-container-org4ba525d" class="outline-3">
+<h3 id="org4ba525d"><span class="section-number-3">3.1.</span> Constant folding</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Simplifies constant expressions at compile time, reducing runtime calculations.
 </p>
 <div class="org-src-container">
-<pre class="src src-C" id="orgb327936"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">3</span> + <span style="color: #f78c6c; font-weight: bold;">10</span>;
+<pre class="src src-C" id="org6738e40"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">3</span> + <span style="color: #f78c6c; font-weight: bold;">10</span>;
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C" id="org89b323c"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">13</span>;
+<pre class="src src-C" id="orgda25320"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">13</span>;
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgea3262b" class="outline-3">
-<h3 id="orgea3262b"><span class="section-number-3">3.2.</span> Constant Propagation</h3>
+<div id="outline-container-org307c202" class="outline-3">
+<h3 id="org307c202"><span class="section-number-3">3.2.</span> Constant Propagation</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Replaces variables with constant values if they are known at compile time, enabling further optimizations.
 </p>
 <div class="org-src-container">
-<pre class="src src-C" id="org8d28af7"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">10</span>;
+<pre class="src src-C" id="org2e19781"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">10</span>;
 <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">y</span> = x + <span style="color: #f78c6c; font-weight: bold;">3</span>;
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C" id="org8bc694a"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">10</span>;
+<pre class="src src-C" id="orgc05be06"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">10</span>;
 <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">y</span> = <span style="color: #f78c6c; font-weight: bold;">10</span> + <span style="color: #f78c6c; font-weight: bold;">3</span>;
 <span style="color: #676E95;">// </span><span style="color: #676E95;">which eventually will become</span>
 <span style="color: #676E95;">// </span><span style="color: #676E95;">int y = 13;</span>
@@ -508,74 +508,74 @@ Replaces variables with constant values if they are known at compile time, enabl
 </div>
 </div>
 </div>
-<div id="outline-container-orge462f72" class="outline-3">
-<h3 id="orge462f72"><span class="section-number-3">3.3.</span> Strength Reduction</h3>
+<div id="outline-container-orgce667b4" class="outline-3">
+<h3 id="orgce667b4"><span class="section-number-3">3.3.</span> Strength Reduction</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Replaces expensive operations with cheaper ones.
 </p>
 </div>
-<div id="outline-container-orgc20e7c8" class="outline-4">
-<h4 id="orgc20e7c8"><span class="section-number-4">3.3.1.</span> Multiplication to Bitwise</h4>
+<div id="outline-container-org359950f" class="outline-4">
+<h4 id="org359950f"><span class="section-number-4">3.3.1.</span> Multiplication to Bitwise</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <div class="org-src-container">
-<pre class="src src-C" id="org62d894d"><span style="color: #c792ea;">x</span> * <span style="color: #f78c6c; font-weight: bold;">8</span>;
+<pre class="src src-C" id="orgdb57cc1"><span style="color: #c792ea;">x</span> * <span style="color: #f78c6c; font-weight: bold;">8</span>;
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C" id="org65ef896">x &lt;&lt; <span style="color: #f78c6c; font-weight: bold;">3</span>;
+<pre class="src src-C" id="org67abb7a">x &lt;&lt; <span style="color: #f78c6c; font-weight: bold;">3</span>;
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgeef6947" class="outline-4">
-<h4 id="orgeef6947"><span class="section-number-4">3.3.2.</span> Division to Multiplication</h4>
+<div id="outline-container-org490dd77" class="outline-4">
+<h4 id="org490dd77"><span class="section-number-4">3.3.2.</span> Division to Multiplication</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <div class="org-src-container">
-<pre class="src src-nil" id="org0d13ea0">x / 2;
+<pre class="src src-nil" id="org38395f8">x / 2;
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-nil" id="org50a1fc6">x * 0.5;
+<pre class="src src-nil" id="org7d5df4c">x * 0.5;
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org83afc46" class="outline-3">
-<h3 id="org83afc46"><span class="section-number-3">3.4.</span> Algebraic Simplifications</h3>
+<div id="outline-container-orge1ec306" class="outline-3">
+<h3 id="orge1ec306"><span class="section-number-3">3.4.</span> Algebraic Simplifications</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 Simplifies algebraic expressions to more efficient forms.
 </p>
 </div>
-<div id="outline-container-org812555c" class="outline-4">
-<h4 id="org812555c"><span class="section-number-4">3.4.1.</span> Removing Common Subexpressions</h4>
+<div id="outline-container-orgcc27f5f" class="outline-4">
+<h4 id="orgcc27f5f"><span class="section-number-4">3.4.1.</span> Removing Common Subexpressions</h4>
 <div class="outline-text-4" id="text-3-4-1">
 <div class="org-src-container">
-<pre class="src src-C" id="orge34feec">a * (b + c) + d * (b + c);
+<pre class="src src-C" id="orgc8bf992">a * (b + c) + d * (b + c);
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C" id="org8a092ea">(a + d) * (b + c);
+<pre class="src src-C" id="org3d6d598">(a + d) * (b + c);
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org925d3a0" class="outline-4">
-<h4 id="org925d3a0"><span class="section-number-4">3.4.2.</span> Simplifying Arithmetic</h4>
+<div id="outline-container-orgeb9031c" class="outline-4">
+<h4 id="orgeb9031c"><span class="section-number-4">3.4.2.</span> Simplifying Arithmetic</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <div class="org-src-container">
-<pre class="src src-C" id="org3cb829d">x + <span style="color: #f78c6c; font-weight: bold;">0</span>;
+<pre class="src src-C" id="org41d6338">x + <span style="color: #f78c6c; font-weight: bold;">0</span>;
 <span style="color: #c792ea;">y</span> * <span style="color: #f78c6c; font-weight: bold;">1</span>;
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C" id="org33b8362">x;
+<pre class="src src-C" id="org618ed4b">x;
 y;
 </pre>
 </div>
@@ -583,29 +583,29 @@ y;
 </div>
 </div>
 </div>
-<div id="outline-container-org4622eb1" class="outline-2">
-<h2 id="org4622eb1"><span class="section-number-2">4.</span> Loop Optimizations</h2>
+<div id="outline-container-orgd250bec" class="outline-2">
+<h2 id="orgd250bec"><span class="section-number-2">4.</span> Loop Optimizations</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org4deaa74" class="outline-3">
-<h3 id="org4deaa74"><span class="section-number-3">4.1.</span> Loop Unrolling</h3>
+<div id="outline-container-orgbbb79f6" class="outline-3">
+<h3 id="orgbbb79f6"><span class="section-number-3">4.1.</span> Loop Unrolling</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Increases the loop body size by replicating it multiple times, reducing the overhead of loop control.
 </p>
 </div>
-<div id="outline-container-org2de2020" class="outline-4">
-<h4 id="org2de2020"><span class="section-number-4">4.1.1.</span> Example 1</h4>
+<div id="outline-container-org76037c8" class="outline-4">
+<h4 id="org76037c8"><span class="section-number-4">4.1.1.</span> Example 1</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <div class="org-src-container">
-<pre class="src src-C" id="org9e52a17"><span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; <span style="color: #f78c6c; font-weight: bold;">4</span>; i++) {
+<pre class="src src-C" id="orgcfecfd2"><span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; <span style="color: #f78c6c; font-weight: bold;">4</span>; i++) {
     <span style="color: #676E95;">// </span><span style="color: #676E95;">Loop body</span>
 }
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C" id="org8d25015"><span style="color: #676E95;">//</span><span style="color: #676E95;">Loop body</span>
+<pre class="src src-C" id="orgb8d767e"><span style="color: #676E95;">//</span><span style="color: #676E95;">Loop body</span>
 <span style="color: #676E95;">//</span><span style="color: #676E95;">Loop body</span>
 <span style="color: #676E95;">//</span><span style="color: #676E95;">Loop body</span>
 <span style="color: #676E95;">//</span><span style="color: #676E95;">Loop body</span>
@@ -613,11 +613,11 @@ Increases the loop body size by replicating it multiple times, reducing the over
 </div>
 </div>
 </div>
-<div id="outline-container-org9dc323a" class="outline-4">
-<h4 id="org9dc323a"><span class="section-number-4">4.1.2.</span> Example 2</h4>
+<div id="outline-container-org88ac72f" class="outline-4">
+<h4 id="org88ac72f"><span class="section-number-4">4.1.2.</span> Example 2</h4>
 <div class="outline-text-4" id="text-4-1-2">
 <div class="org-src-container">
-<pre class="src src-C" id="orgf868355"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">arr</span>[N];
+<pre class="src src-C" id="orgdd728f3"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">arr</span>[N];
 <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; N; i++) {
     sum += arr[i];
 }
@@ -627,7 +627,7 @@ Increases the loop body size by replicating it multiple times, reducing the over
 <li>N iterations required</li>
 </ul>
 <div class="org-src-container">
-<pre class="src src-C" id="orgd8ea77d"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">arr</span>[N];
+<pre class="src src-C" id="orga330faf"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">arr</span>[N];
 <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; N - <span style="color: #f78c6c; font-weight: bold;">1</span>; i+=<span style="color: #f78c6c; font-weight: bold;">2</span>) {
     sum += arr[i];
     sum += arr[i + <span style="color: #f78c6c; font-weight: bold;">1</span>];
@@ -640,14 +640,14 @@ Increases the loop body size by replicating it multiple times, reducing the over
 </div>
 </div>
 </div>
-<div id="outline-container-orgd1e8d47" class="outline-3">
-<h3 id="orgd1e8d47"><span class="section-number-3">4.2.</span> Loop Fusion</h3>
+<div id="outline-container-org7acc5ac" class="outline-3">
+<h3 id="org7acc5ac"><span class="section-number-3">4.2.</span> Loop Fusion</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Merges adjacent loops with the same iteration range into a single loop.
 </p>
 <div class="org-src-container">
-<pre class="src src-C" id="org8b1a536"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+<pre class="src src-C" id="org30f2a4f"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
 <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">y</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
 <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
     x++;
@@ -661,7 +661,7 @@ printf(<span style="color: #c3e88d;">"y = %d\n"</span>, y);
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C" id="org877bbf0"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+<pre class="src src-C" id="org9cc3506"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
 <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">y</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
 <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
     x++;
@@ -673,14 +673,14 @@ printf(<span style="color: #c3e88d;">"y = %d\n"</span>, y);
 </div>
 </div>
 </div>
-<div id="outline-container-org6840ba0" class="outline-3">
-<h3 id="org6840ba0"><span class="section-number-3">4.3.</span> Loop Interchange</h3>
+<div id="outline-container-org7c884c1" class="outline-3">
+<h3 id="org7c884c1"><span class="section-number-3">4.3.</span> Loop Interchange</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 Swaps inner and outer loops to improve cache performance.
 </p>
 <div class="org-src-container">
-<pre class="src src-C" id="orgce9f356"><span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
+<pre class="src src-C" id="org4944b1b"><span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
     <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">j</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; m; j++) {
         <span style="color: #676E95;">// </span><span style="color: #676E95;">Loop body</span>
     }
@@ -689,7 +689,7 @@ Swaps inner and outer loops to improve cache performance.
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C" id="orgd622101"><span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">j</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; m; j++) {
+<pre class="src src-C" id="orgbc89834"><span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">j</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; m; j++) {
     <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
         <span style="color: #676E95;">// </span><span style="color: #676E95;">Loop body</span>
     }
@@ -698,14 +698,14 @@ Swaps inner and outer loops to improve cache performance.
 </div>
 </div>
 </div>
-<div id="outline-container-org94c1886" class="outline-3">
-<h3 id="org94c1886"><span class="section-number-3">4.4.</span> Loop Invariant Code Motion</h3>
+<div id="outline-container-org48d0c9a" class="outline-3">
+<h3 id="org48d0c9a"><span class="section-number-3">4.4.</span> Loop Invariant Code Motion</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 Moves code that does not change within the loop outside of the loop.
 </p>
 <div class="org-src-container">
-<pre class="src src-C" id="org6ff611c"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">y</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+<pre class="src src-C" id="orgd842e05"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">y</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
 <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
     <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">5</span>; <span style="color: #676E95;">// </span><span style="color: #676E95;">Invariant code</span>
     y+= x;
@@ -715,7 +715,7 @@ printf(<span style="color: #c3e88d;">"y = %d\n"</span>, y);
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C" id="orgb79b218"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">5</span>;
+<pre class="src src-C" id="org9075934"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">5</span>;
 <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
     y+= x;
 }
@@ -725,14 +725,14 @@ printf(<span style="color: #c3e88d;">"y = %d\n"</span>, y);
 </div>
 </div>
 </div>
-<div id="outline-container-org958bc3f" class="outline-2">
-<h2 id="org958bc3f"><span class="section-number-2">5.</span> Function Inlining</h2>
+<div id="outline-container-org1519029" class="outline-2">
+<h2 id="org1519029"><span class="section-number-2">5.</span> Function Inlining</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Replaces a function call with the function&rsquo;s code to avoid the overhead of a call and return.
 </p>
 <div class="org-src-container">
-<pre class="src src-C" id="org8f05a19"><span style="color: #89DDFF;">inline</span> <span style="color: #c792ea;">int</span> <span style="color: #82aaff;">square</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span>) {
+<pre class="src src-C" id="orge37b6fd"><span style="color: #89DDFF;">inline</span> <span style="color: #c792ea;">int</span> <span style="color: #82aaff;">square</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span>) {
     <span style="color: #89DDFF;">return</span> x * x;
 }
 
@@ -741,19 +741,19 @@ Replaces a function call with the function&rsquo;s code to avoid the overhead of
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C" id="org8be36e1"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">y</span> = <span style="color: #f78c6c; font-weight: bold;">5</span> * <span style="color: #f78c6c; font-weight: bold;">5</span>;
+<pre class="src src-C" id="org335a95e"><span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">y</span> = <span style="color: #f78c6c; font-weight: bold;">5</span> * <span style="color: #f78c6c; font-weight: bold;">5</span>;
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org7368882" class="outline-2">
-<h2 id="org7368882"><span class="section-number-2">6.</span> Dead Code Elimination</h2>
+<div id="outline-container-orga9d980e" class="outline-2">
+<h2 id="orga9d980e"><span class="section-number-2">6.</span> Dead Code Elimination</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Removes code that will never be executed or whose results are never used.
 </p>
 <div class="org-src-container">
-<pre class="src src-C" id="org92e3930"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(){
+<pre class="src src-C" id="org1805d46"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(){
     <span style="color: #89DDFF;">if</span> (<span style="color: #f78c6c;">false</span>) {
     <span style="color: #676E95;">// </span><span style="color: #676E95;">Dead code</span>
     }
@@ -766,7 +766,7 @@ Removes code that will never be executed or whose results are never used.
 </div>
 
 <div class="org-src-container">
-<pre class="src src-C" id="org1999817"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(){
+<pre class="src src-C" id="org72d09c8"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(){
     <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">x</span> = <span style="color: #f78c6c; font-weight: bold;">10</span>;
     printf(<span style="color: #c3e88d;">"x = %d\n"</span>,x);
     <span style="color: #89DDFF;">return</span> x;
@@ -778,7 +778,7 @@ Removes code that will never be executed or whose results are never used.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Abhishek Raj</p>
-<p class="date">Created: 2024-06-24 Mon 15:47</p>
+<p class="date">Created: 2024-06-25 Tue 15:11</p>
 </div>
 </body>
 </html>

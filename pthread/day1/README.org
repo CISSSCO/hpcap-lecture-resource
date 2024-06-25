@@ -1,0 +1,396 @@
+#+title: Day1
+#+property: header-args
+
+* Agenda
+- What is thread
+- What are Pthreads
+- Pthreads Overview
+- Why Pthreads
+- Designing Threaded Programs
+- Pthreads APIs
+- Creating and Terminating Threads
+* Scripts
+** compile script
+#+begin_src bash :tangle compile.sh
+#!/bin/sh
+
+inputFile=$1
+outputFile="${1%.*}.out"      # extract the name of the file without extension and adding extension .out
+#cmd=`mpicc $inputFile -o $outputFile`
+cmd="gcc $inputFile -o $outputFile -lpthread"     # running code using MPI
+echo "------------------------------------------------------------------"
+echo "Command executed: $cmd"
+echo "------------------------------------------------------------------"
+$cmd
+echo "Compilation successful. Check at $outputFile"
+echo "------------------------------------------------------------------"
+#+end_src
+
+** run script
+#+begin_src bash :tangle run.sh
+#!/bin/sh
+
+help(){
+    echo
+    echo "Usage: submit.sh -[flags]"
+    echo "-h                : help"
+    echo "-f <filename>     : enter file"
+    echo "-t <threads>      : number of threads"
+    echo "-c <compile>      : first compile"
+    echo "-n <iterations>   : number of times to execute"
+    echo
+    echo "eg: bash run.sh -f main.c -t 8 -c -n 3"
+    echo
+}
+
+isCompiled=0
+nthreads=8
+
+while getopts 'n:f:t:hc' flag; do
+  case "${flag}" in
+    t) nthreads="${OPTARG}" ;;
+    f) file=${OPTARG} ;;
+    c) isCompiled=1 ;;
+    n) iterations="${OPTARG}" ;;
+    h) help
+        exit 1 ;;
+    *) echo "Invalid flag...(-h for help)"
+       exit 1 ;;
+  esac
+
+
+done
+
+if [[ -z $file ]]; then
+    echo "You forgot to mention filename!!!"
+    exit 1
+fi
+if [[ -z $iterations ]]; then
+    iterations=1
+fi
+
+
+
+outputFile="${file%.*}.out"      # extract the name of the file without extension and adding extension .out
+
+if [[ $isCompiled == 1 ]]; then
+    gcc $file -o $outputFile -lpthread -lm
+fi
+
+export OMP_NUM_THREADS=$nthreads
+
+echo "--------------------------------------------------------"
+i=1
+while [ 1 == 1 ];
+do
+    ./$outputFile
+    if [[ $i == $iterations ]]; then
+        exit 1
+    fi
+    i=$(( $i + 1 ))
+    echo "--------------------------------------------------------"
+done
+#+end_src
+
+* Pthread Hello World
+** code
+#+name: pth1.c
+#+begin_src C :tangle pth1.c
+#include<stdio.h>
+#include<pthread.h>
+
+void *hello(){
+    printf("Hello World\n");
+}
+
+int main(){
+    pthread_t t;
+    pthread_create(&t, NULL, hello, NULL);
+    pthread_join(t, NULL);
+    return 0;
+}
+#+end_src
+
+#+RESULTS: pth1.c
+: Hello World
+
+** compile
+#+name: compile pth1.c
+#+begin_src bash :results output :exports both
+gcc pth1.c -o pth1.out -lpthread
+#+end_src
+
+#+RESULTS: compile pth1.c
+
+** run
+#+name: run pth1.c
+#+begin_src bash :results output :exports both
+./pth1.out
+#+end_src
+
+#+RESULTS: run pth1.c
+: Hello World
+
+* Creating 2 or more threads
+** code
+#+name: pth2.c
+#+begin_src C :tangle pth2.c :results output
+#include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
+#define N 2
+void *hello(void* threadId){
+    long tid = (long)threadId;
+    printf("Hello World %ld of %d\n", tid, N);
+    return NULL;
+}
+int main(){
+    pthread_t t1, t2;
+
+    pthread_create(&t1, NULL, hello, (void*) 0);
+    pthread_join(t1, NULL);
+    pthread_create(&t2, NULL, hello, (void*) 1);
+    pthread_join(t2, NULL);
+    return 0;
+}
+#+end_src
+
+#+RESULTS: pth2.c
+: Hello World 0 of 2
+: Hello World 1 of 2
+
+** compile
+#+name: compile pth2.c
+#+begin_src bash :results output :exports both
+file=pth2
+gcc $file.c -o $file.out -lpthread
+#bash compile.sh $file.c
+#+end_src
+
+#+RESULTS: compile pth2.c
+
+** run
+#+name: run pth2.c
+#+begin_src bash :results output :exports both
+file=pth2
+./$file.out
+
+#+end_src
+
+#+RESULTS: run pth2.c
+: Hello World 0 of 2
+: Hello World 1 of 2
+
+* Creating N number of threads
+** code
+#+name: pth3.c
+#+begin_src C :tangle pth3.c :results output
+#include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
+#define N 10
+
+void *hello(void* threadId){
+    long tid = (long)threadId;
+
+    printf("Hello World %ld of %d\n", tid, N);
+    return NULL;
+}
+
+int main(){
+    pthread_t* t;
+    t = malloc(sizeof(pthread_t) * N);
+
+    for(long i = 0; i < N; i++)
+        pthread_create(&t[i], NULL, hello, (void*)i);
+    for(long i = 0; i < N; i++)
+        pthread_join(t[i], NULL);
+    free(t);
+    return 0;
+}
+#+end_src
+
+** compile
+#+name: compile pth3.c
+#+begin_src bash :results output :exports both
+file=pth3
+gcc $file.c -o $file.out -lpthread
+#+end_src
+
+#+RESULTS: compile pth3.c
+
+** run
+#+name: run pth3.c
+#+begin_src bash :results output :exports both
+file=pth3
+./$file.out
+#+end_src
+
+#+RESULTS: run pth3.c
+#+begin_example
+Hello World 0 of 10
+Hello World 1 of 10
+Hello World 2 of 10
+Hello World 3 of 10
+Hello World 4 of 10
+Hello World 5 of 10
+Hello World 6 of 10
+Hello World 7 of 10
+Hello World 8 of 10
+Hello World 9 of 10
+#+end_example
+
+* Task1
+Initialize an array of size N and assign each thread to print element which is equal to their threadId.
+#+name: task2
+#+begin_example
+Thread 0 is printing 0
+Thread 1 is printing 1
+thread 2 is printing 2
+.
+.
+.
+Thread N is printing N
+#+end_example
+The output can be in any order.
+
+* Solution task1
+#+name: task1.c
+#+begin_src C :tangle task1.c :results output :exports both
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<pthread.h>
+#define N 16
+int arr[N];
+void* hello(void* threadId){
+    long tid = (long)threadId;
+    printf("Thread id %ld is printing %d\n", tid, arr[tid]);
+    return NULL;
+}
+int main(){
+    pthread_t t[N];
+    for(int i = 0; i < N; i++){
+        arr[i] = i;
+    }
+    for(long i = 0; i < N; i++){
+        pthread_create(&t[i], NULL, hello, (void*) i);
+    }
+    for(long i = 0; i < N; i++){
+        pthread_join(t[i], NULL);
+    }
+    return 0;
+}
+#+end_src
+
+#+RESULTS: task1.c
+#+begin_example
+Thread id 0 is printing 0
+Thread id 2 is printing 2
+Thread id 3 is printing 3
+Thread id 4 is printing 4
+Thread id 5 is printing 5
+Thread id 1 is printing 1
+Thread id 6 is printing 6
+Thread id 7 is printing 7
+Thread id 8 is printing 8
+Thread id 9 is printing 9
+Thread id 10 is printing 10
+Thread id 11 is printing 11
+Thread id 12 is printing 12
+Thread id 13 is printing 13
+Thread id 14 is printing 14
+Thread id 15 is printing 15
+#+end_example
+
+* test1
+#+name: test1.c
+#+begin_src C :results output :exports both :tangle test1.c
+#include<stdio.h>
+#include<unistd.h>
+#include<pthread.h>
+#define N 2
+void* hello(void* threadId){
+    long tid = (long)threadId;
+    printf("Forking %ld of %d\n", tid, N);
+    sleep(1);
+    printf("Joining %ld of %d\n", tid, N);
+    return NULL;
+}
+int main(){
+    pthread_t t1, t2, t3, t4;
+    pthread_create(&t1, NULL, hello, (void*) 0);
+    pthread_create(&t2, NULL, hello, (void*) 1);
+    pthread_create(&t3, NULL, hello, (void*) 2);
+    pthread_create(&t4, NULL, hello, (void*) 3);
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+    pthread_join(t3, NULL);
+    pthread_join(t4, NULL);
+    return 0;
+}
+#+end_src
+
+* test2
+#+name: test2.c
+#+begin_src C :results output :exports both :tangle test2.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<pthread.h>
+#define N 16
+void* hello(void* threadId){
+    long tid = (long)threadId;
+    printf("Forking %ld of %d\n", tid, N);
+    sleep(1);
+    printf("Joining %ld of %d\n", tid, N);
+    return NULL;
+}
+int main(){
+    pthread_t t[N];
+
+    for(long i = 0; i < N; i++){
+        pthread_create(&t[i], NULL, hello, (void*) i);
+    }
+    for(long i = 0; i < N; i++){
+        pthread_join(t[i], NULL);
+    }
+    return 0;
+}
+#+end_src
+
+#+RESULTS: test2.c
+#+begin_example
+Forking 0 of 16
+Forking 1 of 16
+Forking 3 of 16
+Forking 2 of 16
+Forking 4 of 16
+Forking 5 of 16
+Forking 6 of 16
+Forking 7 of 16
+Forking 8 of 16
+Forking 9 of 16
+Forking 10 of 16
+Forking 11 of 16
+Forking 12 of 16
+Forking 13 of 16
+Forking 14 of 16
+Forking 15 of 16
+Joining 1 of 16
+Joining 0 of 16
+Joining 2 of 16
+Joining 3 of 16
+Joining 4 of 16
+Joining 5 of 16
+Joining 6 of 16
+Joining 8 of 16
+Joining 7 of 16
+Joining 9 of 16
+Joining 10 of 16
+Joining 11 of 16
+Joining 12 of 16
+Joining 13 of 16
+Joining 14 of 16
+Joining 15 of 16
+#+end_example

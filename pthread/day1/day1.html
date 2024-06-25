@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-06-25 Tue 15:31 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day1</title>
+<meta name="author" content="Abhishek Raj" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Day1</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org7ce4d02">1. Agenda</a></li>
+<li><a href="#orga2ab3c2">2. Scripts</a>
+<ul>
+<li><a href="#org6fdf632">2.1. compile script</a></li>
+<li><a href="#org15c77cb">2.2. run script</a></li>
+</ul>
+</li>
+<li><a href="#orgbd40385">3. Pthread Hello World</a>
+<ul>
+<li><a href="#orgaa5c1ab">3.1. code</a></li>
+<li><a href="#org09b6132">3.2. compile</a></li>
+<li><a href="#org4356d44">3.3. run</a></li>
+</ul>
+</li>
+<li><a href="#org8f94faa">4. Creating 2 or more threads</a>
+<ul>
+<li><a href="#orge3ca95a">4.1. code</a></li>
+<li><a href="#orgb309978">4.2. compile</a></li>
+<li><a href="#org58b7322">4.3. run</a></li>
+</ul>
+</li>
+<li><a href="#orgaa98899">5. Creating N number of threads</a>
+<ul>
+<li><a href="#org9662e5c">5.1. code</a></li>
+<li><a href="#orgff533e6">5.2. compile</a></li>
+<li><a href="#org953de88">5.3. run</a></li>
+</ul>
+</li>
+<li><a href="#orge1aca7e">6. Task1</a></li>
+<li><a href="#org59d4cb9">7. Solution task1</a></li>
+<li><a href="#org93a6cc6">8. test1</a></li>
+<li><a href="#org2b6927e">9. test2</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7ce4d02" class="outline-2">
+<h2 id="org7ce4d02"><span class="section-number-2">1.</span> Agenda</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>What is thread</li>
+<li>What are Pthreads</li>
+<li>Pthreads Overview</li>
+<li>Why Pthreads</li>
+<li>Designing Threaded Programs</li>
+<li>Pthreads APIs</li>
+<li>Creating and Terminating Threads</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga2ab3c2" class="outline-2">
+<h2 id="orga2ab3c2"><span class="section-number-2">2.</span> Scripts</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org6fdf632" class="outline-3">
+<h3 id="org6fdf632"><span class="section-number-3">2.1.</span> compile script</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
+
+<span style="color: #ffcb6b;">inputFile</span>=$<span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #ffcb6b;">outputFile</span>=<span style="color: #c3e88d;">"</span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">{1%.*}</span><span style="color: #c3e88d;">.out"</span>      <span style="color: #676E95;"># </span><span style="color: #676E95;">extract the name of the file without extension and adding extension .out</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">cmd=`mpicc $inputFile -o $outputFile`</span>
+<span style="color: #ffcb6b;">cmd</span>=<span style="color: #c3e88d;">"gcc </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">inputFile</span><span style="color: #c3e88d;"> -o </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">outputFile</span><span style="color: #c3e88d;"> -lpthread"</span>     <span style="color: #676E95;"># </span><span style="color: #676E95;">running code using MPI</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Command executed: </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">cmd</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+$<span style="color: #ffcb6b;">cmd</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Compilation successful. Check at </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">outputFile</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org15c77cb" class="outline-3">
+<h3 id="org15c77cb"><span class="section-number-3">2.2.</span> run script</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
+
+<span style="color: #82aaff;">help</span><span style="color: #c792ea;">(){</span>
+    <span style="color: #c792ea;">echo</span>
+    <span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Usage: submit.sh -[flags]"</span>
+    <span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"-h                : help"</span>
+    <span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"-f &lt;filename&gt;     : enter file"</span>
+    <span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"-t &lt;threads&gt;      : number of threads"</span>
+    <span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"-c &lt;compile&gt;      : first compile"</span>
+    <span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"-n &lt;iterations&gt;   : number of times to execute"</span>
+    <span style="color: #c792ea;">echo</span>
+    <span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"eg: bash run.sh -f main.c -t 8 -c -n 3"</span>
+    <span style="color: #c792ea;">echo</span>
+<span style="color: #c792ea;">}</span>
+
+<span style="color: #ffcb6b;">isCompiled</span>=<span style="color: #f78c6c; font-weight: bold;">0</span>
+<span style="color: #ffcb6b;">nthreads</span>=<span style="color: #f78c6c; font-weight: bold;">8</span>
+
+<span style="color: #89DDFF;">while </span><span style="color: #82aaff;">getopts</span> <span style="color: #c3e88d;">'n:f:t:hc'</span> flag; <span style="color: #89DDFF;">do</span>
+  <span style="color: #89DDFF;">case</span> <span style="color: #c3e88d;">"</span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">{flag}</span><span style="color: #c3e88d;">"</span><span style="color: #89DDFF;"> in</span>
+    t) <span style="color: #ffcb6b;">nthreads</span>=<span style="color: #c3e88d;">"</span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">{OPTARG}</span><span style="color: #c3e88d;">"</span> ;;
+    f) <span style="color: #ffcb6b;">file</span>=$<span style="color: #c792ea;">{</span><span style="color: #ffcb6b;">OPTARG</span><span style="color: #c792ea;">}</span> ;;
+    c) <span style="color: #ffcb6b;">isCompiled</span>=<span style="color: #f78c6c; font-weight: bold;">1</span> ;;
+    n) <span style="color: #ffcb6b;">iterations</span>=<span style="color: #c3e88d;">"</span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">{OPTARG}</span><span style="color: #c3e88d;">"</span> ;;
+    h) help
+        <span style="color: #89DDFF;">exit</span> <span style="color: #f78c6c; font-weight: bold;">1</span> ;;
+    *) <span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Invalid flag...(-h for help)"</span>
+       <span style="color: #89DDFF;">exit</span> <span style="color: #f78c6c; font-weight: bold;">1</span> ;;
+  <span style="color: #89DDFF;">esac</span>
+
+
+<span style="color: #89DDFF;">done</span>
+
+<span style="color: #89DDFF;">if</span> <span style="color: #c792ea;">[</span><span style="color: #f78c6c;">[</span> -z $<span style="color: #ffcb6b;">file</span> <span style="color: #f78c6c;">]</span><span style="color: #c792ea;">]</span>; <span style="color: #89DDFF;">then</span>
+    <span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"You forgot to mention filename!!!"</span>
+    <span style="color: #89DDFF;">exit</span> <span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #89DDFF;">fi</span>
+<span style="color: #89DDFF;">if</span> <span style="color: #c792ea;">[</span><span style="color: #f78c6c;">[</span> -z $<span style="color: #ffcb6b;">iterations</span> <span style="color: #f78c6c;">]</span><span style="color: #c792ea;">]</span>; <span style="color: #89DDFF;">then</span>
+    <span style="color: #ffcb6b;">iterations</span>=<span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #89DDFF;">fi</span>
+
+
+
+<span style="color: #ffcb6b;">outputFile</span>=<span style="color: #c3e88d;">"</span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">{file%.*}</span><span style="color: #c3e88d;">.out"</span>      <span style="color: #676E95;"># </span><span style="color: #676E95;">extract the name of the file without extension and adding extension .out</span>
+
+<span style="color: #89DDFF;">if</span> <span style="color: #c792ea;">[</span><span style="color: #f78c6c;">[</span> $<span style="color: #ffcb6b;">isCompiled</span> == <span style="color: #f78c6c; font-weight: bold;">1</span> <span style="color: #f78c6c;">]</span><span style="color: #c792ea;">]</span>; <span style="color: #89DDFF;">then</span>
+    gcc $<span style="color: #ffcb6b;">file</span> -o $<span style="color: #ffcb6b;">outputFile</span> -lpthread -lm
+<span style="color: #89DDFF;">fi</span>
+
+<span style="color: #82aaff;">export</span> <span style="color: #ffcb6b;">OMP_NUM_THREADS</span>=$<span style="color: #ffcb6b;">nthreads</span>
+
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"--------------------------------------------------------"</span>
+<span style="color: #ffcb6b;">i</span>=<span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #89DDFF;">while</span> <span style="color: #c792ea;">[</span> <span style="color: #f78c6c; font-weight: bold;">1</span> == <span style="color: #f78c6c; font-weight: bold;">1</span> <span style="color: #c792ea;">]</span>;
+<span style="color: #89DDFF;">do</span>
+    ./$<span style="color: #ffcb6b;">outputFile</span>
+    <span style="color: #89DDFF;">if</span> <span style="color: #c792ea;">[</span><span style="color: #f78c6c;">[</span> $<span style="color: #ffcb6b;">i</span> == $<span style="color: #ffcb6b;">iterations</span> <span style="color: #f78c6c;">]</span><span style="color: #c792ea;">]</span>; <span style="color: #89DDFF;">then</span>
+        <span style="color: #89DDFF;">exit</span> <span style="color: #f78c6c; font-weight: bold;">1</span>
+    <span style="color: #89DDFF;">fi</span>
+    <span style="color: #ffcb6b;">i</span>=$<span style="color: #c792ea;">(</span><span style="color: #f78c6c;">(</span> $<span style="color: #ffcb6b;">i</span> + <span style="color: #f78c6c; font-weight: bold;">1</span> <span style="color: #f78c6c;">)</span><span style="color: #c792ea;">)</span>
+    <span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"--------------------------------------------------------"</span>
+<span style="color: #89DDFF;">done</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbd40385" class="outline-2">
+<h2 id="orgbd40385"><span class="section-number-2">3.</span> Pthread Hello World</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgaa5c1ab" class="outline-3">
+<h3 id="orgaa5c1ab"><span class="section-number-3">3.1.</span> code</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+<pre class="src src-C" id="orgb8bb20a"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;pthread.h&gt;</span>
+
+<span style="color: #c792ea;">void</span> *<span style="color: #82aaff;">hello</span>(){
+    printf(<span style="color: #c3e88d;">"Hello World\n"</span>);
+}
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(){
+    <span style="color: #c792ea;">pthread_t</span> <span style="color: #ffcb6b;">t</span>;
+    pthread_create(&amp;t, <span style="color: #f78c6c;">NULL</span>, hello, <span style="color: #f78c6c;">NULL</span>);
+    pthread_join(t, <span style="color: #f78c6c;">NULL</span>);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org09b6132" class="outline-3">
+<h3 id="org09b6132"><span class="section-number-3">3.2.</span> compile</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+<pre class="src src-bash" id="org15be650">gcc pth1.c -o pth1.out -lpthread
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4356d44" class="outline-3">
+<h3 id="org4356d44"><span class="section-number-3">3.3.</span> run</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+<pre class="src src-bash" id="org417f352">./pth1.out
+</pre>
+</div>
+
+<pre class="example">
+Hello World
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8f94faa" class="outline-2">
+<h2 id="org8f94faa"><span class="section-number-2">4.</span> Creating 2 or more threads</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orge3ca95a" class="outline-3">
+<h3 id="orge3ca95a"><span class="section-number-3">4.1.</span> code</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+<pre class="src src-C" id="org2578daa"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;pthread.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">2</span>
+<span style="color: #c792ea;">void</span> *<span style="color: #82aaff;">hello</span>(<span style="color: #c792ea;">void</span>* <span style="color: #ffcb6b;">threadId</span>){
+    <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">tid</span> = (<span style="color: #c792ea;">long</span>)threadId;
+    printf(<span style="color: #c3e88d;">"Hello World %ld of %d\n"</span>, tid, N);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c;">NULL</span>;
+}
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(){
+    <span style="color: #c792ea;">pthread_t</span> <span style="color: #ffcb6b;">t1</span>, <span style="color: #ffcb6b;">t2</span>;
+
+    pthread_create(&amp;t1, <span style="color: #f78c6c;">NULL</span>, hello, (<span style="color: #c792ea;">void</span>*) <span style="color: #f78c6c; font-weight: bold;">0</span>);
+    pthread_join(t1, <span style="color: #f78c6c;">NULL</span>);
+    pthread_create(&amp;t2, <span style="color: #f78c6c;">NULL</span>, hello, (<span style="color: #c792ea;">void</span>*) <span style="color: #f78c6c; font-weight: bold;">1</span>);
+    pthread_join(t2, <span style="color: #f78c6c;">NULL</span>);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb309978" class="outline-3">
+<h3 id="orgb309978"><span class="section-number-3">4.2.</span> compile</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="org-src-container">
+<pre class="src src-bash" id="orgf61fffb"><span style="color: #ffcb6b;">file</span>=pth2
+gcc $<span style="color: #ffcb6b;">file</span>.c -o $<span style="color: #ffcb6b;">file</span>.out -lpthread
+<span style="color: #676E95;">#</span><span style="color: #676E95;">bash compile.sh $file.c</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org58b7322" class="outline-3">
+<h3 id="org58b7322"><span class="section-number-3">4.3.</span> run</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+<pre class="src src-bash" id="org228b3b7"><span style="color: #ffcb6b;">file</span>=pth2
+./$<span style="color: #ffcb6b;">file</span>.out
+
+</pre>
+</div>
+
+<pre class="example">
+Hello World 0 of 2
+Hello World 1 of 2
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgaa98899" class="outline-2">
+<h2 id="orgaa98899"><span class="section-number-2">5.</span> Creating N number of threads</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org9662e5c" class="outline-3">
+<h3 id="org9662e5c"><span class="section-number-3">5.1.</span> code</h3>
+<div class="outline-text-3" id="text-5-1">
+<div class="org-src-container">
+<pre class="src src-C" id="orgafd276f"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;pthread.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">10</span>
+
+<span style="color: #c792ea;">void</span> *<span style="color: #82aaff;">hello</span>(<span style="color: #c792ea;">void</span>* <span style="color: #ffcb6b;">threadId</span>){
+    <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">tid</span> = (<span style="color: #c792ea;">long</span>)threadId;
+
+    printf(<span style="color: #c3e88d;">"Hello World %ld of %d\n"</span>, tid, N);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c;">NULL</span>;
+}
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(){
+    <span style="color: #c792ea;">pthread_t</span>* <span style="color: #ffcb6b;">t</span>;
+    t = malloc(<span style="color: #89DDFF;">sizeof</span>(pthread_t) * N);
+
+    <span style="color: #89DDFF;">for</span>(<span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; N; i++)
+        pthread_create(&amp;t[i], <span style="color: #f78c6c;">NULL</span>, hello, (<span style="color: #c792ea;">void</span>*)i);
+    <span style="color: #89DDFF;">for</span>(<span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; N; i++)
+        pthread_join(t[i], <span style="color: #f78c6c;">NULL</span>);
+    free(t);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgff533e6" class="outline-3">
+<h3 id="orgff533e6"><span class="section-number-3">5.2.</span> compile</h3>
+<div class="outline-text-3" id="text-5-2">
+<div class="org-src-container">
+<pre class="src src-bash" id="org2d14e0c"><span style="color: #ffcb6b;">file</span>=pth3
+gcc $<span style="color: #ffcb6b;">file</span>.c -o $<span style="color: #ffcb6b;">file</span>.out -lpthread
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org953de88" class="outline-3">
+<h3 id="org953de88"><span class="section-number-3">5.3.</span> run</h3>
+<div class="outline-text-3" id="text-5-3">
+<div class="org-src-container">
+<pre class="src src-bash" id="orga99df3b"><span style="color: #ffcb6b;">file</span>=pth3
+./$<span style="color: #ffcb6b;">file</span>.out
+</pre>
+</div>
+
+<pre class="example" id="org949d204">
+Hello World 0 of 10
+Hello World 1 of 10
+Hello World 2 of 10
+Hello World 3 of 10
+Hello World 4 of 10
+Hello World 5 of 10
+Hello World 6 of 10
+Hello World 7 of 10
+Hello World 8 of 10
+Hello World 9 of 10
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge1aca7e" class="outline-2">
+<h2 id="orge1aca7e"><span class="section-number-2">6.</span> Task1</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Initialize an array of size N and assign each thread to print element which is equal to their threadId.
+</p>
+<pre class="example" id="orge56dcde">
+Thread 0 is printing 0
+Thread 1 is printing 1
+thread 2 is printing 2
+.
+.
+.
+Thread N is printing N
+</pre>
+<p>
+The output can be in any order.
+</p>
+</div>
+</div>
+<div id="outline-container-org59d4cb9" class="outline-2">
+<h2 id="org59d4cb9"><span class="section-number-2">7.</span> Solution task1</h2>
+<div class="outline-text-2" id="text-7">
+<div class="org-src-container">
+<pre class="src src-C" id="org988c26b"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;unistd.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;pthread.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">16</span>
+<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">arr</span>[N];
+<span style="color: #c792ea;">void</span>* <span style="color: #82aaff;">hello</span>(<span style="color: #c792ea;">void</span>* <span style="color: #ffcb6b;">threadId</span>){
+    <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">tid</span> = (<span style="color: #c792ea;">long</span>)threadId;
+    printf(<span style="color: #c3e88d;">"Thread id %ld is printing %d\n"</span>, tid, arr[tid]);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c;">NULL</span>;
+}
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(){
+    <span style="color: #c792ea;">pthread_t</span> <span style="color: #ffcb6b;">t</span>[N];
+    <span style="color: #89DDFF;">for</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; N; i++){
+        arr[i] = i;
+    }
+    <span style="color: #89DDFF;">for</span>(<span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; N; i++){
+        pthread_create(&amp;t[i], <span style="color: #f78c6c;">NULL</span>, hello, (<span style="color: #c792ea;">void</span>*) i);
+    }
+    <span style="color: #89DDFF;">for</span>(<span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; N; i++){
+        pthread_join(t[i], <span style="color: #f78c6c;">NULL</span>);
+    }
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<pre class="example" id="orgc4d7013">
+Thread id 2 is printing 2
+Thread id 0 is printing 0
+Thread id 8 is printing 8
+Thread id 1 is printing 1
+Thread id 9 is printing 9
+Thread id 3 is printing 3
+Thread id 6 is printing 6
+Thread id 10 is printing 10
+Thread id 4 is printing 4
+Thread id 11 is printing 11
+Thread id 12 is printing 12
+Thread id 5 is printing 5
+Thread id 7 is printing 7
+Thread id 13 is printing 13
+Thread id 14 is printing 14
+Thread id 15 is printing 15
+</pre>
+</div>
+</div>
+<div id="outline-container-org93a6cc6" class="outline-2">
+<h2 id="org93a6cc6"><span class="section-number-2">8.</span> test1</h2>
+<div class="outline-text-2" id="text-8">
+<div class="org-src-container">
+<pre class="src src-C" id="org166f3fe"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;unistd.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;pthread.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">2</span>
+<span style="color: #c792ea;">void</span>* <span style="color: #82aaff;">hello</span>(<span style="color: #c792ea;">void</span>* <span style="color: #ffcb6b;">threadId</span>){
+    <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">tid</span> = (<span style="color: #c792ea;">long</span>)threadId;
+    printf(<span style="color: #c3e88d;">"Forking %ld of %d\n"</span>, tid, N);
+    sleep(<span style="color: #f78c6c; font-weight: bold;">1</span>);
+    printf(<span style="color: #c3e88d;">"Joining %ld of %d\n"</span>, tid, N);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c;">NULL</span>;
+}
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(){
+    <span style="color: #c792ea;">pthread_t</span> <span style="color: #ffcb6b;">t1</span>, <span style="color: #ffcb6b;">t2</span>, <span style="color: #ffcb6b;">t3</span>, <span style="color: #ffcb6b;">t4</span>;
+    pthread_create(&amp;t1, <span style="color: #f78c6c;">NULL</span>, hello, (<span style="color: #c792ea;">void</span>*) <span style="color: #f78c6c; font-weight: bold;">0</span>);
+    pthread_create(&amp;t2, <span style="color: #f78c6c;">NULL</span>, hello, (<span style="color: #c792ea;">void</span>*) <span style="color: #f78c6c; font-weight: bold;">1</span>);
+    pthread_create(&amp;t3, <span style="color: #f78c6c;">NULL</span>, hello, (<span style="color: #c792ea;">void</span>*) <span style="color: #f78c6c; font-weight: bold;">2</span>);
+    pthread_create(&amp;t4, <span style="color: #f78c6c;">NULL</span>, hello, (<span style="color: #c792ea;">void</span>*) <span style="color: #f78c6c; font-weight: bold;">3</span>);
+    pthread_join(t1, <span style="color: #f78c6c;">NULL</span>);
+    pthread_join(t2, <span style="color: #f78c6c;">NULL</span>);
+    pthread_join(t3, <span style="color: #f78c6c;">NULL</span>);
+    pthread_join(t4, <span style="color: #f78c6c;">NULL</span>);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<pre class="example">
+Forking 0 of 2
+Forking 1 of 2
+Forking 2 of 2
+Forking 3 of 2
+Joining 2 of 2
+Joining 1 of 2
+Joining 0 of 2
+Joining 3 of 2
+</pre>
+</div>
+</div>
+<div id="outline-container-org2b6927e" class="outline-2">
+<h2 id="org2b6927e"><span class="section-number-2">9.</span> test2</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+<pre class="src src-C" id="orgdc1fc53"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;unistd.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;pthread.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">16</span>
+<span style="color: #c792ea;">void</span>* <span style="color: #82aaff;">hello</span>(<span style="color: #c792ea;">void</span>* <span style="color: #ffcb6b;">threadId</span>){
+    <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">tid</span> = (<span style="color: #c792ea;">long</span>)threadId;
+    printf(<span style="color: #c3e88d;">"Forking %ld of %d\n"</span>, tid, N);
+    sleep(<span style="color: #f78c6c; font-weight: bold;">1</span>);
+    printf(<span style="color: #c3e88d;">"Joining %ld of %d\n"</span>, tid, N);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c;">NULL</span>;
+}
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(){
+    <span style="color: #c792ea;">pthread_t</span> <span style="color: #ffcb6b;">t</span>[N];
+
+    <span style="color: #89DDFF;">for</span>(<span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; N; i++){
+        pthread_create(&amp;t[i], <span style="color: #f78c6c;">NULL</span>, hello, (<span style="color: #c792ea;">void</span>*) i);
+    }
+    <span style="color: #89DDFF;">for</span>(<span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; N; i++){
+        pthread_join(t[i], <span style="color: #f78c6c;">NULL</span>);
+    }
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<pre class="example" id="org14b7dcb">
+Forking 0 of 16
+Forking 3 of 16
+Forking 1 of 16
+Forking 2 of 16
+Forking 4 of 16
+Forking 5 of 16
+Forking 6 of 16
+Forking 7 of 16
+Forking 8 of 16
+Forking 9 of 16
+Forking 10 of 16
+Forking 11 of 16
+Forking 12 of 16
+Forking 13 of 16
+Forking 14 of 16
+Forking 15 of 16
+Joining 2 of 16
+Joining 0 of 16
+Joining 3 of 16
+Joining 5 of 16
+Joining 1 of 16
+Joining 6 of 16
+Joining 7 of 16
+Joining 4 of 16
+Joining 9 of 16
+Joining 8 of 16
+Joining 10 of 16
+Joining 11 of 16
+Joining 12 of 16
+Joining 13 of 16
+Joining 14 of 16
+Joining 15 of 16
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Abhishek Raj</p>
+<p class="date">Created: 2024-06-25 Tue 15:31</p>
+</div>
+</body>
+</html>
