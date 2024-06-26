@@ -81,6 +81,7 @@ int main(){
 * Task3
 Create a program that will calculate sum upto N natural numbers.
 * Solution: Task3
+This program demostrates the race condition that is happening when every thread is trying to modify the shared variable sum. The result in this case shows data loss and the actual sum is different from expected. To fix this issue we will require a lock mechanism called mutexes in pthread.
 #+name: Natural number sum.c
 #+begin_src C :tangle sum.c :results output :exports both
 #include<stdio.h>
@@ -113,7 +114,6 @@ int main(){
 #+RESULTS: Natural number sum.c
 : Natural Number sum: 4998276527
 : Expected Natural Number sum: 705082704
-
 * Mutex
 A mutex (short for "mutual exclusion") is a synchronization primitive that allows multiple threads to share the same resource but not simultaneously. When one thread locks a mutex, other threads that try to lock it will block until it is unlocked.
 ** Importance
