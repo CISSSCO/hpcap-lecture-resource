@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-06-26 Wed 14:51 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day2</title>
+<meta name="author" content="Abhishek Raj" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Day2</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org8c240fa">1. Agenda</a></li>
+<li><a href="#orgc3a2a5d">2. Printing ID</a></li>
+<li><a href="#org3ecf894">3. Task2</a></li>
+<li><a href="#org391913a">4. Solution: Task2</a></li>
+<li><a href="#orgf923594">5. Task3</a></li>
+<li><a href="#org247cb46">6. Solution: Task3</a></li>
+<li><a href="#org655546d">7. Mutex</a>
+<ul>
+<li><a href="#org13a97db">7.1. Importance</a></li>
+<li><a href="#org984b034">7.2. Code</a></li>
+</ul>
+</li>
+<li><a href="#org37b4fc4">8. Task4</a></li>
+<li><a href="#org81640cf">9. Reduction</a></li>
+<li><a href="#org24993cd">10. Reduction Alter</a></li>
+<li><a href="#org1eefd56">11. Return from function</a></li>
+<li><a href="#org31b511e">12. Returning from function</a></li>
+<li><a href="#orgca83301">13. Sum of all the elements of the array</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8c240fa" class="outline-2">
+<h2 id="org8c240fa"><span class="section-number-2">1.</span> Agenda</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Race condition</li>
+<li>Mutex</li>
+<li>Reduction</li>
+<li>Returning from function</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc3a2a5d" class="outline-2">
+<h2 id="orgc3a2a5d"><span class="section-number-2">2.</span> Printing ID</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-C" id="org8e60e5f"><span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdio.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdlib.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;pthread.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">N</span> <span style="color: #da8548; font-weight: bold;">10</span>
+<span style="color: #986801;">void</span>* <span style="color: #a626a4;">printId</span>(<span style="color: #986801;">void</span>* <span style="color: #6a1868;">args</span>){
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">id</span> = *(<span style="color: #986801;">int</span>*) args;
+    printf(<span style="color: #50a14f;">"Hello from %d\n"</span>, id);
+    free(args);
+
+}
+<span style="color: #986801;">int</span> <span style="color: #a626a4;">main</span>(){
+    <span style="color: #986801;">pthread_t</span> <span style="color: #6a1868;">th</span>[N];
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++){
+        <span style="color: #986801;">int</span> *<span style="color: #6a1868;">threadid</span> = malloc(<span style="color: #e45649;">sizeof</span>(<span style="color: #986801;">int</span>));
+        *threadid = i;
+        pthread_create(&amp;th[i], <span style="color: #b751b6;">NULL</span>, printId, (<span style="color: #986801;">void</span>*)threadid);
+    }
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++){
+        pthread_join(th[i], <span style="color: #b751b6;">NULL</span>);
+    }
+
+}
+</pre>
+</div>
+
+<pre class="example" id="orgc05e1f5">
+Hello from 0
+Hello from 1
+Hello from 4
+Hello from 2
+Hello from 3
+Hello from 5
+Hello from 6
+Hello from 7
+Hello from 8
+Hello from 9
+</pre>
+</div>
+</div>
+<div id="outline-container-org3ecf894" class="outline-2">
+<h2 id="org3ecf894"><span class="section-number-2">3.</span> Task2</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Create an array of size N and let each thread to initialize the array elements in specific order given below.
+</p>
+<pre class="example" id="org5949e6c">
+Thread 0 will insert 0 at index 0
+Thread 2 will insert 1 at index 1
+Thread 2 will insert 2 at index 2
+.
+.
+.
+Thread N will insert N at index N
+</pre>
+<p>
+The output can be in any order.
+</p>
+</div>
+</div>
+<div id="outline-container-org391913a" class="outline-2">
+<h2 id="org391913a"><span class="section-number-2">4.</span> Solution: Task2</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+<pre class="src src-C" id="orge5bd635"><span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdio.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdlib.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;pthread.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">N</span> <span style="color: #da8548; font-weight: bold;">20</span>
+
+<span style="color: #986801;">int</span> <span style="color: #6a1868;">arr</span>[N];
+<span style="color: #986801;">void</span> *<span style="color: #a626a4;">hello</span>(<span style="color: #986801;">void</span>* <span style="color: #6a1868;">threadId</span>){
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">tid</span> = (<span style="color: #986801;">long</span>)threadId;
+    arr[tid] = tid;
+    <span style="color: #e45649;">return</span> <span style="color: #b751b6;">NULL</span>;
+}
+
+<span style="color: #986801;">int</span> <span style="color: #a626a4;">main</span>(){
+    <span style="color: #986801;">pthread_t</span>* <span style="color: #6a1868;">t</span>;
+    t = malloc(<span style="color: #e45649;">sizeof</span>(pthread_t) * N);
+
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++)
+        pthread_create(&amp;t[i], <span style="color: #b751b6;">NULL</span>, hello, (<span style="color: #986801;">void</span>*)i);
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++)
+        pthread_join(t[i], <span style="color: #b751b6;">NULL</span>);
+    free(t);
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++){
+        printf(<span style="color: #50a14f;">"%d "</span>, arr[i]);
+    }
+    <span style="color: #e45649;">return</span> <span style="color: #da8548; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<pre class="example">
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+</pre>
+</div>
+</div>
+<div id="outline-container-orgf923594" class="outline-2">
+<h2 id="orgf923594"><span class="section-number-2">5.</span> Task3</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Create a program that will calculate sum upto N natural numbers.
+</p>
+</div>
+</div>
+<div id="outline-container-org247cb46" class="outline-2">
+<h2 id="org247cb46"><span class="section-number-2">6.</span> Solution: Task3</h2>
+<div class="outline-text-2" id="text-6">
+<div class="org-src-container">
+<pre class="src src-C" id="orgb05b321"><span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdio.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdlib.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;pthread.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">N</span> <span style="color: #da8548; font-weight: bold;">100000</span>
+
+<span style="color: #986801;">long</span> <span style="color: #6a1868;">sum</span> = <span style="color: #da8548; font-weight: bold;">0</span>;
+<span style="color: #986801;">void</span> *<span style="color: #a626a4;">hello</span>(<span style="color: #986801;">void</span>* <span style="color: #6a1868;">threadId</span>){
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">tid</span> = (<span style="color: #986801;">long</span>)threadId;
+    sum += (tid);
+    <span style="color: #e45649;">return</span> <span style="color: #b751b6;">NULL</span>;
+}
+
+<span style="color: #986801;">int</span> <span style="color: #a626a4;">main</span>(){
+    <span style="color: #986801;">pthread_t</span>* <span style="color: #6a1868;">t</span>;
+    t = malloc(<span style="color: #e45649;">sizeof</span>(pthread_t) * N);
+
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++)
+        pthread_create(&amp;t[i], <span style="color: #b751b6;">NULL</span>, hello, (<span style="color: #986801;">void</span>*)i);
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++)
+        pthread_join(t[i], <span style="color: #b751b6;">NULL</span>);
+    printf(<span style="color: #50a14f;">"Natural Number sum: %ld\n"</span>, sum + N);
+    printf(<span style="color: #50a14f;">"Expected Natural Number sum: %ld\n"</span>, (N * (N + <span style="color: #da8548; font-weight: bold;">1</span>) / <span style="color: #da8548; font-weight: bold;">2</span>));
+    free(t);
+    <span style="color: #e45649;">return</span> <span style="color: #da8548; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<pre class="example">
+Natural Number sum: 5000021999
+Expected Natural Number sum: 705082704
+</pre>
+</div>
+</div>
+<div id="outline-container-org655546d" class="outline-2">
+<h2 id="org655546d"><span class="section-number-2">7.</span> Mutex</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+A mutex (short for &ldquo;mutual exclusion&rdquo;) is a synchronization primitive that allows multiple threads to share the same resource but not simultaneously. When one thread locks a mutex, other threads that try to lock it will block until it is unlocked.
+</p>
+</div>
+<div id="outline-container-org13a97db" class="outline-3">
+<h3 id="org13a97db"><span class="section-number-3">7.1.</span> Importance</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li>Prevents race conditions by ensuring that only one thread can access a critical section of code at a time.</li>
+<li>Ensures data consistency and integrity when multiple threads share and modify data.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org984b034" class="outline-3">
+<h3 id="org984b034"><span class="section-number-3">7.2.</span> Code</h3>
+<div class="outline-text-3" id="text-7-2">
+<div class="org-src-container">
+<pre class="src src-C" id="org0a71c07"><span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdio.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdlib.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;pthread.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">N</span> <span style="color: #da8548; font-weight: bold;">300000</span>
+
+<span style="color: #986801;">pthread_mutex_t</span> <span style="color: #6a1868;">mutex</span>;
+<span style="color: #986801;">long</span> <span style="color: #6a1868;">sum</span> = <span style="color: #da8548; font-weight: bold;">0</span>;
+<span style="color: #986801;">void</span> *<span style="color: #a626a4;">hello</span>(<span style="color: #986801;">void</span>* <span style="color: #6a1868;">threadId</span>){
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">tid</span> = (<span style="color: #986801;">long</span>)threadId;
+    pthread_mutex_lock(&amp;mutex);
+    sum += (tid);
+    pthread_mutex_unlock(&amp;mutex);
+    <span style="color: #e45649;">return</span> <span style="color: #b751b6;">NULL</span>;
+}
+
+<span style="color: #986801;">int</span> <span style="color: #a626a4;">main</span>(){
+    <span style="color: #986801;">pthread_t</span>* <span style="color: #6a1868;">t</span>;
+    pthread_mutex_init(&amp;mutex, <span style="color: #b751b6;">NULL</span>);
+    t = malloc(<span style="color: #e45649;">sizeof</span>(pthread_t) * N);
+
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++)
+        pthread_create(&amp;t[i], <span style="color: #b751b6;">NULL</span>, hello, (<span style="color: #986801;">void</span>*)i);
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++)
+        pthread_join(t[i], <span style="color: #b751b6;">NULL</span>);
+    pthread_mutex_destroy(&amp;mutex);
+    printf(<span style="color: #50a14f;">"Natural Number sum: %ld\n"</span>, sum);
+    printf(<span style="color: #50a14f;">"Natural Number sum original: %ld\n"</span>, ((N * ((N - <span style="color: #da8548; font-weight: bold;">1</span>) * <span style="color: #da8548; font-weight: bold;">1L</span>)) / <span style="color: #da8548; font-weight: bold;">2</span>));
+    free(t);
+    <span style="color: #e45649;">return</span> <span style="color: #da8548; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<pre class="example">
+Natural Number sum: 44999850000
+Natural Number sum original: 44999850000
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org37b4fc4" class="outline-2">
+<h2 id="org37b4fc4"><span class="section-number-2">8.</span> Task4</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+Initialize array of size N.
+Calculate sum of all the elements of
+the array by using reduction algorithm.
+</p>
+</div>
+</div>
+<div id="outline-container-org81640cf" class="outline-2">
+<h2 id="org81640cf"><span class="section-number-2">9.</span> Reduction</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+<pre class="src src-C" id="org5e98406"><span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdio.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdlib.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;pthread.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">N</span> <span style="color: #da8548; font-weight: bold;">5000000</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">T</span> <span style="color: #da8548; font-weight: bold;">16</span>
+
+<span style="color: #986801;">pthread_mutex_t</span> <span style="color: #6a1868;">mutex</span>;
+<span style="color: #986801;">long</span> <span style="color: #6a1868;">sum</span> = <span style="color: #da8548; font-weight: bold;">0</span>;
+<span style="color: #986801;">int</span> <span style="color: #6a1868;">arr</span>[N];
+
+<span style="color: #986801;">void</span> *<span style="color: #a626a4;">hello</span>(<span style="color: #986801;">void</span>* <span style="color: #6a1868;">threadId</span>){
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">tid</span> = (<span style="color: #986801;">long</span>)threadId;
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">localSum</span> = <span style="color: #da8548; font-weight: bold;">0</span>;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">chunk_size</span> = N / T;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">start</span> = tid * chunk_size;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">end</span> = (tid + <span style="color: #da8548; font-weight: bold;">1</span>) * chunk_size;
+    <span style="color: #e45649;">if</span> (tid == T - <span style="color: #da8548; font-weight: bold;">1</span>) {
+        end = N;
+    }
+    <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = start; i &lt; end; i++) {
+        localSum += (<span style="color: #986801;">long</span>)arr[i];
+    }
+    pthread_mutex_lock(&amp;mutex);
+    sum += localSum;
+    pthread_mutex_unlock(&amp;mutex);
+    <span style="color: #e45649;">return</span> <span style="color: #b751b6;">NULL</span>;
+}
+
+<span style="color: #986801;">int</span> <span style="color: #a626a4;">main</span>(){
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++){
+        arr[i] = i + <span style="color: #da8548; font-weight: bold;">1</span>;
+    }
+    <span style="color: #986801;">pthread_t</span>* <span style="color: #6a1868;">t</span>;
+    pthread_mutex_init(&amp;mutex, <span style="color: #b751b6;">NULL</span>);
+    t = malloc(<span style="color: #e45649;">sizeof</span>(pthread_t) * N);
+
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; T; i++)
+        pthread_create(&amp;t[i], <span style="color: #b751b6;">NULL</span>, hello, (<span style="color: #986801;">void</span>*)i);
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; T; i++)
+        pthread_join(t[i], <span style="color: #b751b6;">NULL</span>);
+    pthread_mutex_destroy(&amp;mutex);
+    printf(<span style="color: #50a14f;">"Sum using manual reduction: %ld\n"</span>, sum);
+    printf(<span style="color: #50a14f;">"Natural Number sum original: %ld\n"</span>, ((N * ((N + <span style="color: #da8548; font-weight: bold;">1</span>) * <span style="color: #da8548; font-weight: bold;">1L</span>)) / <span style="color: #da8548; font-weight: bold;">2</span>));
+    free(t);
+    <span style="color: #e45649;">return</span> <span style="color: #da8548; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<pre class="example">
+Sum using manual reduction: 12500002500000
+Natural Number sum original: 12500002500000
+</pre>
+</div>
+</div>
+<div id="outline-container-org24993cd" class="outline-2">
+<h2 id="org24993cd"><span class="section-number-2">10.</span> Reduction Alter</h2>
+<div class="outline-text-2" id="text-10">
+<div class="org-src-container">
+<pre class="src src-C" id="orgbd120cb"><span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdio.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdlib.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;pthread.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">N</span> <span style="color: #da8548; font-weight: bold;">5000000</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">T</span> <span style="color: #da8548; font-weight: bold;">16</span>
+
+<span style="color: #986801;">long</span> <span style="color: #6a1868;">globalArraySum</span>[T];
+<span style="color: #986801;">int</span> <span style="color: #6a1868;">arr</span>[N];
+
+<span style="color: #986801;">void</span> *<span style="color: #a626a4;">hello</span>(<span style="color: #986801;">void</span>* <span style="color: #6a1868;">threadId</span>){
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">tid</span> = (<span style="color: #986801;">long</span>)threadId;
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">localSum</span> = <span style="color: #da8548; font-weight: bold;">0</span>;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">chunk_size</span> = N / T;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">start</span> = tid * chunk_size;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">end</span> = (tid + <span style="color: #da8548; font-weight: bold;">1</span>) * chunk_size;
+    <span style="color: #e45649;">if</span> (tid == T - <span style="color: #da8548; font-weight: bold;">1</span>) {
+        end = N;
+    }
+    <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = start; i &lt; end; i++) {
+        localSum += (<span style="color: #986801;">long</span>)arr[i];
+    }
+    globalArraySum[tid] = localSum;
+    <span style="color: #e45649;">return</span> <span style="color: #b751b6;">NULL</span>;
+}
+
+<span style="color: #986801;">int</span> <span style="color: #a626a4;">main</span>(){
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++){
+        arr[i] = i + <span style="color: #da8548; font-weight: bold;">1</span>;
+    }
+    <span style="color: #986801;">pthread_t</span>* <span style="color: #6a1868;">t</span>;
+    t = malloc(<span style="color: #e45649;">sizeof</span>(pthread_t) * N);
+
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; T; i++)
+        pthread_create(&amp;t[i], <span style="color: #b751b6;">NULL</span>, hello, (<span style="color: #986801;">void</span>*)i);
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; T; i++)
+        pthread_join(t[i], <span style="color: #b751b6;">NULL</span>);
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">sum</span> = <span style="color: #da8548; font-weight: bold;">0</span>;
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; T; i++){
+        sum+= globalArraySum[i];
+    }
+    printf(<span style="color: #50a14f;">"Sum using manual reduction: %ld\n"</span>, sum);
+    printf(<span style="color: #50a14f;">"Natural Number sum original: %ld\n"</span>, ((N * ((N + <span style="color: #da8548; font-weight: bold;">1</span>) * <span style="color: #da8548; font-weight: bold;">1L</span>)) / <span style="color: #da8548; font-weight: bold;">2</span>));
+    free(t);
+    <span style="color: #e45649;">return</span> <span style="color: #da8548; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<pre class="example">
+Sum using manual reduction: 12500002500000
+Natural Number sum original: 12500002500000
+</pre>
+</div>
+</div>
+<div id="outline-container-org1eefd56" class="outline-2">
+<h2 id="org1eefd56"><span class="section-number-2">11.</span> Return from function</h2>
+<div class="outline-text-2" id="text-11">
+<div class="org-src-container">
+<pre class="src src-C" id="org8ad833a"><span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdio.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdlib.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;pthread.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">N</span> <span style="color: #da8548; font-weight: bold;">5000000</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">T</span> <span style="color: #da8548; font-weight: bold;">16</span>
+
+<span style="color: #986801;">int</span> <span style="color: #6a1868;">arr</span>[N];
+
+<span style="color: #986801;">void</span> *<span style="color: #a626a4;">hello</span>(<span style="color: #986801;">void</span>* <span style="color: #6a1868;">threadId</span>){
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">tid</span> = (<span style="color: #986801;">long</span>)threadId;
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">localSum</span> = <span style="color: #da8548; font-weight: bold;">0</span>;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">chunk_size</span> = N / T;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">start</span> = tid * chunk_size;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">end</span> = (tid + <span style="color: #da8548; font-weight: bold;">1</span>) * chunk_size;
+    <span style="color: #e45649;">if</span> (tid == T - <span style="color: #da8548; font-weight: bold;">1</span>) {
+        end = N;
+    }
+    <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = start; i &lt; end; i++) {
+        localSum += (<span style="color: #986801;">long</span>)arr[i];
+    }
+    <span style="color: #e45649;">return</span> (<span style="color: #986801;">void</span>*)localSum;
+}
+
+<span style="color: #986801;">int</span> <span style="color: #a626a4;">main</span>(){
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++){
+        arr[i] = i + <span style="color: #da8548; font-weight: bold;">1</span>;
+    }
+    <span style="color: #986801;">pthread_t</span>* <span style="color: #6a1868;">t</span>;
+    t = malloc(<span style="color: #e45649;">sizeof</span>(pthread_t) * N);
+
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">sum</span> = <span style="color: #da8548; font-weight: bold;">0</span>, <span style="color: #6a1868;">localSum</span>;
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; T; i++)
+        pthread_create(&amp;t[i], <span style="color: #b751b6;">NULL</span>, hello, (<span style="color: #986801;">void</span>*)i);
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; T; i++){
+        pthread_join(t[i], (<span style="color: #986801;">void</span>**)&amp;localSum);
+        sum+= *(<span style="color: #986801;">long</span>*)&amp;localSum;
+    }
+    printf(<span style="color: #50a14f;">"Sum using manual reduction: %ld\n"</span>, sum);
+    printf(<span style="color: #50a14f;">"Natural Number sum original: %ld\n"</span>, ((N * ((N + <span style="color: #da8548; font-weight: bold;">1</span>) * <span style="color: #da8548; font-weight: bold;">1L</span>)) / <span style="color: #da8548; font-weight: bold;">2</span>));
+    free(t);
+    <span style="color: #e45649;">return</span> <span style="color: #da8548; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<pre class="example">
+Sum using manual reduction: 12500002500000
+Natural Number sum original: 12500002500000
+</pre>
+</div>
+</div>
+<div id="outline-container-org31b511e" class="outline-2">
+<h2 id="org31b511e"><span class="section-number-2">12.</span> Returning from function</h2>
+<div class="outline-text-2" id="text-12">
+<div class="org-src-container">
+<pre class="src src-C" id="org10b950e"><span style="color: #4078f2; font-weight: bold;">#include</span> <span style="color: #50a14f;">&lt;stdio.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span> <span style="color: #50a14f;">&lt;stdlib.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span> <span style="color: #50a14f;">&lt;pthread.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">N</span> <span style="color: #da8548; font-weight: bold;">30000</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">T</span> <span style="color: #da8548; font-weight: bold;">4</span>
+
+<span style="color: #986801;">int</span> <span style="color: #6a1868;">arr</span>[N];
+
+<span style="color: #986801;">void</span> *<span style="color: #a626a4;">hello</span>(<span style="color: #986801;">void</span>* <span style="color: #6a1868;">threadId</span>) {
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">tid</span> = (<span style="color: #986801;">long</span>)threadId;
+    <span style="color: #986801;">long</span> *<span style="color: #6a1868;">localSum</span> = malloc(<span style="color: #e45649;">sizeof</span>(<span style="color: #986801;">long</span>)); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Allocate memory for the local sum</span>
+    *localSum = <span style="color: #da8548; font-weight: bold;">0</span>;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">chunk_size</span> = N / T;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">start</span> = tid * chunk_size;
+    <span style="color: #986801;">int</span> <span style="color: #6a1868;">end</span> = (tid + <span style="color: #da8548; font-weight: bold;">1</span>) * chunk_size;
+
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Ensure the last thread processes the remaining elements</span>
+    <span style="color: #e45649;">if</span> (tid == T - <span style="color: #da8548; font-weight: bold;">1</span>) {
+        end = N;
+    }
+
+    <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = start; i &lt; end; i++) {
+        *localSum += arr[i];
+    }
+
+    <span style="color: #e45649;">return</span> (<span style="color: #986801;">void</span>*)localSum;
+}
+
+<span style="color: #986801;">int</span> <span style="color: #a626a4;">main</span>() {
+    <span style="color: #e45649;">for</span> (<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++) {
+        arr[i] = i + <span style="color: #da8548; font-weight: bold;">1</span>;
+    }
+
+    <span style="color: #986801;">pthread_t</span> <span style="color: #6a1868;">threads</span>[T];
+    <span style="color: #986801;">void</span> *<span style="color: #6a1868;">status</span>;
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">sum</span> = <span style="color: #da8548; font-weight: bold;">0</span>;
+
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Create threads</span>
+    <span style="color: #e45649;">for</span> (<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; T; i++) {
+        pthread_create(&amp;threads[i], <span style="color: #b751b6;">NULL</span>, hello, (<span style="color: #986801;">void</span>*)i);
+    }
+
+    <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Join threads and aggregate the local sums</span>
+    <span style="color: #e45649;">for</span> (<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; T; i++) {
+        pthread_join(threads[i], &amp;status);
+        sum += *(<span style="color: #986801;">long</span>*)status;
+        free(status); <span style="color: #9ca0a4;">// </span><span style="color: #9ca0a4;">Free the allocated memory for the local sum</span>
+    }
+
+    printf(<span style="color: #50a14f;">"Sum using manual reduction: %ld\n"</span>, sum);
+    printf(<span style="color: #50a14f;">"Natural Number sum original: %ld\n"</span>, ((N * <span style="color: #da8548; font-weight: bold;">1L</span> * (N + <span style="color: #da8548; font-weight: bold;">1</span>)) / <span style="color: #da8548; font-weight: bold;">2</span>));
+
+    <span style="color: #e45649;">return</span> <span style="color: #da8548; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<pre class="example">
+Sum using manual reduction: 450015000
+Natural Number sum original: 450015000
+</pre>
+</div>
+</div>
+<div id="outline-container-orgca83301" class="outline-2">
+<h2 id="orgca83301"><span class="section-number-2">13.</span> Sum of all the elements of the array</h2>
+<div class="outline-text-2" id="text-13">
+<div class="org-src-container">
+<pre class="src src-C">
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdio.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;stdlib.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#include</span><span style="color: #50a14f;">&lt;pthread.h&gt;</span>
+<span style="color: #4078f2; font-weight: bold;">#define</span> <span style="color: #6a1868;">N</span> <span style="color: #da8548; font-weight: bold;">300000</span>
+
+<span style="color: #986801;">pthread_mutex_t</span> <span style="color: #6a1868;">mutex</span>;
+<span style="color: #986801;">long</span> <span style="color: #6a1868;">sum</span> = <span style="color: #da8548; font-weight: bold;">0</span>;
+<span style="color: #986801;">int</span> <span style="color: #6a1868;">arr</span>[N];
+<span style="color: #986801;">void</span> *<span style="color: #a626a4;">hello</span>(<span style="color: #986801;">void</span>* <span style="color: #6a1868;">threadId</span>){
+    <span style="color: #986801;">long</span> <span style="color: #6a1868;">tid</span> = (<span style="color: #986801;">long</span>)threadId;
+    pthread_mutex_lock(&amp;mutex);
+    sum += arr[tid];
+    pthread_mutex_unlock(&amp;mutex);
+    <span style="color: #e45649;">return</span> <span style="color: #b751b6;">NULL</span>;
+}
+
+<span style="color: #986801;">int</span> <span style="color: #a626a4;">main</span>(){
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">int</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++){
+        arr[i] = i + <span style="color: #da8548; font-weight: bold;">1</span>;
+    }
+    <span style="color: #986801;">pthread_t</span>* <span style="color: #6a1868;">t</span>;
+    pthread_mutex_init(&amp;mutex, <span style="color: #b751b6;">NULL</span>);
+    t = malloc(<span style="color: #e45649;">sizeof</span>(pthread_t) * N);
+
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++)
+        pthread_create(&amp;t[i], <span style="color: #b751b6;">NULL</span>, hello, (<span style="color: #986801;">void</span>*)i);
+    <span style="color: #e45649;">for</span>(<span style="color: #986801;">long</span> <span style="color: #6a1868;">i</span> = <span style="color: #da8548; font-weight: bold;">0</span>; i &lt; N; i++)
+        pthread_join(t[i], <span style="color: #b751b6;">NULL</span>);
+    pthread_mutex_destroy(&amp;mutex);
+    printf(<span style="color: #50a14f;">"Natural Number sum: %ld\n"</span>, sum);
+    printf(<span style="color: #50a14f;">"Natural Number sum original: %ld\n"</span>, ((N * ((N + <span style="color: #da8548; font-weight: bold;">1</span>) * <span style="color: #da8548; font-weight: bold;">1L</span>)) / <span style="color: #da8548; font-weight: bold;">2</span>));
+    free(t);
+    <span style="color: #e45649;">return</span> <span style="color: #da8548; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<pre class="example">
+Natural Number sum: 45000150000
+Natural Number sum original: 45000150000
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Abhishek Raj</p>
+<p class="date">Created: 2024-06-26 Wed 14:51</p>
+</div>
+</body>
+</html>
