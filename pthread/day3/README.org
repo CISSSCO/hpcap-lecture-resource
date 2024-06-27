@@ -240,7 +240,7 @@ int main() {
 : Natural Number sum original: 500000500000
 
 * Detached thread
-This thread demonstrate detached threads. Here sometimes you'll find data is not fully initialized by detached threads which leads to segmentation fault.
+This program demonstrate detached threads. Here sometimes you'll find data is not fully initialized by detached threads which leads to segmentation fault.
 You can use sleep or wait there for some time to make sure the data is fully initialized.
 #+name: detached thread1
 #+begin_src C :tangle detached_thread.c :results output :exports both
