@@ -1,0 +1,412 @@
+#+title: Day3
+
+* Agenda
+- pthread_exit
+- Conditional variable
+- pthread_barrier
+- Detaching threads
+* pthread_exit
+#+name: pthread_exit1.c
+#+begin_src C :tangle pthread_exit1.c :results output :exports both
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#define N 1000000
+#define T 20
+
+int arr[N];
+
+void *hello(void* threadId) {
+    long tid = (long)threadId;
+    long localSum = 0; // Changed to long to match sum type
+    int chunk_size = N / T;
+    int start = tid * chunk_size;
+    int end = (tid + 1) * chunk_size;
+
+    // Ensure the last thread processes the remaining elements
+    if (tid == T - 1) {
+        end = N;
+    }
+
+    for (int i = start; i < end; i++) {
+        localSum += arr[i];
+    }
+
+    pthread_exit((void*) localSum);
+}
+
+int main() {
+    for (int i = 0; i < N; i++) {
+        arr[i] = i + 1;
+    }
+
+    pthread_t threads[T];
+    void *status;
+    long sum = 0; // Changed to long to match localSum type
+
+    // Create threads
+    for (long i = 0; i < T; i++) {
+        pthread_create(&threads[i], NULL, hello, (void*)i);
+    }
+
+    // Join threads and aggregate the local sums
+    for (long i = 0; i < T; i++) {
+        pthread_join(threads[i], &status);
+        sum += (long)status;
+    }
+
+    printf("Sum using manual reduction: %ld\n", sum);
+    printf("Natural Number sum original: %ld\n", ((N * 1L * (N + 1)) / 2));
+
+    return 0;
+}
+#+end_src
+
+#+RESULTS: pthread_exit1.c
+: Sum using manual reduction: 500000500000
+: Natural Number sum original: 500000500000
+
+* Conditional Variable
+A conditional variable in Pthreads is a synchronization primitive that allows threads to wait until a certain condition is true. It is used to block a thread until another thread signals that the condition is met. Conditional variables are usually used in conjunction with a mutex to avoid race conditions.
+- pthread_cond_wait: Releases the mutex and waits for the condition variable to be signaled.
+- pthread_cond_signal: Wakes up one thread waiting on the condition variable.
+- pthread_cond_broadcast: Wakes up all threads waiting on the condition variable.
+** Code
+In this code we are trying to implement barrier using conditional variable.
+#+name: conditionalVariable.c
+#+begin_src C :tangle conditionalVariable.c :exports both :results output
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+#define N 3000000
+#define T 16
+
+int arr[N];
+pthread_mutex_t mutex;
+pthread_cond_t cond;
+int data_ready = 0; // Condition to indicate if the data is ready
+
+void *initialize_and_sum(void* threadId) {
+    long tid = (long)threadId;
+    long *localSum = malloc(sizeof(long)); // Allocate memory for the local sum
+    *localSum = 0;
+    int chunk_size = N / T;
+    int start = tid * chunk_size;
+    int end = (tid + 1) * chunk_size;
+
+    // Ensure the last thread processes the remaining elements
+    if (tid == T - 1) {
+        end = N;
+    }
+
+    if (tid == 0) {
+        // Thread 0 initializes the array
+        for (int i = 0; i < N; i++) {
+            arr[i] = i + 1;
+        }
+
+        // Signal all other threads that data is ready
+        pthread_mutex_lock(&mutex);
+        data_ready = 1;
+        pthread_cond_broadcast(&cond);
+        pthread_mutex_unlock(&mutex);
+    } else {
+        // Other threads wait until the data is initialized
+        pthread_mutex_lock(&mutex);
+        while (data_ready != 1) {
+            pthread_cond_wait(&cond, &mutex);
+        }
+        pthread_mutex_unlock(&mutex);
+    }
+
+    // Compute the local sum
+    for (int i = start; i < end; i++) {
+        *localSum += arr[i];
+    }
+    return (void*)localSum;
+}
+
+int main() {
+    pthread_t threads[T];
+    void *status;
+    long sum = 0;
+
+    pthread_mutex_init(&mutex, NULL);
+    pthread_cond_init(&cond, NULL);
+
+    // Create threads for initialization and summing
+    for (long i = 0; i < T; i++) {
+        pthread_create(&threads[i], NULL, initialize_and_sum, (void*)i);
+    }
+
+    // Join threads and aggregate the local sums
+    for (long i = 0; i < T; i++) {
+        pthread_join(threads[i], &status);
+        sum += *(long*)status;
+        free(status); // Free the allocated memory for the local sum
+    }
+
+    pthread_mutex_destroy(&mutex);
+    pthread_cond_destroy(&cond);
+
+    printf("Sum using manual reduction: %ld\n", sum);
+    printf("Natural Number sum original: %ld\n", ((N * 1L * (N + 1)) / 2));
+
+    return 0;
+}
+#+end_src
+
+#+RESULTS: conditionalVariable.c
+: Sum using manual reduction: 4500001500000
+: Natural Number sum original: 4500001500000
+
+* pthread_barrier
+In this code only one thread (say 0) is allowed to create the whole data. After then we have to computer the result using all those available threads. Using barrier in this code will make sure that 0 will finish the data and go to the barrier then only all those threads will move to next line of the code. Means until 0 is doing the data every threads will have to wait for 0 to come to the barrier.
+#+name: pthread_barrier.c
+#+begin_src C :tangle pthread_barrier.c :results output :exports both
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#define N 1000000
+#define T 16
+
+int arr[N];
+pthread_barrier_t barrier;
+
+void *hello(void* threadId) {
+    long tid = (long)threadId;
+    long *localSum = malloc(sizeof(long)); // Allocate memory for the local sum
+    *localSum = 0;
+    int chunk_size = N / T;
+    int start = tid * chunk_size;
+    int end = (tid + 1) * chunk_size;
+
+    // Ensure the last thread processes the remaining elements
+    if (tid == T - 1) {
+        end = N;
+    }
+
+    // Initialize the chunk of the array
+    if(tid == 0){
+        for (int i = 0; i < N; i++) {
+                arr[i] = i + 1;
+        }
+    }
+
+    // Wait for all threads to finish initialization
+    pthread_barrier_wait(&barrier);
+
+    // Compute the local sum
+    for (int i = start; i < end; i++) {
+        *localSum += arr[i];
+    }
+
+    return (void*)localSum;
+}
+
+int main() {
+    pthread_t threads[T];
+    void *status;
+    long sum = 0;
+
+    // Initialize the barrier
+    pthread_barrier_init(&barrier, NULL, T);
+
+    // Create threads
+    for (long i = 0; i < T; i++) {
+        pthread_create(&threads[i], NULL, hello, (void*)i);
+    }
+
+    // Join threads and aggregate the local sums
+    for (long i = 0; i < T; i++) {
+        pthread_join(threads[i], &status);
+        sum += *(long*)status;
+        free(status); // Free the allocated memory for the local sum
+    }
+
+    // Destroy the barrier
+    pthread_barrier_destroy(&barrier);
+
+    printf("Sum using manual reduction: %ld\n", sum);
+    printf("Natural Number sum original: %ld\n", ((N * 1L * (N + 1)) / 2));
+
+    return 0;
+}
+#+end_src
+
+#+RESULTS: pthread_barrier.c
+: Sum using manual reduction: 500000500000
+: Natural Number sum original: 500000500000
+
+* Detached thread
+This thread demonstrate detached threads. Here sometimes you'll find data is not fully initialized by detached threads which leads to segmentation fault.
+You can use sleep or wait there for some time to make sure the data is fully initialized.
+#+name: detached thread1
+#+begin_src C :tangle detached_thread.c :results output :exports both
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+#define N 10000  // Size of the array
+#define T 4      // Number of threads
+
+int arr[N];
+
+void *init_array(void *arg) {
+    int thread_id = *(int *)arg;
+    int chunk_size = N / T;
+    int start = thread_id * chunk_size;
+    int end = (thread_id + 1) * chunk_size;
+
+    if (thread_id == T - 1) {
+        end = N;
+    }
+
+    for (int i = start; i < end; ++i) {
+        arr[i] = i + 1;
+    }
+
+    pthread_exit(NULL);
+}
+
+int main() {
+    pthread_t threads[T];
+    pthread_attr_t attr;
+    int thread_args[T];
+
+    // Initialize thread attributes
+    pthread_attr_init(&attr);
+    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
+
+    // Create detached threads to initialize array
+    for (int i = 0; i < T; ++i) {
+        thread_args[i] = i;
+        pthread_create(&threads[i], &attr, init_array, (void *)&thread_args[i]);
+    }
+
+    // Destroy thread attributes
+    pthread_attr_destroy(&attr);
+
+    // Optional: Main thread can perform other tasks or wait
+    // e.g., usleep(1000); // Wait for threads to complete if necessary
+
+    printf("Array initialization using detached threads...\n");
+
+    // Main thread continues execution
+    // Print or use initialized array if needed
+
+    // Example: Print a few initialized array elements
+    printf("Initialized array elements:\n");
+    for (int i = 0; i < 100; ++i) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+#+end_src
+
+#+RESULTS: detached thread1
+: Array initialization using detached threads...
+: Initialized array elements:
+: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100
+
+#+RESULTS: detached thread
+: Array initialization using detached threads...
+: Initialized array elements:
+: 0 0 0 0 0 0 0 0 0 0
+
+#+RESULTS: testing
+
+
+
+#+RESULTS: works
+: Array initialization using detached threads...
+: Initialized array elements:
+: 1 2 3 4 5 6 7 8 9 10
+
+#+RESULTS:
+: Array initialization using detached threads...
+: Initialized array elements:
+: 1 2 3 4 5 6 7 8 9 10
+
+* Addition of two array
+#+name: two array sum
+#+begin_src C :tangle twoArraySum.c :results output :exports both
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#define N 10000
+#define T 20
+
+int *arr1;
+int *arr2;
+int *arr3;
+
+void *hello(void* threadId) {
+    long tid = (long)threadId;
+    long localSum = 0; // Changed to long to match sum type
+    int chunk_size = N / T;
+    int start = tid * chunk_size;
+    int end = (tid + 1) * chunk_size;
+
+    // Ensure the last thread processes the remaining elements
+    if (tid == T - 1) {
+        end = N;
+    }
+
+    for (int i = start; i < end; i++) {
+        arr3[i] = arr1[i] + arr2[i];
+    }
+
+    return NULL;
+}
+
+int main() {
+    arr1 = (int*)malloc(sizeof(int) * N);
+    arr2 = (int*)malloc(sizeof(int) * N);
+    arr3 = (int*)malloc(sizeof(int) * N);
+    for (int i = 0; i < N; i++) {
+        arr1[i] = i + 1;
+        arr2[i] = i + 1;
+        arr3[i] = 0;
+    }
+
+    pthread_t threads[T];
+
+    // Create threads
+    for (long i = 0; i < T; i++) {
+        pthread_create(&threads[i], NULL, hello, (void*)i);
+    }
+
+    // Join threads and aggregate the local sums
+    for (long i = 0; i < T; i++) {
+        pthread_join(threads[i], NULL);
+    }
+
+    for(int i = 0; i < N; i++){
+        printf("%d ",arr3[i]);
+    }
+
+    return 0;
+}
+#+end_src
+
+#+begin_src bash
+gcc twoArraySum.c -lpthread
+./a.out > output.txt
+echo "Check output.txt"
+#+end_src
+
+#+RESULTS:
+: Check output.txt
+
+* Assignments: PThreads
+** Create a serial matrix addition code and parallelize it using pthreads.
+** Create a serial matrix addition code and parallelize it using pthreads.
+** Create a prime number calculator.
+- Your code should calculate the numbers of prime between 0 and N.
+- Serial code is available on github. You can copy and parallelize it.
