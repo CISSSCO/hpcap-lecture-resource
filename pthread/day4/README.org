@@ -151,7 +151,6 @@ gcc -o pi_parallel.out pi_parallel.c -lm -lpthread
 #+end_src
 
 #+RESULTS:
-:
 : Value of pi is = 3.1415926535799135
 : Execution time is = 0.652751 seconds
 
