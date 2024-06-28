@@ -48,7 +48,6 @@ int main()
 gcc -o pi1.out pi1.c -lm
 #+end_src
 
-#+RESULTS:
 ** Run
 #+begin_src bash :results output :exports both
 ./pi1.out
