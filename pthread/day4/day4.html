@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-06-28 Fri 14:15 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day4</title>
+<meta name="author" content="Abhishek Raj" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Day4</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgf01ae17">1. PI calculator Serial</a>
+<ul>
+<li><a href="#org4f545d5">1.1. Compile</a></li>
+<li><a href="#orge78f916">1.2. Run</a></li>
+</ul>
+</li>
+<li><a href="#org07e68a8">2. PI calculator Parallel</a>
+<ul>
+<li><a href="#org26936cb">2.1. Compile</a></li>
+<li><a href="#org7ce2d5e">2.2. Run</a></li>
+</ul>
+</li>
+<li><a href="#org8af858b">3. Introduction to DPDK and SPDK</a>
+<ul>
+<li><a href="#orgcbe493a">3.1. DPDK (Data Plane Development Kit)</a>
+<ul>
+<li><a href="#orgb0f9138">3.1.1. Key Points:</a></li>
+</ul>
+</li>
+<li><a href="#org4a18b3e">3.2. SPDK (Storage Performance Development Kit)</a>
+<ul>
+<li><a href="#org8d76363">3.2.1. Key Points:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org8c7ec18">4. Detailed Overview and Resources</a>
+<ul>
+<li><a href="#org7a10403">4.1. DPDK</a>
+<ul>
+<li><a href="#orge28040f">4.1.1. 1.1 What is DPDK?</a></li>
+<li><a href="#orgf0f38f8">4.1.2. 1.2 DPDK Architecture</a></li>
+<li><a href="#orgbae9a84">4.1.3. 1.3 Setting Up DPDK</a></li>
+</ul>
+</li>
+<li><a href="#org590a14d">4.2. SPDK</a>
+<ul>
+<li><a href="#org8e15747">4.2.1. 2.1 What is SPDK?</a></li>
+<li><a href="#org3f77b59">4.2.2. 2.2 SPDK Architecture</a></li>
+<li><a href="#orgffbe6db">4.2.3. 2.3 Setting Up SPDK</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf01ae17" class="outline-2">
+<h2 id="orgf01ae17"><span class="section-number-2">1.</span> PI calculator Serial</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-C" id="orgdbbb69d"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;math.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;sys/time.h&gt;</span>
+
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">999999999</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>()
+{
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span>, <span style="color: #ffcb6b;">j</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">area</span>, <span style="color: #ffcb6b;">pi</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">dx</span>, <span style="color: #ffcb6b;">y</span>, <span style="color: #ffcb6b;">x</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">exe_time</span>;
+
+    <span style="color: #89DDFF;">struct</span> <span style="color: #c792ea;">timeval</span> <span style="color: #ffcb6b;">stop_time</span>, <span style="color: #ffcb6b;">start_time</span>;
+
+    dx = <span style="color: #f78c6c; font-weight: bold;">1.0</span>/N;
+    x = <span style="color: #f78c6c; font-weight: bold;">0.0</span>;
+    area = <span style="color: #f78c6c; font-weight: bold;">0.0</span>;
+
+    gettimeofday(&amp;start_time, <span style="color: #f78c6c;">NULL</span>);
+
+    <span style="color: #89DDFF;">for</span>(i=<span style="color: #f78c6c; font-weight: bold;">0</span>;i&lt;N;i++)
+    {
+        x = i*dx;
+        y = sqrt(<span style="color: #f78c6c; font-weight: bold;">1</span>-x*x);
+        area += y*dx;
+    }
+
+    gettimeofday(&amp;stop_time, <span style="color: #f78c6c;">NULL</span>);
+    exe_time = (stop_time.tv_sec+(stop_time.tv_usec/<span style="color: #f78c6c; font-weight: bold;">1000000.0</span>)) - (start_time.tv_sec+(start_time.tv_usec/<span style="color: #f78c6c; font-weight: bold;">1000000.0</span>));
+
+    pi = <span style="color: #f78c6c; font-weight: bold;">4.0</span>*area;
+    printf(<span style="color: #c3e88d;">"\n Value of pi is = %.16lf\n Execution time is = %lf seconds\n"</span>, pi, exe_time);
+
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+
+
+</pre>
+</div>
+</div>
+<div id="outline-container-org4f545d5" class="outline-3">
+<h3 id="org4f545d5"><span class="section-number-3">1.1.</span> Compile</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+<pre class="src src-bash">gcc -o pi1.out pi1.c -lm
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge78f916" class="outline-3">
+<h3 id="orge78f916"><span class="section-number-3">1.2.</span> Run</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+<pre class="src src-bash">./pi1.out
+</pre>
+</div>
+
+<pre class="example">
+
+Value of pi is = 3.1415926555902138
+Execution time is = 3.672017 seconds
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org07e68a8" class="outline-2">
+<h2 id="org07e68a8"><span class="section-number-2">2.</span> PI calculator Parallel</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-C" id="orge5d3c2a"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;math.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;pthread.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;sys/time.h&gt;</span>
+
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">999999999</span>
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">T</span> <span style="color: #f78c6c; font-weight: bold;">20</span> <span style="color: #676E95;">// </span><span style="color: #676E95;">Number of threads</span>
+
+<span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">dx</span>;
+<span style="color: #c792ea;">pthread_mutex_t</span> <span style="color: #ffcb6b;">mutex</span>;
+<span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">area</span> = <span style="color: #f78c6c; font-weight: bold;">0.0</span>;
+
+<span style="color: #89DDFF;">struct</span> <span style="color: #c792ea;">thread_data</span> {
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">start</span>;
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">end</span>;
+};
+
+<span style="color: #c792ea;">void</span> *<span style="color: #82aaff;">compute_area</span>(<span style="color: #c792ea;">void</span> *<span style="color: #ffcb6b;">arg</span>) {
+    <span style="color: #89DDFF;">struct</span> <span style="color: #c792ea;">thread_data</span> *<span style="color: #ffcb6b;">data</span> = (<span style="color: #89DDFF;">struct</span> <span style="color: #c792ea;">thread_data</span> *)arg;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">local_area</span> = <span style="color: #f78c6c; font-weight: bold;">0.0</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">x</span>, <span style="color: #ffcb6b;">y</span>;
+
+    <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = data-&gt;start; i &lt; data-&gt;end; i++) {
+        x = (i + <span style="color: #f78c6c; font-weight: bold;">0.5</span>) * dx; <span style="color: #676E95;">// </span><span style="color: #676E95;">Midpoint of the interval</span>
+        y = sqrt(<span style="color: #f78c6c; font-weight: bold;">1</span> - x * x);
+        local_area += y * dx;
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Acquire mutex before updating global area</span>
+    pthread_mutex_lock(&amp;mutex);
+    area += local_area;
+    pthread_mutex_unlock(&amp;mutex);
+
+    pthread_exit(<span style="color: #f78c6c;">NULL</span>);
+}
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>() {
+    <span style="color: #c792ea;">pthread_t</span> <span style="color: #ffcb6b;">threads</span>[T];
+    <span style="color: #89DDFF;">struct</span> <span style="color: #c792ea;">thread_data</span> <span style="color: #ffcb6b;">thread_data_array</span>[T];
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">pi</span>, <span style="color: #ffcb6b;">exe_time</span>;
+    <span style="color: #89DDFF;">struct</span> <span style="color: #c792ea;">timeval</span> <span style="color: #ffcb6b;">start_time</span>, <span style="color: #ffcb6b;">stop_time</span>;
+
+    dx = <span style="color: #f78c6c; font-weight: bold;">1.0</span> / N;
+
+    gettimeofday(&amp;start_time, <span style="color: #f78c6c;">NULL</span>);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Initialize mutex</span>
+    pthread_mutex_init(&amp;mutex, <span style="color: #f78c6c;">NULL</span>);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Create threads</span>
+    <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">t</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; t &lt; T; t++) {
+        thread_data_array[t].start = t * (N / T);
+        thread_data_array[t].end = (t + <span style="color: #f78c6c; font-weight: bold;">1</span>) * (N / T);
+        pthread_create(&amp;threads[t], <span style="color: #f78c6c;">NULL</span>, compute_area, (<span style="color: #c792ea;">void</span> *)&amp;thread_data_array[t]);
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Join threads</span>
+    <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">t</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; t &lt; T; t++) {
+        pthread_join(threads[t], <span style="color: #f78c6c;">NULL</span>);
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Destroy mutex</span>
+    pthread_mutex_destroy(&amp;mutex);
+
+    gettimeofday(&amp;stop_time, <span style="color: #f78c6c;">NULL</span>);
+    exe_time = (stop_time.tv_sec + (stop_time.tv_usec / <span style="color: #f78c6c; font-weight: bold;">1000000.0</span>)) - (start_time.tv_sec + (start_time.tv_usec / <span style="color: #f78c6c; font-weight: bold;">1000000.0</span>));
+
+    pi = <span style="color: #f78c6c; font-weight: bold;">4.0</span> * area;
+    printf(<span style="color: #c3e88d;">"\nValue of pi is = %.16lf\nExecution time is = %lf seconds\n"</span>, pi, exe_time);
+
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+
+</pre>
+</div>
+</div>
+<div id="outline-container-org26936cb" class="outline-3">
+<h3 id="org26936cb"><span class="section-number-3">2.1.</span> Compile</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+<pre class="src src-bash">gcc -o pi_parallel.out pi_parallel.c -lm -lpthread
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org7ce2d5e" class="outline-3">
+<h3 id="org7ce2d5e"><span class="section-number-3">2.2.</span> Run</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+<pre class="src src-bash">./pi_parallel.out
+</pre>
+</div>
+
+<pre class="example">
+
+Value of pi is = 3.1415926535799135
+Execution time is = 0.596960 seconds
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8af858b" class="outline-2">
+<h2 id="org8af858b"><span class="section-number-2">3.</span> Introduction to DPDK and SPDK</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgcbe493a" class="outline-3">
+<h3 id="orgcbe493a"><span class="section-number-3">3.1.</span> DPDK (Data Plane Development Kit)</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+DPDK is a set of libraries and drivers for fast packet processing. It enables user-space applications to perform low-latency and high-throughput networking. It&rsquo;s widely used in telecom, data centers, and other networking solutions.
+</p>
+</div>
+<div id="outline-container-orgb0f9138" class="outline-4">
+<h4 id="orgb0f9138"><span class="section-number-4">3.1.1.</span> Key Points:</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<ul class="org-ul">
+<li>High Performance: Achieves high packet processing rates.</li>
+<li>User-Space Drivers: Bypasses the kernel network stack, leading to reduced latency.</li>
+<li>Core Components: Includes libraries for memory management, queues, ring buffers, and poll mode drivers for various NICs.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org4a18b3e" class="outline-3">
+<h3 id="org4a18b3e"><span class="section-number-3">3.2.</span> SPDK (Storage Performance Development Kit)</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+SPDK is a set of tools and libraries for writing high-performance, scalable, user-mode storage applications. It leverages DPDK for high-speed, low-latency operations.
+</p>
+</div>
+<div id="outline-container-org8d76363" class="outline-4">
+<h4 id="org8d76363"><span class="section-number-4">3.2.1.</span> Key Points:</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<ul class="org-ul">
+<li>High Performance: Focused on NVMe and NVMe over Fabrics (NVMe-oF).</li>
+<li>User-Space Drivers: Provides user-space NVMe drivers, bypassing the kernel.</li>
+<li>Core Components: Includes libraries for NVMe, NVMe-oF, iSCSI, vhost, and blob storage.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org8c7ec18" class="outline-2">
+<h2 id="org8c7ec18"><span class="section-number-2">4.</span> Detailed Overview and Resources</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org7a10403" class="outline-3">
+<h3 id="org7a10403"><span class="section-number-3">4.1.</span> DPDK</h3>
+<div class="outline-text-3" id="text-4-1">
+</div>
+<div id="outline-container-orge28040f" class="outline-4">
+<h4 id="orge28040f"><span class="section-number-4">4.1.1.</span> 1.1 What is DPDK?</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<ul class="org-ul">
+<li>Definition: DPDK is a set of libraries and drivers for fast packet processing in user space.</li>
+<li>History: Originally developed by Intel and now an open-source project under the Linux Foundation.</li>
+<li>Importance: Enables high-throughput and low-latency networking, essential for data centers, telecoms, and enterprise networks.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf0f38f8" class="outline-4">
+<h4 id="orgf0f38f8"><span class="section-number-4">4.1.2.</span> 1.2 DPDK Architecture</h4>
+<div class="outline-text-4" id="text-4-1-2">
+<ul class="org-ul">
+<li>Core Components:
+<ul class="org-ul">
+<li>EAL (Environment Abstraction Layer): Provides a standard interface for hardware and memory operations.</li>
+<li>MBUF Library: Manages memory buffers used for packet storage.</li>
+<li>RTE Ring: Implements lockless ring buffers.</li>
+<li>Poll Mode Drivers (PMD): Provides drivers for NICs, bypassing the kernel network stack.</li>
+</ul></li>
+<li>User-Space vs Kernel-Space:
+<ul class="org-ul">
+<li>User-Space: Reduces context switches, leading to lower latency and higher throughput.</li>
+<li>Kernel-Space: Traditional networking stack with higher latency due to kernel overhead.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbae9a84" class="outline-4">
+<h4 id="orgbae9a84"><span class="section-number-4">4.1.3.</span> 1.3 Setting Up DPDK</h4>
+<div class="outline-text-4" id="text-4-1-3">
+<ul class="org-ul">
+<li>Hardware Requirements: Modern CPUs with support for large page memory.</li>
+<li>Software Requirements: Compatible Linux kernel, GCC, and make.</li>
+<li>Installation Steps:
+<ol class="org-ol">
+<li>Download the DPDK source code.</li>
+<li>Compile the DPDK libraries.</li>
+<li>Load necessary kernel modules and configure hugepages.</li>
+<li>Bind NICs to DPDK-compatible drivers.</li>
+</ol></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org590a14d" class="outline-3">
+<h3 id="org590a14d"><span class="section-number-3">4.2.</span> SPDK</h3>
+<div class="outline-text-3" id="text-4-2">
+</div>
+<div id="outline-container-org8e15747" class="outline-4">
+<h4 id="org8e15747"><span class="section-number-4">4.2.1.</span> 2.1 What is SPDK?</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<ul class="org-ul">
+<li>Definition: SPDK is a set of tools and libraries for writing high-performance, scalable, user-mode storage applications.</li>
+<li>History: Developed by Intel to improve storage performance and efficiency.</li>
+<li>Importance: Provides user-space NVMe drivers and libraries for building high-performance storage solutions.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org3f77b59" class="outline-4">
+<h4 id="org3f77b59"><span class="section-number-4">4.2.2.</span> 2.2 SPDK Architecture</h4>
+<div class="outline-text-4" id="text-4-2-2">
+<ul class="org-ul">
+<li>Core Components:
+<ul class="org-ul">
+<li>NVMe Driver: User-space driver for NVMe devices.</li>
+<li>NVMe-oF Target: Implements NVMe over Fabrics.</li>
+<li>iSCSI Target: Provides iSCSI target functionality.</li>
+<li>Blobstore: Lightweight, user-space blob storage library.</li>
+</ul></li>
+<li>Integration with DPDK: Uses DPDK for memory management and networking.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgffbe6db" class="outline-4">
+<h4 id="orgffbe6db"><span class="section-number-4">4.2.3.</span> 2.3 Setting Up SPDK</h4>
+<div class="outline-text-4" id="text-4-2-3">
+<ul class="org-ul">
+<li>Hardware Requirements: NVMe devices, modern CPUs.</li>
+<li>Software Requirements: Compatible Linux kernel, GCC, and make.</li>
+<li>Installation Steps:
+<ol class="org-ol">
+<li>Download the SPDK source code.</li>
+<li>Compile the SPDK libraries.</li>
+<li>Configure the environment for hugepages and bind NVMe devices to SPDK-compatible drivers.</li>
+</ol></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Abhishek Raj</p>
+<p class="date">Created: 2024-06-28 Fri 14:15</p>
+</div>
+</body>
+</html>
