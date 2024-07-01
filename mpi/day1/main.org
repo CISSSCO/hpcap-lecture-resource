@@ -1,0 +1,377 @@
+#+title: Day1
+#+property: header-args
+
+* Scripts
+** compile script
+#+begin_src bash :tangle compile.sh
+#!/bin/sh
+
+#source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh
+#spack load gcc/5i5y5cb
+#spack load openmpi/c7kvqyq
+source ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+inputFile=$1
+outputFile="${1%.*}.out"      # extract the name of the file without extension and adding extension .out
+#cmd=`mpicc $inputFile -o $outputFile`
+cmd="mpicc $inputFile -o $outputFile"     # running code using MPI
+echo "------------------------------------------------------------------"
+echo "Command executed: $cmd"
+echo "------------------------------------------------------------------"
+$cmd
+
+echo "Compilation successful. Check at $outputFile"
+echo "------------------------------------------------------------------"
+#+end_src
+
+** run script
+#+begin_src bash :tangle run.sh
+#!/bin/sh
+
+#source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh
+#spack load gcc/5i5y5cbc
+source ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+cmd="mpirun -np $2 $1"
+echo "------------------------------------------------------------------"
+echo "Command executed: $cmd"
+echo "------------------------------------------------------------------"
+echo "##################################################################"
+echo "##########                    OUTPUT                    ##########"
+echo "##################################################################"
+echo
+mpirun -np $2 $1
+echo
+echo "##################################################################"
+echo "##########                     DONE                     ##########"
+echo "##################################################################"
+#+end_src
+
+** submit script
+#+begin_src bash :tangle submit.sh
+#!/bin/sh
+
+#mpirun -np 8
+# this is for demo
+
+rank=4
+nodes=1
+
+help(){
+    echo
+    echo "Usage: submit.sh -[flags]"
+    echo "-h                : help"
+    echo "-f <filename>     : enter executable files"
+    echo "-N <nodes>        : enter number of nodes"
+    echo "-r <num>          : enter number of mpi ranks"
+    echo "-p <partition>    : enter partition"
+    echo "-a <account>      : enter account"
+    echo
+}
+
+while getopts 'N:f:a:p:r:h' flag; do
+  case "${flag}" in
+    N) nodes="${OPTARG}" ;;
+        #echo "Nodes = $nodes" ;;
+    a) ac="${OPTARG}" ;;
+       # echo "account = $ac" ;;
+    f) file=${OPTARG} ;;
+    r) rank=${OPTARG} ;;
+
+    p) par="${OPTARG}" ;;
+       # echo "partition = $par" ;;
+    h) help
+        exit 1 ;;
+    *) echo "Invalid flag...(-h for help)"
+       exit 1 ;;
+  esac
+
+
+done
+
+
+   echo "Job has been submitted to param vidya and will execute soon."
+   # If node is specified use it, if not cpu node is default
+        cmd="./run.sh $file $rank"    # changed it so that run.sh will accept first argument
+        #script=$1
+
+        if [ -z "$par" ]; then
+            device=cpu
+        else
+            device=$par
+        fi
+
+        echo "Executing on \"$device\" node"
+        echo ""
+
+        # Remove old output files
+##        rm *.sh.* > /dev/null 2>&1
+        # Submit job using qsub
+        ##qsub_id=`qsub -l nodes=1:$device:ppn=2 -d . $script`
+        #slurm_id=`sbatch -N $nodes --partition=$device $cmd`      # this is original command
+        slurm_id=`sbatch -N $nodes --account=$ac --partition=$device $cmd`
+      ##  slurm_id=`sbatch -N 1 --account=hpctech --partition=cpu  $script`
+        echo $slurm_id
+
+        jobid=$(echo $slurm_id | grep -o -E '[0-9]+')
+
+	#echo $jobid
+        # Print qstat output
+
+        ##qstat
+       # Wait for output file to be generated and display
+        output_file="slurm-"$jobid".out"
+        error_file="slurm-"$jobid".err"
+#        echo $output_file
+        echo -ne "Waiting for Output "
+
+        until [ -f $output_file ]; do
+            sleep 1
+            echo -ne "█"
+            ((timeout++))
+            # Timeout if no output file generated within 60 seconds
+            if [ $timeout == 60 ]; then
+                echo ""
+                echo ""
+                echo "TimeOut 60 seconds: Job is still queued for execution, check for output file later ($output_file)"
+                echo ""
+                exit
+               # break
+            fi
+         done
+
+    ### Checking the job status
+             # echo " befor loop"
+            # until [ false ]; do
+              while [ true ]; do
+              # echo "inside loop"
+               sleep 1
+              # (( count++))
+              # echo $count
+               jobstate=`sacct -X -j $jobid --format=state`
+               job_status=${jobstate##*-}
+               if [ $job_status == "COMPLETED" ];then
+                    echo ""
+                    echo "---------------------------------"
+                    echo "Your job is Completed "
+                    echo "---------------------------------"
+                    cat $output_file
+                    break
+               fi
+
+               if [ $job_status == "FAILED" ];then
+                    echo ""
+                    echo "---------------------------------"
+                    echo "Your job execution is Failed."
+                    echo "Request you to resubmit your job or check the error file ($error_file)."
+                    echo "Please contact admin if no error file genrated"
+                    echo "---------------------------------"
+
+                    if [ -f $error_file ];then
+                      echo "-----------------------------"
+                      echo "      Error File Output."
+                      echo "-----------------------------"
+                      echo ""
+                      echo ""
+                      cat $error__file
+                   fi
+                   break
+               fi
+               echo -ne "█"
+             done
+        #    echo " after loop"
+
+     # Print output and error file content if exist
+     #   if [ -n "$(find -name $output_file)" ]; then
+
+          #  echo " Done"
+     #       cat $output_file
+            ##cat $error_file
+     #       echo "Job Completed in $timeout seconds."
+           # rm *.sh.*$job_id > /dev/null 2>&1
+     #   fi
+   ##  abc=`squeue --job $jobid`
+#abc=`scontrol show job $jobid | grep "JobState"`
+#jobstate=`sacct -X -j $jobid --format=state`
+#job_status=${jobstate##*-}
+    #echo $jobstate
+    #echo $job_status
+
+ #  sbatch $1
+
+#+end_src
+* Hello World
+** Hello World in C
+#+name: hello.c
+#+begin_src C :tangle hello.c :results output :exports both
+#include<stdio.h>
+int main(){
+    printf("Hello World\n");
+    return 0;
+}
+
+#+end_src
+
+#+results: hello.c
+: hello world
+
+** Hello World just by using MPI
+#+name: hello_mpi.c
+#+begin_src C :tangle hello_mpi.c :results output :exports both
+#include<stdio.h>
+int main(){
+    printf("Hello World\n");
+    return 0;
+}
+
+#+end_src
+
+#+name: compile hello_mpi.c
+#+begin_src bash :results output :exports both
+bash compile.sh hello_mpi.c
+#+end_src
+
+#+RESULTS: compile hello_mpi.c
+: ------------------------------------------------------------------
+: Command executed: mpicc hello_mpi.c -o hello_mpi.out
+: ------------------------------------------------------------------
+: Compilation successful. Check at hello_mpi.out
+: ------------------------------------------------------------------
+
+#+name: run hello_mpi.out
+#+begin_src bash :results output :exports both
+bash run.sh ./hello_mpi.out 6
+#+end_src
+
+#+RESULTS: run hello_mpi.out
+#+begin_example
+------------------------------------------------------------------
+Command executed: mpirun -np 6 ./hello_mpi.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+Hello World
+Hello World
+Hello World
+Hello World
+Hello World
+Hello World
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+#+end_example
+
+** Hello World with MPI routines
+#+name: hello_mpi_processes.c
+#+begin_src C :tangle hello_mpi_processes.c :results output :exports both
+#include<stdio.h>
+#include<mpi.h>         // for using mpi functions
+int main(){
+    int size, rank;
+    MPI_Init(NULL, NULL);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    printf("Hello from process %d\n", rank);
+    MPI_Finalize();
+    return 0;
+}
+#+end_src
+
+#+name: compile hello_mpi_processes.c
+#+begin_src bash :results output :exports both
+bash compile.sh hello_mpi_processes.c
+#+end_src
+
+#+RESULTS: compile hello_mpi_processes.c
+: ------------------------------------------------------------------
+: Command executed: mpicc hello_mpi_processes.c -o hello_mpi_processes.out
+: ------------------------------------------------------------------
+: Compilation successful. Check at hello_mpi_processes.out
+: ------------------------------------------------------------------
+
+#+name: run hello_mpi_processes.out
+#+begin_src bash :results output :exports both
+bash run.sh ./hello_mpi_processes.out 8
+#+end_src
+
+#+RESULTS: run hello_mpi_processes.out
+#+begin_example
+------------------------------------------------------------------
+Command executed: mpirun -np 8 ./hello_mpi_processes.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+Hello from process 1
+Hello from process 0
+Hello from process 7
+Hello from process 2
+Hello from process 6
+Hello from process 5
+Hello from process 4
+Hello from process 3
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+#+end_example
+
+** Hello from only even rank of processes
+#+name: hello_mpi_even_processes.c
+#+begin_src C :tangle hello_mpi_even_processes.c :exports both
+#include<stdio.h>
+#include<mpi.h>         // for using mpi functions
+int main(){
+    int size, rank;
+    MPI_Init(NULL, NULL);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    if(rank % 2 == 0)
+        printf("Hello from process %d\n", rank);
+    MPI_Finalize();
+    return 0;
+}
+#+end_src
+
+#+name: compile hello_mpi_even_processes.c
+#+begin_src bash :results output :exports both
+bash compile.sh hello_mpi_even_processes.c
+#+end_src
+
+#+RESULTS: compile hello_mpi_even_processes.c
+: ------------------------------------------------------------------
+: Command executed: mpicc hello_mpi_even_processes.c -o hello_mpi_even_processes.out
+: ------------------------------------------------------------------
+: Compilation successful. Check at hello_mpi_even_processes.out
+: ------------------------------------------------------------------
+
+#+name: run hello_mpi_even_processes.out
+#+begin_src bash :results output :exports both
+bash run.sh ./hello_mpi_even_processes.out 10
+#+end_src
+
+#+RESULTS: run hello_mpi_even_processes.out
+#+begin_example
+------------------------------------------------------------------
+Command executed: mpirun -np 10 ./hello_mpi_even_processes.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+Hello from process 0
+Hello from process 4
+Hello from process 6
+Hello from process 2
+Hello from process 8
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+#+end_example
