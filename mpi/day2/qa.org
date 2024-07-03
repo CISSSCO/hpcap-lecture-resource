@@ -1,0 +1,201 @@
+#+title: Q/A
+
+* MPI and Related Concepts
+** Q1: What is shared memory?
+A1: Shared memory is a memory accessible by multiple processors within a single computer system, allowing them to read and write to a common address space.
+
+** Q2: What is distributed memory?
+A2: Distributed memory refers to a memory architecture where each processor has its own private memory. Processors communicate by passing messages over a network.
+
+** Q3: What is a cluster system?
+A3: A cluster system is a set of loosely or tightly connected computers that work together so that they can be viewed as a single system. Clusters are used for parallel processing.
+
+** Q4: What do you mean by UMA?
+A4: UMA (Uniform Memory Access) is a memory architecture where the access time to any memory location is the same for all processors.
+
+** Q5: What do you mean by NUMA?
+A5: NUMA (Non-Uniform Memory Access) is a memory architecture where the access time varies depending on the memory location relative to the processor. Local memory access is faster than remote memory access.
+
+** Q6: What is the main difference between shared memory and distributed memory?
+A6: The main difference is that in shared memory, all processors access a common memory space, whereas in distributed memory, each processor has its own private memory and communicates with others via message passing.
+
+** Q7: What is the purpose of MPI?
+A7: MPI (Message Passing Interface) is a standardized and portable message-passing system designed to facilitate communication between processes in parallel computing environments.
+
+** Q8: What is the function of MPI_Init?
+A8: MPI_Init initializes the MPI execution environment. It must be called before any other MPI function.
+
+** Q9: What is the function of MPI_Finalize?
+A9: MPI_Finalize terminates the MPI execution environment. It should be the last MPI call in an MPI program.
+
+** Q10: What does MPI_COMM_WORLD represent?
+A10: MPI_COMM_WORLD is the default communicator that includes all the processes in an MPI program.
+
+** Q11: How do you get the rank of a process in MPI?
+A11: You can get the rank of a process using the `MPI_Comm_rank` function.
+
+** Q12: How do you get the number of processes in MPI?
+A12: You can get the number of processes using the `MPI_Comm_size` function.
+
+** Q13: What is the difference between MPI_Send and MPI_Recv?
+A13: MPI_Send is used to send a message to another process, while MPI_Recv is used to receive a message from another process.
+* Advanced Parallel Programming: Questions and Answers
+** Concepts and Definitions
+
+*** Q1: What is synchronization in parallel programming?
+A1: Synchronization is the coordination of concurrent processes to ensure correct execution by managing access to shared resources and coordinating the sequence of operations.
+
+*** Q2: What is a race condition?
+A2: A race condition occurs when the outcome of a program depends on the relative timing of events, such as the order in which threads execute.
+
+*** Q3: What is a deadlock?
+A3: A deadlock is a situation in parallel programming where two or more processes are unable to proceed because each is waiting for the other to release resources.
+
+*** Q4: How do you prevent race conditions in parallel programming?
+A4: Race conditions can be prevented by using synchronization mechanisms like mutexes, locks, and critical sections to control access to shared resources.
+
+*** Q5: How do you prevent deadlocks in parallel programming?
+A5: Deadlocks can be prevented by ensuring that all processes follow a consistent resource acquisition order, using timeout mechanisms, or applying deadlock detection and recovery techniques.
+
+*** Q6: Why do we need parallel programming?
+A6: Parallel programming is needed to solve computationally intensive problems more efficiently by dividing tasks across multiple processors, thereby reducing execution time and improving performance.
+
+** MPI Specific
+
+*** Q7: What is the purpose of MPI_Init_thread?
+A7: MPI_Init_thread initializes the MPI execution environment with a specified level of thread support, allowing for concurrent execution of multiple threads in an MPI program.
+
+*** Q8: What is the use of MPI_Barrier?
+A8: MPI_Barrier is a synchronization operation that blocks all processes in a communicator until all of them have reached the barrier, ensuring that all processes synchronize at this point.
+
+*** Q9: How does MPI_Gather work?
+A9: MPI_Gather collects data from all processes in a communicator and gathers it to a single process. Each process sends data to the root process, which gathers all the data into a single array.
+
+*** Q10: Explain MPI_Scatter.
+A10: MPI_Scatter distributes data from one process to all other processes in a communicator. The root process divides the data into equal parts and sends each part to a different process.
+
+*** Q11: What is MPI_Allgather?
+A11: MPI_Allgather is a collective communication operation where all processes gather data from each other, resulting in each process having the complete set of data.
+
+*** Q12: Describe MPI_Reduce.
+A12: MPI_Reduce performs a reduction operation (e.g., sum, max, min) on data from all processes in a communicator and returns the result to a single process.
+
+*** Q13: What is MPI_Ssend?
+A13: MPI_Ssend is a synchronous send operation in MPI where the send operation completes only when the matching receive operation has started.
+
+*** Q14: How does MPI_Irecv differ from MPI_Recv?
+A14: MPI_Irecv is a non-blocking receive operation that allows the program to proceed without waiting for the receive operation to complete, whereas MPI_Recv is a blocking receive operation.
+
+*** Q15: What is the significance of MPI_Wait?
+A15: MPI_Wait is used to wait for the completion of a non-blocking communication operation, ensuring that the operation has completed before proceeding.
+
+** OpenMP Specific
+
+*** Q16: What is OpenMP?
+A16: OpenMP (Open Multi-Processing) is an API for parallel programming in shared memory environments, providing compiler directives, library routines, and environment variables to control parallelism.
+
+*** Q17: How do you parallelize a for loop in OpenMP?
+A17: In OpenMP, a for loop can be parallelized using the `#pragma omp parallel for` directive, which distributes the iterations of the loop across multiple threads.
+
+*** Q18: What is a critical section in OpenMP?
+A18: A critical section in OpenMP is a block of code that must be executed by only one thread at a time, preventing race conditions. It is specified using the `#pragma omp critical` directive.
+
+*** Q19: Explain the use of OpenMP `#pragma omp barrier`.
+A19: The `#pragma omp barrier` directive synchronizes all threads in a parallel region, making each thread wait until all other threads have reached this point.
+
+*** Q20: What is the purpose of the OpenMP `#pragma omp master` directive?
+A20: The `#pragma omp master` directive specifies a block of code that should be executed only by the master thread (thread 0) in a parallel region.
+
+*** Q21: How do you specify the number of threads in an OpenMP program?
+A21: The number of threads in an OpenMP program can be specified using the `omp_set_num_threads()` function or by setting the `OMP_NUM_THREADS` environment variable.
+
+*** Q22: What is OpenMP `#pragma omp single`?
+A22: The `#pragma omp single` directive specifies that a block of code should be executed by only one thread in a team, with all other threads skipping this block.
+
+*** Q23: Describe the `omp_get_thread_num()` function.
+A23: The `omp_get_thread_num()` function returns the thread number (ID) of the calling thread within a parallel region, with thread numbers ranging from 0 to `omp_get_num_threads() - 1`.
+
+*** Q24: What is the `omp_get_num_threads()` function used for?
+A24: The `omp_get_num_threads()` function returns the total number of threads in the current team within a parallel region.
+
+*** Q25: How do you handle dynamic thread adjustment in OpenMP?
+A25: Dynamic thread adjustment in OpenMP can be controlled using the `omp_set_dynamic()` function, allowing the runtime to adjust the number of threads based on workload.
+
+** General Parallel Programming
+
+*** Q26: What is load balancing in parallel programming?
+A26: Load balancing in parallel programming involves distributing work evenly across all processors to maximize utilization and minimize execution time.
+
+*** Q27: What is task parallelism?
+A27: Task parallelism is a type of parallelism where different tasks or functions are executed concurrently, as opposed to data parallelism, which focuses on distributing data across multiple processors.
+
+*** Q28: What is Amdahl's Law?
+A28: Amdahl's Law states that the potential speedup of a parallel program is limited by the sequential portion of the program. It quantifies the impact of the non-parallelizable part on overall performance.
+
+*** Q29: Explain the concept of granularity in parallel programming.
+A29: Granularity refers to the size of tasks in a parallel program. Fine-grained parallelism involves small tasks with frequent communication, while coarse-grained parallelism involves larger tasks with less frequent communication.
+
+*** Q30: What is thread safety?
+A30: Thread safety ensures that shared data structures and resources are accessed correctly when multiple threads are executing concurrently, preventing data corruption and race conditions.
+
+*** Q31: What is false sharing?
+A31: False sharing occurs when threads on different processors modify variables that reside on the same cache line, causing unnecessary cache invalidations and performance degradation.
+
+*** Q32: Describe the use of barriers in parallel programming.
+A32: Barriers are synchronization points where all threads must arrive before any can proceed, ensuring that certain operations are completed by all threads before moving forward.
+
+*** Q33: What is lock contention?
+A33: Lock contention occurs when multiple threads compete for the same lock, leading to increased waiting times and reduced parallel efficiency.
+
+*** Q34: Explain the term "work stealing" in parallel programming.
+A34: Work stealing is a dynamic load balancing technique where idle processors "steal" tasks from busy processors' task queues to improve overall resource utilization and performance.
+
+*** Q35: What is the role of a thread pool?
+A35: A thread pool is a collection of pre-instantiated threads that can be reused to execute multiple tasks, reducing the overhead of creating and destroying threads.
+
+** Advanced Topics
+
+*** Q36: What is SIMD?
+A36: SIMD (Single Instruction, Multiple Data) is a type of parallelism where a single instruction operates on multiple data elements simultaneously, commonly used in vector processing.
+
+*** Q37: What is MIMD?
+A37: MIMD (Multiple Instruction, Multiple Data) refers to a parallel architecture where each processor executes its own instruction stream on its own data, suitable for more complex and diverse workloads.
+
+*** Q38: Describe the concept of data parallelism.
+A38: Data parallelism involves distributing data across multiple processors and performing the same operation on each subset of data simultaneously, enhancing performance for large datasets.
+
+*** Q39: What is task scheduling?
+A39: Task scheduling in parallel programming involves assigning tasks to processors in a way that optimizes resource utilization, load balancing, and execution time.
+
+*** Q40: What is the importance of memory hierarchy in parallel programming?
+A40: Memory hierarchy in parallel programming is important for optimizing data access times and bandwidth, by effectively utilizing caches, main memory, and possibly distributed memory.
+
+*** Q41: Explain the difference between latency and bandwidth.
+A41: Latency is the time it takes to start transferring data, while bandwidth is the rate at which data is transferred. Both are crucial for evaluating the performance of communication in parallel systems.
+
+*** Q42: What is a hybrid parallel programming model?
+A42: A hybrid parallel programming model combines multiple parallel programming paradigms, such as using MPI for inter-node communication and OpenMP for intra-node parallelism.
+
+*** Q43: What are the benefits of using GPU programming?
+A43: GPU programming offers significant performance improvements for data-parallel tasks due to the massive number of cores available, making it ideal for computationally intensive applications like graphics rendering and scientific computations.
+
+*** Q44: What is the difference between strong scaling and weak scaling?
+A44: Strong scaling measures the performance improvement of a fixed-size problem as the number of processors increases, while weak scaling measures performance as the problem size increases proportionally with the number of processors.
+
+*** Q45: What is speculative execution in parallel programming?
+A45: Speculative execution involves executing tasks that may not be needed, based on predicted paths, to reduce waiting times and improve performance. If predictions are incorrect, the results are discarded.
+
+*** Q46: How does transactional memory work?
+A46: Transactional memory simplifies concurrent programming by allowing blocks of code to execute in transactions, ensuring that changes are atomic, consistent, isolated, and durable (ACID properties).
+
+*** Q47: What is the importance of locality in parallel programming?
+A47: Locality refers to accessing data close to the processor to minimize memory access times and improve performance, leveraging spatial and temporal locality in algorithms and data structures.
+
+*** Q48: What is an embarrassingly parallel problem?
+A48: An embarrassingly parallel problem is one that can be easily divided into independent tasks with no need for communication between them, making it straightforward to parallelize.
+
+*** Q49: Explain the role of a scheduler in parallel programming.
+A49: A scheduler in parallel programming assigns tasks to processors, managing the execution order, load balancing, and resource allocation to optimize performance and efficiency.
+
+*** Q50: What is fork-join parallelism?
+A50: Fork-join parallelism is a model where a task is divided (forked) into subtasks that run in parallel, and then the results are combined (joined) once all subtasks are complete.
