@@ -17,7 +17,6 @@ int main(int argc, char **argv) {
             sendBuf[i] = 100 + i * 5 + i; // Initialize the send buffer with some values
         }
     }
-
     // Scatter the data from root process to all processes
     MPI_Scatter(sendBuf, 1, MPI_INT, &recvBuf, 1, MPI_INT, 0, MPI_COMM_WORLD);
 

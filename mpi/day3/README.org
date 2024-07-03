@@ -1,0 +1,917 @@
+#+title: Day3
+
+* Scripts
+** compile script
+#+begin_src bash :tangle compile.sh
+#!/bin/sh
+
+#source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh
+#spack load gcc/5i5y5cb
+#spack load openmpi/c7kvqyq
+source ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+inputFile=$1
+outputFile="${1%.*}.out"      # extract the name of the file without extension and adding extension .out
+#cmd=`mpicc $inputFile -o $outputFile`
+cmd="mpicc $inputFile -o $outputFile"     # running code using MPI
+echo "------------------------------------------------------------------"
+echo "Command executed: $cmd"
+echo "------------------------------------------------------------------"
+$cmd
+
+echo "Compilation successful. Check at $outputFile"
+echo "------------------------------------------------------------------"
+#+end_src
+
+** run script
+#+begin_src bash :tangle run.sh
+#!/bin/sh
+
+#source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh
+#spack load gcc/5i5y5cbc
+source ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+cmd="mpirun -np $2 $1"
+echo "------------------------------------------------------------------"
+echo "Command executed: $cmd"
+echo "------------------------------------------------------------------"
+echo "##################################################################"
+echo "##########                    OUTPUT                    ##########"
+echo "##################################################################"
+echo
+mpirun -np $2 $1
+echo
+echo "##################################################################"
+echo "##########                     DONE                     ##########"
+echo "##################################################################"
+#+end_src
+
+* MPI Array Sum Calculation Example
+** mpi_array_sum.c
+#+BEGIN_SRC C :tangle mpi_array_sum.c
+#include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv) {
+    MPI_Init(&argc, &argv);
+
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    int size;
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+    int n = 1000000; // Size of the array
+    long *array = NULL;
+    int chunk_size = n / size;
+    long *sub_array = (long*)malloc(chunk_size * sizeof(long));
+
+    if (rank == 0) {
+        array = (long*)malloc(n * sizeof(long));
+        for (int i = 0; i < n; i++) {
+            array[i] = i + 1; // Initialize the array with values 1 to n
+        }
+
+        // Distribute chunks of the array to other processes
+        for (int i = 1; i < size; i++) {
+            MPI_Send(array + i * chunk_size, chunk_size, MPI_LONG, i, 0, MPI_COMM_WORLD);
+        }
+
+        // Copy the first chunk to sub_array
+        for (int i = 0; i < chunk_size; i++) {
+            sub_array[i] = array[i];
+        }
+    } else {
+        // Receive chunk of the array
+        MPI_Recv(sub_array, chunk_size, MPI_LONG, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    }
+
+    // Compute the local sum
+    long local_sum = 0;
+    for (int i = 0; i < chunk_size; i++) {
+        local_sum += sub_array[i];
+    }
+
+    if (rank != 0) {
+        // Send local sum to process 0
+        MPI_Send(&local_sum, 1, MPI_LONG, 0, 0, MPI_COMM_WORLD);
+    } else {
+        // Process 0 receives the local sums and computes the final sum
+        long final_sum = local_sum;
+        long temp_sum;
+        for (int i = 1; i < size; i++) {
+            MPI_Recv(&temp_sum, 1, MPI_LONG, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            final_sum += temp_sum;
+        }
+        printf("The total sum of array elements is %ld\n", final_sum);
+    }
+
+    free(sub_array);
+    if (rank == 0) {
+        free(array);
+    }
+
+    MPI_Finalize();
+    return 0;
+}
+#+END_SRC
+
+** Compilation and Execution
+- Compile the program:
+  #+BEGIN_SRC sh :exports both :results output
+  bash compile.sh mpi_array_sum.c
+  #+END_SRC
+
+  #+RESULTS:
+  : ------------------------------------------------------------------
+  : Command executed: mpicc mpi_array_sum.c -o mpi_array_sum.out
+  : ------------------------------------------------------------------
+  : Compilation successful. Check at mpi_array_sum.out
+  : ------------------------------------------------------------------
+
+- Run the program:
+  #+BEGIN_SRC sh :exports both :results output
+  bash run.sh ./mpi_array_sum.out 10
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_example
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 10 ./mpi_array_sum.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  The total sum of array elements is 500000500000
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+  #+end_example
+* MPI Array Sum Calculation with Timing
+** Introduction to MPI_Wtime
+`MPI_Wtime` is a function in MPI that returns the elapsed wall-clock time in seconds since an arbitrary point in the past. It is used to measure the performance and execution time of parallel programs.
+
+** Syntax
+#+BEGIN_SRC c
+double MPI_Wtime(void);
+#+END_SRC
+
+** mpi_array_sum_timed.c
+#+BEGIN_SRC C :tangle mpi_array_sum_timed.c
+#include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv) {
+    MPI_Init(&argc, &argv);
+
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    int size;
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+    int n = 1000000; // Size of the array
+    long *array = NULL;
+    int chunk_size = n / size;
+    long *sub_array = (long*)malloc(chunk_size * sizeof(long));
+
+    double start_time, end_time;
+
+    if (rank == 0) {
+        array = (long*)malloc(n * sizeof(long));
+        for (int i = 0; i < n; i++) {
+            array[i] = i + 1; // Initialize the array with values 1 to n
+        }
+
+        // Start timing the computation
+        start_time = MPI_Wtime();
+
+        // Distribute chunks of the array to other processes
+        for (int i = 1; i < size; i++) {
+            MPI_Send(array + i * chunk_size, chunk_size, MPI_LONG, i, 0, MPI_COMM_WORLD);
+        }
+
+        // Copy the first chunk to sub_array
+        for (int i = 0; i < chunk_size; i++) {
+            sub_array[i] = array[i];
+        }
+    } else {
+        // Receive chunk of the array
+        MPI_Recv(sub_array, chunk_size, MPI_LONG, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    }
+
+    // Compute the local sum
+    long local_sum = 0;
+    for (int i = 0; i < chunk_size; i++) {
+        local_sum += sub_array[i];
+    }
+
+    if (rank != 0) {
+        // Send local sum to process 0
+        MPI_Send(&local_sum, 1, MPI_LONG, 0, 0, MPI_COMM_WORLD);
+    } else {
+        // Process 0 receives the local sums and computes the final sum
+        long final_sum = local_sum;
+        long temp_sum;
+        for (int i = 1; i < size; i++) {
+            MPI_Recv(&temp_sum, 1, MPI_LONG, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            final_sum += temp_sum;
+        }
+
+        // Stop timing the computation
+        end_time = MPI_Wtime();
+        printf("The total sum of array elements is %ld\n", final_sum);
+        printf("Time taken: %f seconds\n", end_time - start_time);
+
+        free(array);
+    }
+
+    free(sub_array);
+
+    MPI_Finalize();
+    return 0;
+}
+#+END_SRC
+
+** Compilation and Execution
+- Compile the program:
+  #+BEGIN_SRC sh :exports both :results output
+  bash compile.sh mpi_array_sum_timed.c
+  #+END_SRC
+
+  #+RESULTS:
+  : ------------------------------------------------------------------
+  : Command executed: mpicc mpi_array_sum_timed.c -o mpi_array_sum_timed.out
+  : ------------------------------------------------------------------
+  : Compilation successful. Check at mpi_array_sum_timed.out
+  : ------------------------------------------------------------------
+
+- Run the program:
+  #+BEGIN_SRC sh :exports both :results output
+  bash run.sh ./mpi_array_sum_timed.out 10
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_example
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 10 ./mpi_array_sum_timed.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  The total sum of array elements is 500000500000
+  Time taken: 0.005625 seconds
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+  #+end_example
+
+** Explanation of Timing
+- `MPI_Wtime()`: Returns the current time in seconds. It is called before and after the computation to measure the elapsed time.
+- `start_time = MPI_Wtime();`: Captures the start time before distributing the array.
+- `end_time = MPI_Wtime();`: Captures the end time after collecting the local sums and computing the final sum.
+- `printf("Time taken: %f seconds\n", end_time - start_time);`: Prints the total time taken for the computation.
+
+This updated program measures the time taken to distribute the array, compute local sums, gather the results, and compute the final sum. The timing information helps in evaluating the performance of the parallel program.
+
+* MPI_Scatter
+#+begin_src C :tangle scatter.c
+#include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv) {
+    MPI_Init(&argc, &argv);
+
+    int world_rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+    int world_size;
+    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+
+    int n = 10000; // Size of the array
+    int *array = NULL;
+    int chunk_size = n / world_size;
+    int *sub_array = (int*)malloc(chunk_size * sizeof(int));
+
+    if (world_rank == 0) {
+        array = (int*)malloc(n * sizeof(int));
+        for (int i = 0; i < n; i++) {
+            array[i] = i + 1; // Initialize the array with values 1 to n
+        }
+    }
+
+    // Scatter the chunks of the array to all processes
+    MPI_Scatter(array, chunk_size, MPI_INT, sub_array, chunk_size, MPI_INT, 0, MPI_COMM_WORLD);
+
+    // Compute the local sum
+    int local_sum = 0;
+    for (int i = 0; i < chunk_size; i++) {
+        local_sum += sub_array[i];
+    }
+
+    // Gather all local sums to the root process
+    int final_sum = 0;
+    MPI_Reduce(&local_sum, &final_sum, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+
+    if (world_rank == 0) {
+        printf("The total sum of array elements is %d\n", final_sum);
+        free(array);
+    }
+
+    free(sub_array);
+
+    MPI_Finalize();
+    return 0;
+}
+#+end_src
+
+#+begin_src bash :results output :exports both
+bash compile.sh scatter.c
+#+end_src
+
+#+RESULTS:
+: ------------------------------------------------------------------
+: Command executed: mpicc scatter.c -o scatter.out
+: ------------------------------------------------------------------
+: Compilation successful. Check at scatter.out
+: ------------------------------------------------------------------
+
+#+begin_src bash :results output :exports both
+bash run.sh ./scatter.out 10
+#+end_src
+
+#+RESULTS:
+#+begin_example
+------------------------------------------------------------------
+Command executed: mpirun -np 10 ./scatter.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+The total sum of array elements is 50005000
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+#+end_example
+
+* MPI Scatter Explanation and Example
+** Introduction to MPI_Scatter
+MPI_Scatter is a collective communication operation in MPI used to distribute distinct chunks of data from the root process to all processes in a communicator. Each process, including the root, receives a portion of the data.
+
+** Syntax
+#+BEGIN_SRC c
+int MPI_Scatter(const void *sendbuf, int sendcount, MPI_Datatype sendtype,
+                void *recvbuf, int recvcount, MPI_Datatype recvtype,
+                int root, MPI_Comm comm);
+#+END_SRC
+
+- `sendbuf`: Starting address of the send buffer (used only by the root process).
+- `sendcount`: Number of elements sent to each process.
+- `sendtype`: Data type of send buffer elements.
+- `recvbuf`: Starting address of the receive buffer.
+- `recvcount`: Number of elements in the receive buffer.
+- `recvtype`: Data type of receive buffer elements.
+- `root`: Rank of the root process.
+- `comm`: Communicator.
+
+** Example Code Explanation
+
+#+BEGIN_SRC c :tangle mpi_scatter.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <mpi.h>
+
+int main(int argc, char **argv) {
+    int i, myid, size;
+    int *sendBuf, recvBuf;
+    MPI_Status status;
+
+    MPI_Init(&argc, &argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &myid);
+
+    if (myid == 0) {
+        sendBuf = (int*)malloc(size * sizeof(int));
+        for (i = 0; i < size; i++) {
+            sendBuf[i] = 100 + i * 5 + i; // Initialize the send buffer with some values
+        }
+    }
+    // Scatter the data from root process to all processes
+    MPI_Scatter(sendBuf, 1, MPI_INT, &recvBuf, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+    if (myid == 0) printf("Message broadcasted are: \n");
+    printf("Process %d has %d\n", myid, recvBuf);
+
+    if (myid == 0) free(sendBuf);
+
+    MPI_Finalize();
+    return 0;
+}
+#+END_SRC
+
+** Code Explanation
+- `MPI_Init(&argc, &argv);`: Initializes the MPI execution environment.
+- `MPI_Comm_size(MPI_COMM_WORLD, &size);`: Gets the number of processes.
+- `MPI_Comm_rank(MPI_COMM_WORLD, &myid);`: Gets the rank of the current process.
+
+** Root Process (myid == 0)
+- `sendBuf = (int*)malloc(size * sizeof(int));`: Allocates memory for the send buffer.
+- `for (i = 0; i < size; i++) { sendBuf[i] = 100 + i * 5 + i; }`: Initializes the send buffer with values.
+
+** All Processes
+- `MPI_Scatter(sendBuf, 1, MPI_INT, &recvBuf, 1, MPI_INT, 0, MPI_COMM_WORLD);`: Distributes one element of type `MPI_INT` from the send buffer of the root process to the receive buffer of each process.
+
+** Printing the Results
+- Each process prints its received value.
+- `if (myid == 0) free(sendBuf);`: Frees the allocated memory on the root process.
+- `MPI_Finalize();`: Terminates the MPI execution environment.
+
+** Compilation and Execution
+- Compile the program:
+  #+BEGIN_SRC sh :exports both :results output
+  bash compile.sh mpi_scatter.c
+  #+END_SRC
+
+  #+RESULTS:
+  : ------------------------------------------------------------------
+  : Command executed: mpicc mpi_scatter.c -o mpi_scatter.out
+  : ------------------------------------------------------------------
+  : Compilation successful. Check at mpi_scatter.out
+  : ------------------------------------------------------------------
+
+- Run the program:
+  #+BEGIN_SRC sh :exports both :results output
+  bash run.sh ./mpi_scatter.out 10
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_example
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 10 ./mpi_scatter.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  Process 8 has 148
+  Process 2 has 112
+  Process 4 has 124
+  Process 9 has 154
+  Process 3 has 118
+  Process 5 has 130
+  Message broadcasted are:
+  Process 0 has 100
+  Process 1 has 106
+  Process 6 has 136
+  Process 7 has 142
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+  #+end_example
+
+This example demonstrates how to use `MPI_Scatter` to distribute individual elements from an array on the root process to all processes in the communicator. Each process receives one element and prints it.
+* MPI Scatter and Reduce Example with long datatype
+* mpi_scatter_reduce_long.c
+#+BEGIN_SRC c :tangle mpi_scatter_reduce_long.c
+#include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv) {
+    MPI_Init(&argc, &argv);
+
+    int world_rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+    int world_size;
+    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+
+    long n = 1000000; // Size of the array
+    long *array = NULL;
+    long chunk_size = n / world_size;
+    long *sub_array = (long*)malloc(chunk_size * sizeof(long));
+
+    if (world_rank == 0) {
+        array = (long*)malloc(n * sizeof(long));
+        for (long i = 0; i < n; i++) {
+            array[i] = i + 1; // Initialize the array with values 1 to n
+        }
+    }
+
+    // Scatter the chunks of the array to all processes
+    MPI_Scatter(array, chunk_size, MPI_LONG, sub_array, chunk_size, MPI_LONG, 0, MPI_COMM_WORLD);
+
+    // Compute the local sum
+    long local_sum = 0;
+    for (long i = 0; i < chunk_size; i++) {
+        local_sum += sub_array[i];
+    }
+
+    // Gather all local sums to the root process
+    long final_sum = 0;
+    MPI_Reduce(&local_sum, &final_sum, 1, MPI_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+
+    if (world_rank == 0) {
+        printf("The total sum of array elements is %ld\n", final_sum);
+        free(array);
+    }
+
+    free(sub_array);
+
+    MPI_Finalize();
+    return 0;
+}
+#+END_SRC
+
+** Compilation and Execution
+- Compile the program:
+  #+BEGIN_SRC sh :exports both :results output
+  bash compile.sh mpi_scatter_reduce_long.c
+  #+END_SRC
+
+  #+RESULTS:
+  : ------------------------------------------------------------------
+  : Command executed: mpicc mpi_scatter_reduce_long.c -o mpi_scatter_reduce_long.out
+  : ------------------------------------------------------------------
+  : Compilation successful. Check at mpi_scatter_reduce_long.out
+  : ------------------------------------------------------------------
+
+- Run the program:
+  #+BEGIN_SRC sh :exports both :results output
+  bash run.sh ./mpi_scatter_reduce_long.out 10
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_example
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 10 ./mpi_scatter_reduce_long.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  The total sum of array elements is 500000500000
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+  #+end_example
+
+In this example, the array is initialized with long integers and the `MPI_Scatter` function is used to distribute chunks of the array to all processes. Each process computes the local sum of its chunk and the `MPI_Reduce` function is used to gather the local sums and compute the final sum in the root process.
+
+* MPI Broadcast and Gather
+** MPI_Bcast Example
+*** mpi_bcast_example.c
+#+BEGIN_SRC c :tangle mpi_bcast.c
+#include <mpi.h>
+#include <stdio.h>
+
+int main(int argc, char** argv) {
+    MPI_Init(&argc, &argv);
+
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    int data;
+    if (rank == 0) {
+        data = 100;  // Root process initializes the data
+    }
+
+    // Broadcast the data from the root process to all processes
+    MPI_Bcast(&data, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+    printf("Process %d received data %d\n", rank, data);
+
+    MPI_Finalize();
+    return 0;
+}
+#+END_SRC
+
+*** Compilation and Execution
+- Compile the program:
+  #+BEGIN_SRC sh :exports both
+  bash compile.sh mpi_bcast.c
+  #+END_SRC
+
+- Run the program:
+  #+BEGIN_SRC sh :exports both
+  bash run.sh ./mpi_bcast.out 5
+  #+END_SRC
+
+In this example, the integer `data` is initialized to 100 in the root process (process 0). The `MPI_Bcast` function is called to broadcast the value of `data` to all processes in the communicator. After the broadcast, each process prints the received value.
+
+** MPI_Gather Example
+*** mpi_gather_example.c
+#+BEGIN_SRC C :tangle mpi_gather.c
+#include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv) {
+    MPI_Init(&argc, &argv);
+    int rank, size;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    int send_data = rank; // Each process sends its rank
+    int *recv_data = NULL;
+    if (rank == 0) {
+        recv_data = (int*)malloc(size * sizeof(int)); // Allocate memory for receiving data
+    }
+    // Gather the data from all processes to the root process
+    MPI_Gather(&send_data, 1, MPI_INT, recv_data, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+    if (rank == 0) {
+        printf("Gathered data at root process: ");
+        for (int i = 0; i < size; i++) {
+            printf("%d ", recv_data[i]);
+        }
+        printf("\n");
+        free(recv_data);
+    }
+    MPI_Finalize();
+    return 0;
+}
+#+END_SRC
+
+*** Compilation and Execution
+- Compile the program:
+  #+BEGIN_SRC bash :exports both :results output
+  bash compile.sh mpi_gather.c
+  #+END_SRC
+
+  #+RESULTS:
+  : ------------------------------------------------------------------
+  : Command executed: mpicc mpi_gather.c -o mpi_gather.out
+  : ------------------------------------------------------------------
+  : Compilation successful. Check at mpi_gather.out
+  : ------------------------------------------------------------------
+
+- Run the program:
+  #+BEGIN_SRC bash :exports both :results output
+  bash run.sh ./mpi_gather.out 4
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_example
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 4 ./mpi_gather.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  Gathered data at root process: 0 1 2 3
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+  #+end_example
+
+In this example, each process sends its rank as `send_data`. The `MPI_Gather` function is called to gather the values of `send_data` from all processes to the `recv_data` array in the root process. After gathering the data, the root process prints the gathered values.
+
+** Summary
+- **`MPI_Bcast`**: Broadcasts data from the root process to all other processes in the communicator.
+- **`MPI_Gather`**: Gathers data from all processes in the communicator and collects it at the root process.
+
+These collective communication functions are essential for distributing data and collecting results in parallel programs using MPI.
+ MPI Array Sum Calculation Example using MPI_Scatter
+** mpi_array_sum_scatter.c
+#+BEGIN_SRC c :tangle mpi_array_sum_scatter.c
+#include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv) {
+    MPI_Init(&argc, &argv);
+
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    int size;
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+    int n = 100; // Size of the array
+    int *array = NULL;
+    int chunk_size = n / size;
+    int *sub_array = (int*)malloc(chunk_size * sizeof(int));
+
+    if (rank == 0) {
+        array = (int*)malloc(n * sizeof(int));
+        for (int i = 0; i < n; i++) {
+            array[i] = i + 1; // Initialize the array with values 1 to n
+        }
+    }
+
+    // Scatter the chunks of the array to all processes
+    MPI_Scatter(array, chunk_size, MPI_INT, sub_array, chunk_size, MPI_INT, 0, MPI_COMM_WORLD);
+
+    // Compute the local sum
+    int local_sum = 0;
+    for (int i = 0; i < chunk_size; i++) {
+        local_sum += sub_array[i];
+    }
+
+    // Gather all local sums to the root process
+    int final_sum = 0;
+    MPI_Reduce(&local_sum, &final_sum, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+
+    if (rank == 0) {
+        printf("The total sum of array elements is %d\n", final_sum);
+        free(array);
+    }
+
+    free(sub_array);
+
+    MPI_Finalize();
+    return 0;
+}
+#+END_SRC
+
+** Compilation and Execution
+- Compile the program:
+  #+BEGIN_SRC sh :exports both :results output
+  bash compile.sh mpi_array_sum_scatter.c
+  #+END_SRC
+
+  #+RESULTS:
+  : ------------------------------------------------------------------
+  : Command executed: mpicc mpi_array_sum_scatter.c -o mpi_array_sum_scatter.out
+  : ------------------------------------------------------------------
+  : Compilation successful. Check at mpi_array_sum_scatter.out
+  : ------------------------------------------------------------------
+
+- Run the program:
+  #+BEGIN_SRC sh :exports both :results output
+  bash run.sh ./mpi_array_sum_scatter.out 10
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_example
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 10 ./mpi_array_sum_scatter.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  The total sum of array elements is 5050
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+  #+end_example
+
+* test
+#+begin_src C :tangle test1.c
+#include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv) {
+    MPI_Init(&argc, &argv);
+
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    int size;
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+    int n = 100000; // Size of the array
+    long *array = NULL;
+    int chunk_size = n / size;
+    long *sub_array = (long*)malloc(chunk_size * sizeof(long));
+
+    double start_time, end_time, total_time;
+    double data_transfer_time = 0.0, computation_time = 0.0;
+
+    if (rank == 0) {
+        array = (long*)malloc(n * sizeof(long));
+        for (int i = 0; i < n; i++) {
+            array[i] = i + 1; // Initialize the array with values 1 to n
+        }
+
+        // Start timing the data transfer
+        start_time = MPI_Wtime();
+
+        // Distribute chunks of the array to other processes
+        for (int i = 1; i < size; i++) {
+            MPI_Send(array + i * chunk_size, chunk_size, MPI_LONG, i, 0, MPI_COMM_WORLD);
+        }
+
+        // Stop timing the data transfer
+        end_time = MPI_Wtime();
+        data_transfer_time = end_time - start_time;
+
+        // Copy the first chunk to sub_array
+        for (int i = 0; i < chunk_size; i++) {
+            sub_array[i] = array[i];
+        }
+    } else {
+        // Start timing the data transfer
+        start_time = MPI_Wtime();
+
+        // Receive chunk of the array
+        MPI_Recv(sub_array, chunk_size, MPI_LONG, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+        // Stop timing the data transfer
+        end_time = MPI_Wtime();
+        data_transfer_time = end_time - start_time;
+    }
+
+    // Start timing the computation
+    start_time = MPI_Wtime();
+
+    // Compute the local sum
+    long local_sum = 0;
+    for (int i = 0; i < chunk_size; i++) {
+        local_sum += sub_array[i];
+    }
+
+    // Stop timing the computation
+    end_time = MPI_Wtime();
+    computation_time = end_time - start_time;
+
+    if (rank != 0) {
+        // Send local sum to process 0
+        MPI_Send(&local_sum, 1, MPI_LONG, 0, 0, MPI_COMM_WORLD);
+    } else {
+        // Process 0 receives the local sums and computes the final sum
+        long final_sum = local_sum;
+        long temp_sum;
+
+        // Start timing the data transfer for receiving local sums
+        start_time = MPI_Wtime();
+
+        for (int i = 1; i < size; i++) {
+            MPI_Recv(&temp_sum, 1, MPI_LONG, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            final_sum += temp_sum;
+        }
+
+        // Stop timing the data transfer
+        end_time = MPI_Wtime();
+        data_transfer_time += end_time - start_time;
+
+        printf("The total sum of array elements is %ld\n", final_sum);
+        printf("Time taken for data transfer: %f seconds\n", data_transfer_time);
+        printf("Time taken for computation on process 0: %f seconds\n", computation_time);
+    }
+
+    printf("Process %d time taken for local computation: %f seconds\n", rank, computation_time);
+
+    free(sub_array);
+    if (rank == 0) {
+        free(array);
+    }
+
+    MPI_Finalize();
+    return 0;
+}
+#+end_src
+
+#+begin_src bash :results output :exports both
+bash compile.sh test1.c
+#+end_src
+
+#+RESULTS:
+: ------------------------------------------------------------------
+: Command executed: mpicc test1.c -o test1.out
+: ------------------------------------------------------------------
+: Compilation successful. Check at test1.out
+: ------------------------------------------------------------------
+
+#+begin_src bash :results output :exports both
+bash run.sh ./test1.out 4
+#+end_src
+
+#+RESULTS:
+#+begin_example
+------------------------------------------------------------------
+Command executed: mpirun -np 4 ./test1.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+Process 1 time taken for local computation: 0.000029 seconds
+Process 2 time taken for local computation: 0.000033 seconds
+Process 3 time taken for local computation: 0.000033 seconds
+The total sum of array elements is 5000050000
+Time taken for data transfer: 0.000368 seconds
+Time taken for computation on process 0: 0.000028 seconds
+Process 0 time taken for local computation: 0.000028 seconds
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+#+end_example
+
+
+* Assignment
+- PI calculator using MPI.
+- Prime number calculator using MPI. (Calculate number of primes between 0 to N).
