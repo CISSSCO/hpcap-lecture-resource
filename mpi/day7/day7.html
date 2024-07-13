@@ -1,0 +1,1042 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-07-13 Sat 07:38 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day7</title>
+<meta name="author" content="Abhishek Raj" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Day7</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgbce8a67">1. Scripts</a>
+<ul>
+<li><a href="#orgc78de34">1.1. compile script</a></li>
+<li><a href="#orgd5c154e">1.2. run script</a></li>
+</ul>
+</li>
+<li><a href="#orgab423d3">2. MPI Type Struct with different blocklength</a>
+<ul>
+<li><a href="#org4dee013">2.1. Compilation and Execution</a></li>
+</ul>
+</li>
+<li><a href="#org0a7e91f">3. MPI Packing and Unpacking</a>
+<ul>
+<li><a href="#org9b35390">3.1. Functions</a></li>
+<li><a href="#org9c0e2de">3.2. Syntax</a></li>
+<li><a href="#org53c494e">3.3. Example Code</a></li>
+<li><a href="#orgcfa2b2e">3.4. Explanation</a></li>
+<li><a href="#orgce9d9ae">3.5. Compilation and Execution</a></li>
+</ul>
+</li>
+<li><a href="#orgd722d94">4. MPI Pack Size, Probe, and Get Count</a>
+<ul>
+<li><a href="#org34c26ef">4.1. MPI_Pack_size</a>
+<ul>
+<li><a href="#orgfbafb85">4.1.1. Syntax</a></li>
+<li><a href="#orgdc7a2a0">4.1.2. Example</a></li>
+</ul>
+</li>
+<li><a href="#org51267b1">4.2. MPI_Probe</a>
+<ul>
+<li><a href="#org8477cb5">4.2.1. Syntax</a></li>
+</ul>
+</li>
+<li><a href="#org68df578">4.3. MPI_Get_count</a>
+<ul>
+<li><a href="#org27ac459">4.3.1. Syntax</a></li>
+</ul>
+</li>
+<li><a href="#orgc5c69fc">4.4. Example</a></li>
+<li><a href="#org35dcc76">4.5. Explanation</a></li>
+<li><a href="#orgb1e2738">4.6. Compilation and Execution</a></li>
+</ul>
+</li>
+<li><a href="#orged67023">5. Task</a></li>
+<li><a href="#org2296b0b">6. Task v2</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbce8a67" class="outline-2">
+<h2 id="orgbce8a67"><span class="section-number-2">1.</span> Scripts</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgc78de34" class="outline-3">
+<h3 id="orgc78de34"><span class="section-number-3">1.1.</span> compile script</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
+
+<span style="color: #676E95;">#</span><span style="color: #676E95;">source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load gcc/5i5y5cb</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load openmpi/c7kvqyq</span>
+<span style="color: #82aaff;">source</span> ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+<span style="color: #ffcb6b;">inputFile</span>=$<span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #ffcb6b;">outputFile</span>=<span style="color: #c3e88d;">"</span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">{1%.*}</span><span style="color: #c3e88d;">.out"</span>      <span style="color: #676E95;"># </span><span style="color: #676E95;">extract the name of the file without extension and adding extension .out</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">cmd=`mpicc $inputFile -o $outputFile`</span>
+<span style="color: #ffcb6b;">cmd</span>=<span style="color: #c3e88d;">"mpicc </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">inputFile</span><span style="color: #c3e88d;"> -o </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">outputFile</span><span style="color: #c3e88d;">"</span>     <span style="color: #676E95;"># </span><span style="color: #676E95;">running code using MPI</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Command executed: </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">cmd</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+$<span style="color: #ffcb6b;">cmd</span>
+
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Compilation successful. Check at </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">outputFile</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd5c154e" class="outline-3">
+<h3 id="orgd5c154e"><span class="section-number-3">1.2.</span> run script</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
+
+<span style="color: #676E95;">#</span><span style="color: #676E95;">source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load gcc/5i5y5cbc</span>
+<span style="color: #82aaff;">source</span> ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+<span style="color: #ffcb6b;">cmd</span>=<span style="color: #c3e88d;">"mpirun -np </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">2</span><span style="color: #c3e88d;"> </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">1</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Command executed: </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">cmd</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##########                    OUTPUT                    ##########"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span>
+mpirun -np $<span style="color: #f78c6c; font-weight: bold;">2</span> $<span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #c792ea;">echo</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##########                     DONE                     ##########"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgab423d3" class="outline-2">
+<h2 id="orgab423d3"><span class="section-number-2">2.</span> MPI Type Struct with different blocklength</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stddef.h&gt;</span>
+
+<span style="color: #89DDFF;">typedef</span> <span style="color: #89DDFF;">struct</span> {
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">arr</span>[<span style="color: #f78c6c; font-weight: bold;">3</span>];
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">b</span>;
+    <span style="color: #c792ea;">char</span> <span style="color: #ffcb6b;">c</span>;
+} <span style="color: #c792ea;">my_struct</span>;
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+
+    <span style="color: #89DDFF;">if</span> (size &lt; <span style="color: #f78c6c; font-weight: bold;">2</span>) {
+        fprintf(stderr, <span style="color: #c3e88d;">"World size must be greater than 1 for this example\n"</span>);
+        MPI_Abort(MPI_COMM_WORLD, <span style="color: #f78c6c; font-weight: bold;">1</span>);
+    }
+
+    <span style="color: #c792ea;">my_struct</span> <span style="color: #ffcb6b;">data</span>;
+    <span style="color: #c792ea;">MPI_Datatype</span> <span style="color: #ffcb6b;">struct_type</span>;
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Create the datatype for my_struct</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">blocklengths</span>[<span style="color: #f78c6c; font-weight: bold;">3</span>] = {<span style="color: #f78c6c; font-weight: bold;">2</span>, <span style="color: #f78c6c; font-weight: bold;">1</span>, <span style="color: #f78c6c; font-weight: bold;">1</span>};  <span style="color: #676E95;">// </span><span style="color: #676E95;">Sending part of the array, the double, and the char</span>
+    <span style="color: #c792ea;">MPI_Aint</span> <span style="color: #ffcb6b;">displacements</span>[<span style="color: #f78c6c; font-weight: bold;">3</span>];
+    <span style="color: #c792ea;">MPI_Datatype</span> <span style="color: #ffcb6b;">types</span>[<span style="color: #f78c6c; font-weight: bold;">3</span>] = {MPI_INT, MPI_DOUBLE, MPI_CHAR};
+
+    displacements[<span style="color: #f78c6c; font-weight: bold;">0</span>] = offsetof(my_struct, arr);
+    displacements[<span style="color: #f78c6c; font-weight: bold;">1</span>] = offsetof(my_struct, b);
+    displacements[<span style="color: #f78c6c; font-weight: bold;">2</span>] = offsetof(my_struct, c);
+
+    MPI_Type_create_struct(<span style="color: #f78c6c; font-weight: bold;">3</span>, blocklengths, displacements, types, &amp;struct_type);
+    MPI_Type_commit(&amp;struct_type);
+
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        data.arr[<span style="color: #f78c6c; font-weight: bold;">0</span>] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+        data.arr[<span style="color: #f78c6c; font-weight: bold;">1</span>] = <span style="color: #f78c6c; font-weight: bold;">2</span>;
+        data.arr[<span style="color: #f78c6c; font-weight: bold;">2</span>] = <span style="color: #f78c6c; font-weight: bold;">3</span>;
+        data.b = <span style="color: #f78c6c; font-weight: bold;">3.14</span>;
+        data.c = <span style="color: #c3e88d;">'A'</span>;
+
+        MPI_Send(&amp;data, <span style="color: #f78c6c; font-weight: bold;">1</span>, struct_type, <span style="color: #f78c6c; font-weight: bold;">1</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+        printf(<span style="color: #c3e88d;">"Process 0 has struct: {arr = [%d, %d, %d], b = %.2f, c = %c}\n"</span>, data.arr[<span style="color: #f78c6c; font-weight: bold;">0</span>], data.arr[<span style="color: #f78c6c; font-weight: bold;">1</span>], data.arr[<span style="color: #f78c6c; font-weight: bold;">2</span>], data.b, data.c);
+    } <span style="color: #89DDFF;">else</span> <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">1</span>) {
+        <span style="color: #676E95;">// </span><span style="color: #676E95;">Initialize the struct to zero</span>
+        data.arr[<span style="color: #f78c6c; font-weight: bold;">0</span>] = data.arr[<span style="color: #f78c6c; font-weight: bold;">1</span>] = data.arr[<span style="color: #f78c6c; font-weight: bold;">2</span>] = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+        data.b = <span style="color: #f78c6c; font-weight: bold;">0.0</span>;
+        data.c = <span style="color: #c3e88d;">'0'</span>;
+
+        MPI_Recv(&amp;data, <span style="color: #f78c6c; font-weight: bold;">1</span>, struct_type, <span style="color: #f78c6c; font-weight: bold;">0</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        printf(<span style="color: #c3e88d;">"Process 1 received struct: {arr = [%d, %d, %d], b = %.2f, c = %c}\n"</span>, data.arr[<span style="color: #f78c6c; font-weight: bold;">0</span>], data.arr[<span style="color: #f78c6c; font-weight: bold;">1</span>], data.arr[<span style="color: #f78c6c; font-weight: bold;">2</span>], data.b, data.c);
+    }
+
+    MPI_Type_free(&amp;struct_type);
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org4dee013" class="outline-3">
+<h3 id="org4dee013"><span class="section-number-3">2.1.</span> Compilation and Execution</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash compile.sh mpi_type_struct2.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_type_struct2.c -o mpi_type_struct2.out
+------------------------------------------------------------------
+Compilation successful. Check at mpi_type_struct2.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash run.sh ./mpi_type_struct2.out <span style="color: #f78c6c; font-weight: bold;">2</span>
+</pre>
+</div>
+
+<pre class="example" id="org30bf638">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 2 ./mpi_type_struct2.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  Process 0 has struct: {arr = [1, 2, 3], b = 3.14, c = A}
+  Process 1 received struct: {arr = [1, 2, 0], b = 3.14, c = A}
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+
+<p>
+This example demonstrates how to use `MPI_Type_create_struct` to communicate complex data structures in MPI, specifically how to send parts of an array along with other fields.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org0a7e91f" class="outline-2">
+<h2 id="org0a7e91f"><span class="section-number-2">3.</span> MPI Packing and Unpacking</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+MPI provides mechanisms for packing and unpacking data into a contiguous buffer. This is useful for sending complex data structures without creating a custom MPI datatype. Instead, you manually pack the data into a buffer and then send the buffer.
+</p>
+</div>
+<div id="outline-container-org9b35390" class="outline-3">
+<h3 id="org9b35390"><span class="section-number-3">3.1.</span> Functions</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>`MPI_Pack`: Packs data of different types into a contiguous buffer.</li>
+<li>`MPI_Unpack`: Unpacks data from a contiguous buffer.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9c0e2de" class="outline-3">
+<h3 id="org9c0e2de"><span class="section-number-3">3.2.</span> Syntax</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Pack</span>(<span style="color: #89DDFF;">const</span> <span style="color: #c792ea;">void</span> *<span style="color: #ffcb6b;">inbuf</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">incount</span>, <span style="color: #c792ea;">MPI_Datatype</span> <span style="color: #ffcb6b;">datatype</span>, <span style="color: #c792ea;">void</span> *<span style="color: #ffcb6b;">outbuf</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">outsize</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">position</span>, <span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">comm</span>);
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>`inbuf`: Input buffer containing data to be packed.</li>
+<li>`incount`: Number of elements in the input buffer.</li>
+<li>`datatype`: Datatype of each element in the input buffer.</li>
+<li>`outbuf`: Output buffer to contain packed data.</li>
+<li>`outsize`: Size of the output buffer.</li>
+<li>`position`: Current position in the output buffer (updated by MPI).</li>
+<li>`comm`: Communicator.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Unpack</span>(<span style="color: #89DDFF;">const</span> <span style="color: #c792ea;">void</span> *<span style="color: #ffcb6b;">inbuf</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">insize</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">position</span>, <span style="color: #c792ea;">void</span> *<span style="color: #ffcb6b;">outbuf</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">outcount</span>, <span style="color: #c792ea;">MPI_Datatype</span> <span style="color: #ffcb6b;">datatype</span>, <span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">comm</span>);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org53c494e" class="outline-3">
+<h3 id="org53c494e"><span class="section-number-3">3.3.</span> Example Code</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #89DDFF;">typedef</span> <span style="color: #89DDFF;">struct</span> {
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">a</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">b</span>;
+    <span style="color: #c792ea;">char</span> <span style="color: #ffcb6b;">c</span>;
+} <span style="color: #c792ea;">my_struct</span>;
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+
+    <span style="color: #89DDFF;">if</span> (size &lt; <span style="color: #f78c6c; font-weight: bold;">2</span>) {
+        fprintf(stderr, <span style="color: #c3e88d;">"World size must be greater than 1 for this example\n"</span>);
+        MPI_Abort(MPI_COMM_WORLD, <span style="color: #f78c6c; font-weight: bold;">1</span>);
+    }
+
+    <span style="color: #c792ea;">my_struct</span> <span style="color: #ffcb6b;">data</span>;
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">buffer_size</span>, <span style="color: #ffcb6b;">position</span>;
+    <span style="color: #c792ea;">void</span> *<span style="color: #ffcb6b;">buffer</span>;
+
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        data.a = <span style="color: #f78c6c; font-weight: bold;">42</span>;
+        data.b = <span style="color: #f78c6c; font-weight: bold;">3.14</span>;
+        data.c = <span style="color: #c3e88d;">'A'</span>;
+
+        <span style="color: #676E95;">// </span><span style="color: #676E95;">Calculate the buffer size required for packing</span>
+        MPI_Pack_size(<span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_INT, MPI_COMM_WORLD, &amp;buffer_size);
+        buffer_size += <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">double</span>) + <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">char</span>); <span style="color: #676E95;">// </span><span style="color: #676E95;">Adding the sizes of the other data types</span>
+        buffer = malloc(buffer_size);
+
+        position = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+        MPI_Pack(&amp;data.a, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_INT, buffer, buffer_size, &amp;position, MPI_COMM_WORLD);
+        MPI_Pack(&amp;data.b, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_DOUBLE, buffer, buffer_size, &amp;position, MPI_COMM_WORLD);
+        MPI_Pack(&amp;data.c, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_CHAR, buffer, buffer_size, &amp;position, MPI_COMM_WORLD);
+
+        MPI_Send(buffer, position, MPI_PACKED, <span style="color: #f78c6c; font-weight: bold;">1</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+        printf(<span style="color: #c3e88d;">"Process 0 sent packed data\n"</span>);
+
+        free(buffer);
+    } <span style="color: #89DDFF;">else</span> <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">1</span>) {
+        <span style="color: #c792ea;">MPI_Status</span> <span style="color: #ffcb6b;">status</span>;
+        MPI_Probe(<span style="color: #f78c6c; font-weight: bold;">0</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD, &amp;status);
+        MPI_Get_count(&amp;status, MPI_PACKED, &amp;buffer_size);
+
+        buffer = malloc(buffer_size);
+        MPI_Recv(buffer, buffer_size, MPI_PACKED, <span style="color: #f78c6c; font-weight: bold;">0</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+        position = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+        MPI_Unpack(buffer, buffer_size, &amp;position, &amp;data.a, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_INT, MPI_COMM_WORLD);
+        MPI_Unpack(buffer, buffer_size, &amp;position, &amp;data.b, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_DOUBLE, MPI_COMM_WORLD);
+        MPI_Unpack(buffer, buffer_size, &amp;position, &amp;data.c, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_CHAR, MPI_COMM_WORLD);
+
+        printf(<span style="color: #c3e88d;">"Process 1 received unpacked data: {a = %d, b = %.2f, c = %c}\n"</span>, data.a, data.b, data.c);
+        free(buffer);
+    }
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcfa2b2e" class="outline-3">
+<h3 id="orgcfa2b2e"><span class="section-number-3">3.4.</span> Explanation</h3>
+<div class="outline-text-3" id="text-3-4">
+<ul class="org-ul">
+<li><b><b>Initialization</b></b>: Initialize MPI, get the rank and size of the communicator.</li>
+<li><b><b>Process 0</b></b>:
+<ul class="org-ul">
+<li>Initializes the `data` struct with values.</li>
+<li>Calculates the buffer size required for packing the data using `MPI_Pack_size` and manually adds the sizes of the other data types.</li>
+<li>Allocates memory for the buffer.</li>
+<li>Packs each member of the struct into the buffer using `MPI_Pack`.</li>
+<li>Sends the packed buffer to process 1 using `MPI_Send`.</li>
+<li>Frees the buffer memory.</li>
+</ul></li>
+<li><b><b>Process 1</b></b>:
+<ul class="org-ul">
+<li>Uses `MPI_Probe` to get the size of the incoming message.</li>
+<li>Allocates memory for the buffer based on the received size.</li>
+<li>Receives the packed buffer from process 0 using `MPI_Recv`.</li>
+<li>Unpacks each member of the struct from the buffer using `MPI_Unpack`.</li>
+<li>Prints the unpacked data.</li>
+<li>Frees the buffer memory.</li>
+</ul></li>
+<li><b><b>Finalize</b></b>: Finalize the MPI environment.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgce9d9ae" class="outline-3">
+<h3 id="orgce9d9ae"><span class="section-number-3">3.5.</span> Compilation and Execution</h3>
+<div class="outline-text-3" id="text-3-5">
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash compile.sh mpi_pack_unpack.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_pack_unpack.c -o mpi_pack_unpack.out
+------------------------------------------------------------------
+Compilation successful. Check at mpi_pack_unpack.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash run.sh ./mpi_pack_unpack.out <span style="color: #f78c6c; font-weight: bold;">2</span>
+</pre>
+</div>
+
+<pre class="example" id="org05fc81a">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 2 ./mpi_pack_unpack.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  Process 0 sent packed data
+  Process 1 received unpacked data: {a = 42, b = 3.14, c = A}
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+
+<p>
+This example demonstrates how to use `MPI_Pack` and `MPI_Unpack` to communicate complex data structures in MPI.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd722d94" class="outline-2">
+<h2 id="orgd722d94"><span class="section-number-2">4.</span> MPI Pack Size, Probe, and Get Count</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org34c26ef" class="outline-3">
+<h3 id="org34c26ef"><span class="section-number-3">4.1.</span> MPI_Pack_size</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+MPI_Pack_size is used to calculate the size of the buffer needed to pack a message. This function helps ensure that the buffer you allocate is large enough to hold the packed data.
+</p>
+</div>
+<div id="outline-container-orgfbafb85" class="outline-4">
+<h4 id="orgfbafb85"><span class="section-number-4">4.1.1.</span> Syntax</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Pack_size</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">incount</span>, <span style="color: #c792ea;">MPI_Datatype</span> <span style="color: #ffcb6b;">datatype</span>, <span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">comm</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">size</span>);
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>`incount`: Number of elements in the input buffer.</li>
+<li>`datatype`: Datatype of each element in the input buffer.</li>
+<li>`comm`: Communicator.</li>
+<li>`size`: Pointer to the size of the packed message (output parameter).</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgdc7a2a0" class="outline-4">
+<h4 id="orgdc7a2a0"><span class="section-number-4">4.1.2.</span> Example</h4>
+<div class="outline-text-4" id="text-4-1-2">
+<p>
+Let&rsquo;s calculate the buffer size for packing an integer, a double, and a char.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">size_int</span>, <span style="color: #ffcb6b;">size_double</span>, <span style="color: #ffcb6b;">size_char</span>, <span style="color: #ffcb6b;">total_size</span>;
+    MPI_Pack_size(<span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_INT, MPI_COMM_WORLD, &amp;size_int);
+    MPI_Pack_size(<span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_DOUBLE, MPI_COMM_WORLD, &amp;size_double);
+    MPI_Pack_size(<span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_CHAR, MPI_COMM_WORLD, &amp;size_char);
+
+    total_size = size_int + size_double + size_char;
+    printf(<span style="color: #c3e88d;">"Buffer size required for packing: %d bytes\n"</span>, total_size);
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash compile.sh mpi_pack_size.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_pack_size.c -o mpi_pack_size.out
+------------------------------------------------------------------
+Compilation successful. Check at mpi_pack_size.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash run.sh ./mpi_pack_size.out <span style="color: #f78c6c; font-weight: bold;">2</span>
+</pre>
+</div>
+
+<pre class="example" id="org58f9c58">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 2 ./mpi_pack_size.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  Buffer size required for packing: 13 bytes
+  Buffer size required for packing: 13 bytes
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org51267b1" class="outline-3">
+<h3 id="org51267b1"><span class="section-number-3">4.2.</span> MPI_Probe</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+MPI_Probe allows you to probe for an incoming message without actually receiving it. This can be useful to determine the size of the message and allocate an appropriately sized buffer.
+</p>
+</div>
+<div id="outline-container-org8477cb5" class="outline-4">
+<h4 id="org8477cb5"><span class="section-number-4">4.2.1.</span> Syntax</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Probe</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">source</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">tag</span>, <span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">comm</span>, <span style="color: #c792ea;">MPI_Status</span> *<span style="color: #ffcb6b;">status</span>);
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>`source`: Rank of the source process (or `MPI_ANY_SOURCE` for any source).</li>
+<li>`tag`: Message tag (or `MPI_ANY_TAG` for any tag).</li>
+<li>`comm`: Communicator.</li>
+<li>`status`: Status object that contains information about the message (output parameter).</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org68df578" class="outline-3">
+<h3 id="org68df578"><span class="section-number-3">4.3.</span> MPI_Get_count</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+MPI_Get_count retrieves the number of elements of a specific datatype in a message. This function is often used after probing to determine the exact size of the received message.
+</p>
+</div>
+<div id="outline-container-org27ac459" class="outline-4">
+<h4 id="org27ac459"><span class="section-number-4">4.3.1.</span> Syntax</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Get_count</span>(<span style="color: #89DDFF;">const</span> <span style="color: #c792ea;">MPI_Status</span> *<span style="color: #ffcb6b;">status</span>, <span style="color: #c792ea;">MPI_Datatype</span> <span style="color: #ffcb6b;">datatype</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">count</span>);
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>`status`: Status object returned by `MPI_Probe` or `MPI_Recv`.</li>
+<li>`datatype`: Datatype of each element in the message.</li>
+<li>`count`: Pointer to the number of received elements (output parameter).</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc5c69fc" class="outline-3">
+<h3 id="orgc5c69fc"><span class="section-number-3">4.4.</span> Example</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Let&rsquo;s combine `MPI_Probe` and `MPI_Get_count` to dynamically allocate a buffer for receiving a message.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+
+    <span style="color: #89DDFF;">if</span> (size &lt; <span style="color: #f78c6c; font-weight: bold;">2</span>) {
+        fprintf(stderr, <span style="color: #c3e88d;">"World size must be greater than 1 for this example\n"</span>);
+        MPI_Abort(MPI_COMM_WORLD, <span style="color: #f78c6c; font-weight: bold;">1</span>);
+    }
+
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">data</span>[<span style="color: #f78c6c; font-weight: bold;">5</span>] = {<span style="color: #f78c6c; font-weight: bold;">1</span>, <span style="color: #f78c6c; font-weight: bold;">2</span>, <span style="color: #f78c6c; font-weight: bold;">3</span>, <span style="color: #f78c6c; font-weight: bold;">4</span>, <span style="color: #f78c6c; font-weight: bold;">5</span>};
+        MPI_Send(data, <span style="color: #f78c6c; font-weight: bold;">5</span>, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">1</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+        printf(<span style="color: #c3e88d;">"Process 0 sent data to process 1\n"</span>);
+    } <span style="color: #89DDFF;">else</span> <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">1</span>) {
+        <span style="color: #c792ea;">MPI_Status</span> <span style="color: #ffcb6b;">status</span>;
+        MPI_Probe(<span style="color: #f78c6c; font-weight: bold;">0</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD, &amp;status);
+
+        <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">count</span>;
+        MPI_Get_count(&amp;status, MPI_INT, &amp;count);
+
+        <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">buffer</span> = (<span style="color: #c792ea;">int</span>*)malloc(count * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        MPI_Recv(buffer, count, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+        printf(<span style="color: #c3e88d;">"Process 1 received %d integers:\n"</span>, count);
+        <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; count; i++) {
+            printf(<span style="color: #c3e88d;">"%d "</span>, buffer[i]);
+        }
+        printf(<span style="color: #c3e88d;">"\n"</span>);
+
+        free(buffer);
+    }
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org35dcc76" class="outline-3">
+<h3 id="org35dcc76"><span class="section-number-3">4.5.</span> Explanation</h3>
+<div class="outline-text-3" id="text-4-5">
+<ul class="org-ul">
+<li><b><b>MPI_Pack_size</b></b>:
+<ul class="org-ul">
+<li>This function is called three times to calculate the size required for packing an integer, a double, and a char.</li>
+<li>The sizes are then summed to determine the total buffer size needed for packing.</li>
+</ul></li>
+
+<li><b><b>MPI_Probe</b></b>:
+<ul class="org-ul">
+<li>Process 1 uses `MPI_Probe` to check for an incoming message from process 0 without actually receiving it.</li>
+<li>The `status` object is filled with information about the message.</li>
+</ul></li>
+
+<li><b><b>MPI_Get_count</b></b>:
+<ul class="org-ul">
+<li>`MPI_Get_count` is called to determine the number of integers in the received message using the `status` object from `MPI_Probe`.</li>
+<li>This allows process 1 to dynamically allocate a buffer of the appropriate size.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb1e2738" class="outline-3">
+<h3 id="orgb1e2738"><span class="section-number-3">4.6.</span> Compilation and Execution</h3>
+<div class="outline-text-3" id="text-4-6">
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash compile.sh mpi_probe_get_count.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_probe_get_count.c -o mpi_probe_get_count.out
+------------------------------------------------------------------
+Compilation successful. Check at mpi_probe_get_count.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash run.sh ./mpi_probe_get_count.out <span style="color: #f78c6c; font-weight: bold;">2</span>
+</pre>
+</div>
+
+<pre class="example" id="org784c42e">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 2 ./mpi_probe_get_count.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  Process 0 sent data to process 1
+  Process 1 received 5 integers:
+  1 2 3 4 5 
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orged67023" class="outline-2">
+<h2 id="orged67023"><span class="section-number-2">5.</span> Task</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stddef.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+
+    <span style="color: #89DDFF;">if</span> (size &lt; <span style="color: #f78c6c; font-weight: bold;">2</span>) {
+        fprintf(stderr, <span style="color: #c3e88d;">"World size must be greater than 1 for this example\n"</span>);
+        MPI_Abort(MPI_COMM_WORLD, <span style="color: #f78c6c; font-weight: bold;">1</span>);
+    }
+
+    <span style="color: #89DDFF;">if</span> (rank != <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        MPI_Send(&amp;rank, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+    } <span style="color: #89DDFF;">else</span> {
+        <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">data</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+        MPI_Recv(&amp;data, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        printf(<span style="color: #c3e88d;">"I have received message from process %d\n"</span>, data);
+    }
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash">bash compile.sh mpi_any_src_and_tag.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_any_src_and_tag.c -o mpi_any_src_and_tag.out
+------------------------------------------------------------------
+Compilation successful. Check at mpi_any_src_and_tag.out
+------------------------------------------------------------------
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">bash run.sh ./mpi_any_src_and_tag.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="org9de5af4">
+------------------------------------------------------------------
+Command executed: mpirun -np 10 ./mpi_any_src_and_tag.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+I have received message from process 5
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+</pre>
+</div>
+</div>
+<div id="outline-container-org2296b0b" class="outline-2">
+<h2 id="org2296b0b"><span class="section-number-2">6.</span> Task v2</h2>
+<div class="outline-text-2" id="text-6">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stddef.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+
+    <span style="color: #89DDFF;">if</span> (size &lt; <span style="color: #f78c6c; font-weight: bold;">2</span>) {
+        fprintf(stderr, <span style="color: #c3e88d;">"World size must be greater than 1 for this example\n"</span>);
+        MPI_Abort(MPI_COMM_WORLD, <span style="color: #f78c6c; font-weight: bold;">1</span>);
+    }
+
+    <span style="color: #89DDFF;">if</span> (rank != <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">data</span> = <span style="color: #f78c6c; font-weight: bold;">100</span>;
+        MPI_Send(&amp;data, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+    } <span style="color: #89DDFF;">else</span> {
+        <span style="color: #c792ea;">MPI_Status</span> <span style="color: #ffcb6b;">status</span>;
+        <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">data</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+        MPI_Recv(&amp;data, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &amp;status);
+        printf(<span style="color: #c3e88d;">"I have received message from process %d\n"</span>, status.MPI_SOURCE);
+    }
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash">bash compile.sh mpi_any_src_and_tag.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_any_src_and_tag.c -o mpi_any_src_and_tag.out
+------------------------------------------------------------------
+Compilation successful. Check at mpi_any_src_and_tag.out
+------------------------------------------------------------------
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">bash run.sh ./mpi_any_src_and_tag.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="orgb7dfbf1">
+------------------------------------------------------------------
+Command executed: mpirun -np 10 ./mpi_any_src_and_tag.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+I have received message from process 8
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Abhishek Raj</p>
+<p class="date">Created: 2024-07-13 Sat 07:38</p>
+</div>
+</body>
+</html>
