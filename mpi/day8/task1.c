@@ -4,7 +4,7 @@
 long long sumOfSquares(long long *arr, int size){
     long long sum = 0;
     for(int i = 0; i < size; i++){
-        sum+= arr[i] * arr[i] * 1L;
+        sum+= arr[i] * arr[i];
     }
     return sum;
 }
@@ -12,7 +12,7 @@ long long sumOfSquares(long long *arr, int size){
 long long sum(long long *arr, int size){
     long long sum = 0;
     for(int i = 0; i < size; i++){
-        sum+= arr[i] * 1L;
+        sum+= arr[i];
     }
     return sum;
 }
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     MPI_Comm_size(new_comm, &new_size);
 
     //printf("World Rank: %d, New Rank: %d, New Size: %d\n", world_rank, new_rank, new_size);
-    const int data_size = 1000000;
+    const int data_size = 10000;
     long long data[data_size];
     if(new_rank == 0){
         for(int i = 0; i < data_size; i++){

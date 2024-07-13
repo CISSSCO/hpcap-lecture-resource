@@ -1,0 +1,1797 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-07-13 Sat 07:52 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day8</title>
+<meta name="author" content="Abhishek Raj" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Day8</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org2131b19">1. Scripts</a>
+<ul>
+<li><a href="#orgaa51bd7">1.1. compile script</a></li>
+<li><a href="#orgb9657bd">1.2. run script</a></li>
+</ul>
+</li>
+<li><a href="#org494548b">2. MPI Groups and Communicators</a>
+<ul>
+<li><a href="#org6ec39fb">2.1. Groups</a></li>
+<li><a href="#org63b397f">2.2. Communicators</a></li>
+<li><a href="#orgf0ae07e">2.3. Creating and Managing Groups and Communicators</a></li>
+<li><a href="#org5a35fea">2.4. Difference between Groups and Communicators</a></li>
+<li><a href="#org2a995d6">2.5. MPI Syntax and Functions</a>
+<ul>
+<li><a href="#orge3fa118">2.5.1. MPI_Comm_split</a></li>
+<li><a href="#orga2191ca">2.5.2. MPI_Comm_group</a></li>
+<li><a href="#org42260f8">2.5.3. MPI_Group_incl</a></li>
+<li><a href="#orgc8243a7">2.5.4. MPI_Comm_create_group</a></li>
+<li><a href="#org02985ae">2.5.5. MPI_Group_free</a></li>
+<li><a href="#org0b02885">2.5.6. MPI_Comm_free</a></li>
+</ul>
+</li>
+<li><a href="#org80ce860">2.6. Example: Creating and Using Groups and Communicators</a></li>
+<li><a href="#org5485438">2.7. Explanation</a></li>
+<li><a href="#orgff79b8d">2.8. Compilation and Execution</a></li>
+</ul>
+</li>
+<li><a href="#org14fa1cc">3. Task Parallelism</a>
+<ul>
+<li><a href="#org7bf02bf">3.1. Example: Task Parallelism with Groups and Communicators</a></li>
+<li><a href="#orgc2a8b9a">3.2. Compilation and Execution</a></li>
+<li><a href="#orgd04bae3">3.3. Questions and Answers</a>
+<ul>
+<li><a href="#org0b1cd43">3.3.1. Is there any way for two different groups to communicate with each other?</a></li>
+<li><a href="#orgf9ccdd5">3.3.2. What are the communication mechanisms in different groups and the same group?</a></li>
+<li><a href="#orge4c2076">3.3.3. Do the two groups have the same communicator?</a></li>
+</ul>
+</li>
+<li><a href="#org8146d8c">3.4. Example: Task Parallelism</a></li>
+<li><a href="#org078371c">3.5. Explanation</a></li>
+<li><a href="#orgf1979ba">3.6. Compilation and Execution</a></li>
+<li><a href="#orgbf34032">3.7. Communication between Groups</a></li>
+<li><a href="#orgdff4a67">3.8. Summary</a></li>
+</ul>
+</li>
+<li><a href="#org597c286">4. Task1</a></li>
+<li><a href="#org03070a2">5. PI calculator serial</a></li>
+<li><a href="#org2071a42">6. Parallel Pi Computation Using MPI</a>
+<ul>
+<li><a href="#org3d0d065">6.1. Compilation and Execution</a></li>
+<li><a href="#orgebd62ba">6.2. Explanation</a></li>
+</ul>
+</li>
+<li><a href="#org3edad92">7. Parallel Pi Computation Using MPI</a>
+<ul>
+<li><a href="#orgff1d858">7.1. Compilation and Execution</a></li>
+</ul>
+</li>
+<li><a href="#org3bf6008">8. Prime number count</a></li>
+<li><a href="#orga19ae14">9. Parallel Prime Number Counting Using MPI</a>
+<ul>
+<li><a href="#org58409a1">9.1. Compilation and Execution</a></li>
+<li><a href="#org7b4a07c">9.2. Explanation</a></li>
+</ul>
+</li>
+<li><a href="#orgcedc76b">10. Serial Matrix Addition</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2131b19" class="outline-2">
+<h2 id="org2131b19"><span class="section-number-2">1.</span> Scripts</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgaa51bd7" class="outline-3">
+<h3 id="orgaa51bd7"><span class="section-number-3">1.1.</span> compile script</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
+
+<span style="color: #676E95;">#</span><span style="color: #676E95;">source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load gcc/5i5y5cb</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load openmpi/c7kvqyq</span>
+<span style="color: #82aaff;">source</span> ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+<span style="color: #ffcb6b;">inputFile</span>=$<span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #ffcb6b;">outputFile</span>=<span style="color: #c3e88d;">"</span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">{1%.*}</span><span style="color: #c3e88d;">.out"</span>      <span style="color: #676E95;"># </span><span style="color: #676E95;">extract the name of the file without extension and adding extension .out</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">cmd=`mpicc $inputFile -o $outputFile`</span>
+<span style="color: #ffcb6b;">cmd</span>=<span style="color: #c3e88d;">"mpicc </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">inputFile</span><span style="color: #c3e88d;"> -o </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">outputFile</span><span style="color: #c3e88d;"> -lm"</span>     <span style="color: #676E95;"># </span><span style="color: #676E95;">running code using MPI</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Command executed: </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">cmd</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+$<span style="color: #ffcb6b;">cmd</span>
+
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Compilation successful. Check at </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">outputFile</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb9657bd" class="outline-3">
+<h3 id="orgb9657bd"><span class="section-number-3">1.2.</span> run script</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
+
+<span style="color: #676E95;">#</span><span style="color: #676E95;">source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load gcc/5i5y5cbc</span>
+<span style="color: #82aaff;">source</span> ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+<span style="color: #ffcb6b;">cmd</span>=<span style="color: #c3e88d;">"mpirun -np </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">2</span><span style="color: #c3e88d;"> </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">1</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Command executed: </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">cmd</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##########                    OUTPUT                    ##########"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span>
+mpirun -np $<span style="color: #f78c6c; font-weight: bold;">2</span> $<span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #c792ea;">echo</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##########                     DONE                     ##########"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org494548b" class="outline-2">
+<h2 id="org494548b"><span class="section-number-2">2.</span> MPI Groups and Communicators</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+In MPI, communicators and groups are essential for defining communication contexts and organizing processes. A communicator encapsulates a group of processes that can communicate with each other. Each process within a communicator has a unique rank, starting from 0.
+</p>
+</div>
+<div id="outline-container-org6ec39fb" class="outline-3">
+<h3 id="org6ec39fb"><span class="section-number-3">2.1.</span> Groups</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+A group is an ordered set of processes. Groups are used to define the members of a communicator. Groups are created from existing communicators and can be manipulated using various MPI functions.
+</p>
+</div>
+</div>
+<div id="outline-container-org63b397f" class="outline-3">
+<h3 id="org63b397f"><span class="section-number-3">2.2.</span> Communicators</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+A communicator is a communication domain, and it is the primary context for MPI communication operations. The default communicator, `MPI_COMM_WORLD`, includes all the processes in an MPI program. You can create new communicators with different groups of processes.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf0ae07e" class="outline-3">
+<h3 id="orgf0ae07e"><span class="section-number-3">2.3.</span> Creating and Managing Groups and Communicators</h3>
+<div class="outline-text-3" id="text-2-3">
+<ul class="org-ul">
+<li><b><b>Creating Groups</b></b>:
+You can create a new group from an existing communicator using `MPI_Comm_group`, which extracts the group from a communicator.</li>
+
+<li><b><b>Creating Communicators</b></b>:
+You can create new communicators from existing groups using `MPI_Comm_create` or `MPI_Comm_split`.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org5a35fea" class="outline-3">
+<h3 id="org5a35fea"><span class="section-number-3">2.4.</span> Difference between Groups and Communicators</h3>
+<div class="outline-text-3" id="text-2-4">
+<ul class="org-ul">
+<li><b><b>Groups</b></b>:
+<ul class="org-ul">
+<li>A group is a collection of processes identified by their ranks.</li>
+<li>Groups do not have communication contexts.</li>
+<li>Groups are used to create new communicators.</li>
+</ul></li>
+
+<li><b><b>Communicators</b></b>:
+<ul class="org-ul">
+<li>A communicator includes a group and a communication context.</li>
+<li>Communicators are used for performing communication operations.</li>
+<li>The default communicator, `MPI_COMM_WORLD`, includes all processes.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2a995d6" class="outline-3">
+<h3 id="org2a995d6"><span class="section-number-3">2.5.</span> MPI Syntax and Functions</h3>
+<div class="outline-text-3" id="text-2-5">
+</div>
+<div id="outline-container-orge3fa118" class="outline-4">
+<h4 id="orge3fa118"><span class="section-number-4">2.5.1.</span> MPI_Comm_split</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<p>
+This function splits an existing communicator into multiple, non-overlapping communicators based on the color and key values provided.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Comm_split</span>(<span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">comm</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">color</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">key</span>, <span style="color: #c792ea;">MPI_Comm</span> *<span style="color: #ffcb6b;">newcomm</span>);
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b><b>comm</b></b>: The original communicator.</li>
+<li><b><b>color</b></b>: Determines the group to which a process belongs.</li>
+<li><b><b>key</b></b>: Determines the rank within the new communicator.</li>
+<li><b><b>newcomm</b></b>: The new communicator.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga2191ca" class="outline-4">
+<h4 id="orga2191ca"><span class="section-number-4">2.5.2.</span> MPI_Comm_group</h4>
+<div class="outline-text-4" id="text-2-5-2">
+<p>
+This function retrieves the group associated with a communicator.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Comm_group</span>(<span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">comm</span>, <span style="color: #c792ea;">MPI_Group</span> *<span style="color: #ffcb6b;">group</span>);
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b><b>comm</b></b>: The communicator.</li>
+<li><b><b>group</b></b>: The group associated with the communicator.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org42260f8" class="outline-4">
+<h4 id="org42260f8"><span class="section-number-4">2.5.3.</span> MPI_Group_incl</h4>
+<div class="outline-text-4" id="text-2-5-3">
+<p>
+This function creates a new group from a subset of processes in an existing group.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Group_incl</span>(<span style="color: #c792ea;">MPI_Group</span> <span style="color: #ffcb6b;">group</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">n</span>, <span style="color: #89DDFF;">const</span> <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">ranks</span>[], <span style="color: #c792ea;">MPI_Group</span> *<span style="color: #ffcb6b;">newgroup</span>);
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b><b>group</b></b>: The original group.</li>
+<li><b><b>n</b></b>: Number of ranks in the new group.</li>
+<li><b><b>ranks</b></b>: Array of ranks in the original group to include in the new group.</li>
+<li><b><b>newgroup</b></b>: The new group.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc8243a7" class="outline-4">
+<h4 id="orgc8243a7"><span class="section-number-4">2.5.4.</span> MPI_Comm_create_group</h4>
+<div class="outline-text-4" id="text-2-5-4">
+<p>
+This function creates a new communicator from a group.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Comm_create_group</span>(<span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">comm</span>, <span style="color: #c792ea;">MPI_Group</span> <span style="color: #ffcb6b;">group</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">tag</span>, <span style="color: #c792ea;">MPI_Comm</span> *<span style="color: #ffcb6b;">newcomm</span>);
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b><b>comm</b></b>: The original communicator.</li>
+<li><b><b>group</b></b>: The group defining the new communicator.</li>
+<li><b><b>tag</b></b>: Tag for the new communicator.</li>
+<li><b><b>newcomm</b></b>: The new communicator.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org02985ae" class="outline-4">
+<h4 id="org02985ae"><span class="section-number-4">2.5.5.</span> MPI_Group_free</h4>
+<div class="outline-text-4" id="text-2-5-5">
+<p>
+This function deallocates a group.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Group_free</span>(<span style="color: #c792ea;">MPI_Group</span> *<span style="color: #ffcb6b;">group</span>);
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b><b>group</b></b>: The group to be deallocated.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org0b02885" class="outline-4">
+<h4 id="org0b02885"><span class="section-number-4">2.5.6.</span> MPI_Comm_free</h4>
+<div class="outline-text-4" id="text-2-5-6">
+<p>
+This function deallocates a communicator.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Comm_free</span>(<span style="color: #c792ea;">MPI_Comm</span> *<span style="color: #ffcb6b;">comm</span>);
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b><b>comm</b></b>: The communicator to be deallocated.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org80ce860" class="outline-3">
+<h3 id="org80ce860"><span class="section-number-3">2.6.</span> Example: Creating and Using Groups and Communicators</h3>
+<div class="outline-text-3" id="text-2-6">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">world_rank</span>, <span style="color: #ffcb6b;">world_size</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;world_rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;world_size);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Split the world group into two groups</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">color</span> = world_rank % <span style="color: #f78c6c; font-weight: bold;">2</span>;  <span style="color: #676E95;">// </span><span style="color: #676E95;">Determine color based on rank</span>
+    <span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">new_comm</span>;
+    MPI_Comm_split(MPI_COMM_WORLD, color, world_rank, &amp;new_comm);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Get the new rank and size in the new communicator</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">new_rank</span>, <span style="color: #ffcb6b;">new_size</span>;
+    MPI_Comm_rank(new_comm, &amp;new_rank);
+    MPI_Comm_size(new_comm, &amp;new_size);
+
+    printf(<span style="color: #c3e88d;">"World Rank: %d, New Rank: %d, New Size: %d\n"</span>, world_rank, new_rank, new_size);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Perform some communication within the new communicator</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">send_data</span> = new_rank;
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">recv_data</span>;
+    MPI_Allreduce(&amp;send_data, &amp;recv_data, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+    printf(<span style="color: #c3e88d;">"World Rank: %d, New Comm Sum: %d\n"</span>, world_rank, recv_data);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Free the new communicator and group</span>
+    MPI_Comm_free(&amp;new_comm);
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5485438" class="outline-3">
+<h3 id="org5485438"><span class="section-number-3">2.7.</span> Explanation</h3>
+<div class="outline-text-3" id="text-2-7">
+<ol class="org-ol">
+<li><b><b>Extract World Group</b></b>:
+<ul class="org-ul">
+<li>`MPI_Comm_group` is used to get the group of `MPI_COMM_WORLD`.</li>
+</ul></li>
+
+<li><b><b>Split the Communicator</b></b>:
+<ul class="org-ul">
+<li>`MPI_Comm_split` is used to split `MPI_COMM_WORLD` into two new communicators based on the color value (rank modulo 2).</li>
+<li>This creates two new communicators: one for even ranks and one for odd ranks.</li>
+</ul></li>
+
+<li><b><b>New Rank and Size</b></b>:
+<ul class="org-ul">
+<li>The new rank and size within the new communicator are obtained using `MPI_Comm_rank` and `MPI_Comm_size`.</li>
+</ul></li>
+
+<li><b><b>Communication</b></b>:
+<ul class="org-ul">
+<li>`MPI_Allreduce` is performed within the new communicator to compute the sum of ranks in the new communicator.</li>
+</ul></li>
+
+<li><b><b>Cleanup</b></b>:
+<ul class="org-ul">
+<li>The new communicator and group are freed using `MPI_Comm_free` and `MPI_Group_free`.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgff79b8d" class="outline-3">
+<h3 id="orgff79b8d"><span class="section-number-3">2.8.</span> Compilation and Execution</h3>
+<div class="outline-text-3" id="text-2-8">
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash compile.sh mpi_groups_communicators.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_groups_communicators.c -o mpi_groups_communicators.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at mpi_groups_communicators.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash run.sh ./mpi_groups_communicators.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="org70947fa">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 10 ./mpi_groups_communicators.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  World Rank: 1, New Rank: 0, New Size: 5
+  World Rank: 1, New Comm Sum: 20
+  World Rank: 0, New Rank: 0, New Size: 5
+  World Rank: 0, New Comm Sum: 20
+  World Rank: 2, New Rank: 1, New Size: 5
+  World Rank: 2, New Comm Sum: 20
+  World Rank: 5, New Rank: 2, New Size: 5
+  World Rank: 5, New Comm Sum: 20
+  World Rank: 4, New Rank: 2, New Size: 5
+  World Rank: 4, New Comm Sum: 20
+  World Rank: 3, New Rank: 1, New Size: 5
+  World Rank: 3, New Comm Sum: 20
+  World Rank: 7, New Rank: 3, New Size: 5
+  World Rank: 7, New Comm Sum: 20
+  World Rank: 8, New Rank: 4, New Size: 5
+  World Rank: 8, New Comm Sum: 20
+  World Rank: 6, New Rank: 3, New Size: 5
+  World Rank: 6, New Comm Sum: 20
+  World Rank: 9, New Rank: 4, New Size: 5
+  World Rank: 9, New Comm Sum: 20
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+
+
+<p>
+This example demonstrates how to create and use groups and communicators in MPI to organize and manage process communication in parallel applications.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org14fa1cc" class="outline-2">
+<h2 id="org14fa1cc"><span class="section-number-2">3.</span> Task Parallelism</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+When working with MPI, it&rsquo;s often necessary to divide tasks among different groups of processes. MPI provides various functions to create and manage groups and communicators.
+</p>
+</div>
+<div id="outline-container-org7bf02bf" class="outline-3">
+<h3 id="org7bf02bf"><span class="section-number-3">3.1.</span> Example: Task Parallelism with Groups and Communicators</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+This example demonstrates the use of the above functions to create two groups, assign communicators, and perform different tasks.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;unistd.h&gt;</span>
+
+<span style="color: #c792ea;">void</span> <span style="color: #82aaff;">perform_computation</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>) {
+    printf(<span style="color: #c3e88d;">"Process %d performing computation\n"</span>, rank);
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Simulate computation by sleeping for a while</span>
+    sleep(<span style="color: #f78c6c; font-weight: bold;">2</span>);
+}
+
+<span style="color: #c792ea;">void</span> <span style="color: #82aaff;">perform_io_operations</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>) {
+    printf(<span style="color: #c3e88d;">"Process %d performing I/O operations\n"</span>, rank);
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Simulate I/O by sleeping for a while</span>
+    sleep(<span style="color: #f78c6c; font-weight: bold;">3</span>);
+}
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">world_rank</span>, <span style="color: #ffcb6b;">world_size</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;world_rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;world_size);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Define two groups: one for even ranks and one for odd ranks</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">half_size</span> = world_size / <span style="color: #f78c6c; font-weight: bold;">2</span>;
+    <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">even_ranks</span> = malloc(half_size * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">odd_ranks</span> = malloc((world_size - half_size) * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">even_count</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>, <span style="color: #ffcb6b;">odd_count</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+    <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; world_size; i++) {
+        <span style="color: #89DDFF;">if</span> (i % <span style="color: #f78c6c; font-weight: bold;">2</span> == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+            even_ranks[even_count++] = i;
+        } <span style="color: #89DDFF;">else</span> {
+            odd_ranks[odd_count++] = i;
+        }
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Create groups</span>
+    <span style="color: #c792ea;">MPI_Group</span> <span style="color: #ffcb6b;">world_group</span>, <span style="color: #ffcb6b;">even_group</span>, <span style="color: #ffcb6b;">odd_group</span>;
+    MPI_Comm_group(MPI_COMM_WORLD, &amp;world_group);
+    MPI_Group_incl(world_group, even_count, even_ranks, &amp;even_group);
+    MPI_Group_incl(world_group, odd_count, odd_ranks, &amp;odd_group);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Create new communicators</span>
+    <span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">even_comm</span>, <span style="color: #ffcb6b;">odd_comm</span>;
+    MPI_Comm_create_group(MPI_COMM_WORLD, even_group, <span style="color: #f78c6c; font-weight: bold;">0</span>, &amp;even_comm);
+    MPI_Comm_create_group(MPI_COMM_WORLD, odd_group, <span style="color: #f78c6c; font-weight: bold;">1</span>, &amp;odd_comm);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Perform tasks based on the group</span>
+    <span style="color: #89DDFF;">if</span> (world_rank % <span style="color: #f78c6c; font-weight: bold;">2</span> == <span style="color: #f78c6c; font-weight: bold;">0</span> &amp;&amp; even_comm != MPI_COMM_NULL) {
+        perform_computation(world_rank);
+    } <span style="color: #89DDFF;">else</span> <span style="color: #89DDFF;">if</span> (world_rank % <span style="color: #f78c6c; font-weight: bold;">2</span> != <span style="color: #f78c6c; font-weight: bold;">0</span> &amp;&amp; odd_comm != MPI_COMM_NULL) {
+        perform_io_operations(world_rank);
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Free the groups and communicators</span>
+    MPI_Group_free(&amp;even_group);
+    MPI_Group_free(&amp;odd_group);
+    <span style="color: #89DDFF;">if</span> (even_comm != MPI_COMM_NULL) MPI_Comm_free(&amp;even_comm);
+    <span style="color: #89DDFF;">if</span> (odd_comm != MPI_COMM_NULL) MPI_Comm_free(&amp;odd_comm);
+    MPI_Group_free(&amp;world_group);
+
+    free(even_ranks);
+    free(odd_ranks);
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc2a8b9a" class="outline-3">
+<h3 id="orgc2a8b9a"><span class="section-number-3">3.2.</span> Compilation and Execution</h3>
+<div class="outline-text-3" id="text-3-2">
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash compile.sh mpi_task_parallelism_manual_groups.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_task_parallelism_manual_groups.c -o mpi_task_parallelism_manual_groups.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at mpi_task_parallelism_manual_groups.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash run.sh ./mpi_task_parallelism_manual_groups.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="orgf7a1510">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 10 ./mpi_task_parallelism_manual_groups.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  Process 6 performing computation
+  Process 8 performing computation
+  Process 0 performing computation
+  Process 2 performing computation
+  Process 4 performing computation
+  Process 1 performing I/O operations
+  Process 5 performing I/O operations
+  Process 3 performing I/O operations
+  Process 7 performing I/O operations
+  Process 9 performing I/O operations
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd04bae3" class="outline-3">
+<h3 id="orgd04bae3"><span class="section-number-3">3.3.</span> Questions and Answers</h3>
+<div class="outline-text-3" id="text-3-3">
+</div>
+<div id="outline-container-org0b1cd43" class="outline-4">
+<h4 id="org0b1cd43"><span class="section-number-4">3.3.1.</span> Is there any way for two different groups to communicate with each other?</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<p>
+Yes, two different groups can communicate using an inter-communicator. `MPI_Intercomm_create` can be used to establish communication between two groups, allowing them to exchange messages.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf9ccdd5" class="outline-4">
+<h4 id="orgf9ccdd5"><span class="section-number-4">3.3.2.</span> What are the communication mechanisms in different groups and the same group?</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<ul class="org-ul">
+<li><b><b>Different Groups</b></b>:
+<ul class="org-ul">
+<li><b><b>Inter-communicator</b></b>: Allows communication between different groups.</li>
+<li><b><b>Point-to-Point Communication</b></b>: Direct communication between processes in different groups using inter-communicators.</li>
+</ul></li>
+
+<li><b><b>Same Group</b></b>:
+<ul class="org-ul">
+<li><b><b>Intra-communicator</b></b>: Default communication within the same group using collective operations like `MPI_Bcast`, `MPI_Reduce`, etc.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge4c2076" class="outline-4">
+<h4 id="orge4c2076"><span class="section-number-4">3.3.3.</span> Do the two groups have the same communicator?</h4>
+<div class="outline-text-4" id="text-3-3-3">
+<p>
+No, each group will have its unique communicator. When groups are created from a world communicator, they each get a new communicator that allows them to operate independently. An inter-communicator is required for communication between these separate groups.
+ng Groups and Communicators
+Task parallelism focuses on distributing tasks (rather than data) across different processes. Each task can perform different operations, allowing for concurrent execution of multiple tasks. By using groups and communicators, you can organize processes to perform specific tasks independently.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org8146d8c" class="outline-3">
+<h3 id="org8146d8c"><span class="section-number-3">3.4.</span> Example: Task Parallelism</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+In this example, we divide processes into two groups: one for computing and one for I/O operations. Each group performs its respective task concurrently.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;unistd.h&gt;</span>
+
+<span style="color: #c792ea;">void</span> <span style="color: #82aaff;">perform_computation</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>) {
+    printf(<span style="color: #c3e88d;">"Process %d performing computation\n"</span>, rank);
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Simulate computation by sleeping for a while</span>
+    sleep(<span style="color: #f78c6c; font-weight: bold;">2</span>);
+}
+
+<span style="color: #c792ea;">void</span> <span style="color: #82aaff;">perform_io_operations</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>) {
+    printf(<span style="color: #c3e88d;">"Process %d performing I/O operations\n"</span>, rank);
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Simulate I/O by sleeping for a while</span>
+    sleep(<span style="color: #f78c6c; font-weight: bold;">3</span>);
+}
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">world_rank</span>, <span style="color: #ffcb6b;">world_size</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;world_rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;world_size);
+
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Split the world group into two groups based on rank</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">color</span> = world_rank % <span style="color: #f78c6c; font-weight: bold;">2</span>;  <span style="color: #676E95;">// </span><span style="color: #676E95;">Determine color based on rank</span>
+    <span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">new_comm</span>;
+    MPI_Comm_split(MPI_COMM_WORLD, color, world_rank, &amp;new_comm);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Get the new rank and size in the new communicator</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">new_rank</span>, <span style="color: #ffcb6b;">new_size</span>;
+    MPI_Comm_rank(new_comm, &amp;new_rank);
+    MPI_Comm_size(new_comm, &amp;new_size);
+
+    <span style="color: #89DDFF;">if</span> (color == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        perform_computation(world_rank);
+    } <span style="color: #89DDFF;">else</span> {
+        perform_io_operations(world_rank);
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Free the new communicator and group</span>
+    MPI_Comm_free(&amp;new_comm);
+    MPI_Group_free(&amp;world_group);
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org078371c" class="outline-3">
+<h3 id="org078371c"><span class="section-number-3">3.5.</span> Explanation</h3>
+<div class="outline-text-3" id="text-3-5">
+<ol class="org-ol">
+<li><b><b>Task Functions</b></b>:
+<ul class="org-ul">
+<li>`perform_computation` simulates a computation task.</li>
+<li>`perform_io_operations` simulates an I/O task.</li>
+</ul></li>
+
+<li><b><b>Extract World Group</b></b>:
+<ul class="org-ul">
+<li>`MPI_Comm_group` is used to get the group of `MPI_COMM_WORLD`.</li>
+</ul></li>
+
+<li><b><b>Split the Communicator</b></b>:
+<ul class="org-ul">
+<li>`MPI_Comm_split` is used to split `MPI_COMM_WORLD` into two new communicators based on the color value (rank modulo 2).</li>
+<li>This creates two new communicators: one for even ranks (compute group) and one for odd ranks (I/O group).</li>
+</ul></li>
+
+<li><b><b>Perform Task</b></b>:
+<ul class="org-ul">
+<li>Each group performs its respective task concurrently based on the rank&rsquo;s color.</li>
+</ul></li>
+
+<li><b><b>Cleanup</b></b>:
+<ul class="org-ul">
+<li>The new communicator and group are freed using `MPI_Comm_free` and `MPI_Group_free`.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgf1979ba" class="outline-3">
+<h3 id="orgf1979ba"><span class="section-number-3">3.6.</span> Compilation and Execution</h3>
+<div class="outline-text-3" id="text-3-6">
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash compile.sh mpi_task_parallelism.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_task_parallelism.c -o mpi_task_parallelism.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at mpi_task_parallelism.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash run.sh ./mpi_task_parallelism.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="orgb540f94">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 10 ./mpi_task_parallelism.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  Process 1 performing I/O operations
+  Process 0 performing computation
+  Process 2 performing computation
+  Process 6 performing computation
+  Process 4 performing computation
+  Process 9 performing I/O operations
+  Process 7 performing I/O operations
+  Process 3 performing I/O operations
+  Process 8 performing computation
+  Process 5 performing I/O operations
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbf34032" class="outline-3">
+<h3 id="orgbf34032"><span class="section-number-3">3.7.</span> Communication between Groups</h3>
+<div class="outline-text-3" id="text-3-7">
+<ol class="org-ol">
+<li><b><b>Different Groups</b></b>:
+<ul class="org-ul">
+<li><b><b>Inter-communicator</b></b>: MPI provides `MPI_Intercomm_create` to create an inter-communicator that allows communication between two different groups.</li>
+<li><b><b>Point-to-Point Communication</b></b>: `MPI_Send` and `MPI_Recv` can be used for direct communication between processes in different groups using the inter-communicator.</li>
+</ul></li>
+
+<li><b><b>Same Group</b></b>:
+<ul class="org-ul">
+<li><b><b>Intra-communicator</b></b>: The default communicator within the same group is an intra-communicator (like `MPI_COMM_WORLD`). All standard communication operations (e.g., `MPI_Bcast`, `MPI_Reduce`) work within the same group.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgdff4a67" class="outline-3">
+<h3 id="orgdff4a67"><span class="section-number-3">3.8.</span> Summary</h3>
+<div class="outline-text-3" id="text-3-8">
+<p>
+Dividing processes into groups and communicators helps in organizing and managing tasks effectively in MPI. Different groups can communicate using inter-communicators, while communication within the same group uses intra-communicators.
+</p>
+
+<ul class="org-ul">
+<li><b><b>Different Groups Communication</b></b>:
+<ul class="org-ul">
+<li>Use inter-communicators (`MPI_Intercomm_create`) and point-to-point communication (`MPI_Send`, `MPI_Recv`).</li>
+</ul></li>
+
+<li><b><b>Same Group Communication</b></b>:
+<ul class="org-ul">
+<li>Use intra-communicators like `MPI_COMM_WORLD` and collective operations.</li>
+</ul></li>
+</ul>
+
+<p>
+Groups and communicators do not share the same communicator. Each group can have its unique communicator, allowing for flexible and organized communication in parallel applications.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org597c286" class="outline-2">
+<h2 id="org597c286"><span class="section-number-2">4.</span> Task1</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+
+<span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> <span style="color: #82aaff;">sumOfSquares</span>(<span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> *<span style="color: #ffcb6b;">arr</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">size</span>){
+    <span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">sum</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+    <span style="color: #89DDFF;">for</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; size; i++){
+        sum+= arr[i] * arr[i];
+    }
+    <span style="color: #89DDFF;">return</span> sum;
+}
+
+<span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> <span style="color: #82aaff;">sum</span>(<span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> *<span style="color: #ffcb6b;">arr</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">size</span>){
+    <span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">sum</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+    <span style="color: #89DDFF;">for</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; size; i++){
+        sum+= arr[i];
+    }
+    <span style="color: #89DDFF;">return</span> sum;
+}
+
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">world_rank</span>, <span style="color: #ffcb6b;">world_size</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;world_rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;world_size);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Split the world group into two groups</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">color</span> = world_rank % <span style="color: #f78c6c; font-weight: bold;">2</span>;  <span style="color: #676E95;">// </span><span style="color: #676E95;">Determine color based on rank</span>
+    <span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">new_comm</span>;
+    MPI_Comm_split(MPI_COMM_WORLD, color, world_rank, &amp;new_comm);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Get the new rank and size in the new communicator</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">new_rank</span>, <span style="color: #ffcb6b;">new_size</span>;
+    MPI_Comm_rank(new_comm, &amp;new_rank);
+    MPI_Comm_size(new_comm, &amp;new_size);
+
+    <span style="color: #676E95;">//</span><span style="color: #676E95;">printf("World Rank: %d, New Rank: %d, New Size: %d\n", world_rank, new_rank, new_size);</span>
+    <span style="color: #89DDFF;">const</span> <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">data_size</span> = <span style="color: #f78c6c; font-weight: bold;">10000</span>;
+    <span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">data</span>[data_size];
+    <span style="color: #89DDFF;">if</span>(new_rank == <span style="color: #f78c6c; font-weight: bold;">0</span>){
+        <span style="color: #89DDFF;">for</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; data_size; i++){
+            data[i] = i + <span style="color: #f78c6c; font-weight: bold;">1</span>;
+        }
+    }
+    <span style="color: #676E95;">//</span><span style="color: #676E95;">data broadcasted to each process in new_comm</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">chunk_size</span> = data_size / new_size;
+    <span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">local_array</span>[chunk_size];
+    <span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">local_sum</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+    <span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">local_square_sum</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+    MPI_Scatter(data, chunk_size, MPI_LONG_LONG, local_array, chunk_size, MPI_LONG_LONG, <span style="color: #f78c6c; font-weight: bold;">0</span>, new_comm);
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Perform some communication within the new communicator</span>
+    <span style="color: #89DDFF;">if</span>(color == <span style="color: #f78c6c; font-weight: bold;">0</span>){
+        local_sum = sum(local_array, chunk_size);
+    }
+    <span style="color: #89DDFF;">if</span>(color == <span style="color: #f78c6c; font-weight: bold;">1</span>){
+        local_square_sum = sumOfSquares(local_array, chunk_size);
+    }
+    <span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">final_sum</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+    <span style="color: #c792ea;">long</span> <span style="color: #c792ea;">long</span> <span style="color: #ffcb6b;">final_square_sum</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+    MPI_Allreduce(&amp;local_sum, &amp;final_sum, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_LONG_LONG, MPI_SUM, new_comm);
+    MPI_Allreduce(&amp;local_square_sum, &amp;final_square_sum, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_LONG_LONG, MPI_SUM, new_comm);
+    <span style="color: #89DDFF;">if</span>(new_rank == <span style="color: #f78c6c; font-weight: bold;">0</span>){
+        <span style="color: #89DDFF;">if</span>(color == <span style="color: #f78c6c; font-weight: bold;">0</span>)
+            printf(<span style="color: #c3e88d;">"World Rank: %d, Sum of arrays: %lld\n"</span>, world_rank, final_sum);
+        <span style="color: #89DDFF;">if</span>(color == <span style="color: #f78c6c; font-weight: bold;">1</span>)
+            printf(<span style="color: #c3e88d;">"World Rank: %d, Sum of squares of arrays: %lld\n"</span>, world_rank, final_square_sum);
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Free the new communicator and group</span>
+    MPI_Comm_free(&amp;new_comm);
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash">bash compile.sh task1.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc task1.c -o task1.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at task1.out
+------------------------------------------------------------------
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">bash run.sh ./task1.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="org80887b1">
+------------------------------------------------------------------
+Command executed: mpirun -np 10 ./task1.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+World Rank: 0, Sum of arrays: 50005000
+World Rank: 1, Sum of squares of arrays: 333383335000
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+</pre>
+</div>
+</div>
+<div id="outline-container-org03070a2" class="outline-2">
+<h2 id="org03070a2"><span class="section-number-2">5.</span> PI calculator serial</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;math.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;sys/time.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">999999999</span>
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>()
+{
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span>, <span style="color: #ffcb6b;">j</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">area</span>, <span style="color: #ffcb6b;">pi</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">dx</span>, <span style="color: #ffcb6b;">y</span>, <span style="color: #ffcb6b;">x</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">exe_time</span>;
+    <span style="color: #89DDFF;">struct</span> <span style="color: #c792ea;">timeval</span> <span style="color: #ffcb6b;">stop_time</span>, <span style="color: #ffcb6b;">start_time</span>;
+    dx = <span style="color: #f78c6c; font-weight: bold;">1.0</span>/N;
+    x = <span style="color: #f78c6c; font-weight: bold;">0.0</span>;
+    area = <span style="color: #f78c6c; font-weight: bold;">0.0</span>;
+    gettimeofday(&amp;start_time, <span style="color: #f78c6c;">NULL</span>);
+    <span style="color: #89DDFF;">for</span>(i=<span style="color: #f78c6c; font-weight: bold;">0</span>;i&lt;N;i++){
+        x = i*dx;
+        y = sqrt(<span style="color: #f78c6c; font-weight: bold;">1</span>-x*x);
+        area += y*dx;
+    }
+    gettimeofday(&amp;stop_time, <span style="color: #f78c6c;">NULL</span>);
+    exe_time = (stop_time.tv_sec+(stop_time.tv_usec/<span style="color: #f78c6c; font-weight: bold;">1000000.0</span>)) - (start_time.tv_sec+(start_time.tv_usec/<span style="color: #f78c6c; font-weight: bold;">1000000.0</span>));
+    pi = <span style="color: #f78c6c; font-weight: bold;">4.0</span>*area;
+    printf(<span style="color: #c3e88d;">"\n Value of pi is = %.16lf\n Execution time is = %lf seconds\n"</span>, pi, exe_time);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">    gcc pi_serial.c -o pi_serial.out -lm
+</pre>
+</div></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">    ./pi_serial.out
+</pre>
+</div>
+
+<pre class="example">
+
+Value of pi is = 3.1415926555902138
+Execution time is = 3.660779 seconds
+</pre></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2071a42" class="outline-2">
+<h2 id="org2071a42"><span class="section-number-2">6.</span> Parallel Pi Computation Using MPI</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+This example demonstrates how to parallelize the computation of π using MPI. The interval `[0, 1]` is divided among multiple processes, and each process computes its partial sum. The partial sums are then reduced to compute the final value of π.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;math.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;sys/time.h&gt;</span>
+
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">999999999</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>, <span style="color: #ffcb6b;">i</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">dx</span>, <span style="color: #ffcb6b;">x</span>, <span style="color: #ffcb6b;">y</span>, <span style="color: #ffcb6b;">local_area</span>, <span style="color: #ffcb6b;">total_area</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">start_time</span>, <span style="color: #ffcb6b;">end_time</span>, <span style="color: #ffcb6b;">execution_time</span>;
+
+    MPI_Init(&amp;argc, &amp;argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+
+    dx = <span style="color: #f78c6c; font-weight: bold;">1.0</span> / N;
+    local_area = <span style="color: #f78c6c; font-weight: bold;">0.0</span>;
+
+    start_time = MPI_Wtime();
+
+    <span style="color: #89DDFF;">for</span> (i = rank; i &lt; N; i += size) {
+        x = i * dx;
+        y = sqrt(<span style="color: #f78c6c; font-weight: bold;">1</span> - x * x);
+        local_area += y * dx;
+    }
+
+    MPI_Reduce(&amp;local_area, &amp;total_area, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_DOUBLE, MPI_SUM, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+
+    end_time = MPI_Wtime();
+    execution_time = end_time - start_time;
+
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">pi</span> = <span style="color: #f78c6c; font-weight: bold;">4.0</span> * total_area;
+        printf(<span style="color: #c3e88d;">"\nValue of pi is = %.16lf\nExecution time is = %lf seconds\n"</span>, pi, execution_time);
+    }
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org3d0d065" class="outline-3">
+<h3 id="org3d0d065"><span class="section-number-3">6.1.</span> Compilation and Execution</h3>
+<div class="outline-text-3" id="text-6-1">
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash compile.sh mpi_parallel_pi.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_parallel_pi.c -o mpi_parallel_pi.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at mpi_parallel_pi.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash run.sh ./mpi_parallel_pi.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="orgad1c26e">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 10 ./mpi_parallel_pi.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+
+  Value of pi is = 3.1415926555895561
+  Execution time is = 1.623518 seconds
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgebd62ba" class="outline-3">
+<h3 id="orgebd62ba"><span class="section-number-3">6.2.</span> Explanation</h3>
+<div class="outline-text-3" id="text-6-2">
+<ul class="org-ul">
+<li><b><b>MPI Initialization</b></b>:
+<ul class="org-ul">
+<li>`MPI_Init`: Initializes the MPI execution environment.</li>
+<li>`MPI_Comm_rank`: Gets the rank of the process.</li>
+<li>`MPI_Comm_size`: Gets the number of processes.</li>
+</ul></li>
+
+<li><b><b>Interval Division</b></b>:
+<ul class="org-ul">
+<li>The interval `[0, 1]` is divided among the processes.</li>
+<li>Each process computes its partial sum of areas.</li>
+</ul></li>
+
+<li><b><b>Partial Sum Computation</b></b>:
+<ul class="org-ul">
+<li>Each process computes the area for its assigned part of the interval.</li>
+</ul></li>
+
+<li><b><b>Reduction</b></b>:
+<ul class="org-ul">
+<li>`MPI_Reduce`: Reduces all partial sums to compute the total area.</li>
+</ul></li>
+
+<li><b><b>Timing</b></b>:
+<ul class="org-ul">
+<li>`MPI_Wtime`: Measures the execution time.</li>
+</ul></li>
+</ul>
+
+<p>
+**Benefits
+</p>
+
+<ul class="org-ul">
+<li><b><b>Parallelism</b></b>: The workload is distributed among multiple processes.</li>
+<li><b><b>Efficiency</b></b>: The parallel version is faster for large values of `N` due to concurrent execution.</li>
+<li><b><b>Scalability</b></b>: The program can scale with the number of processes.</li>
+</ul>
+
+<p>
+By using MPI to parallelize the computation of π, you can significantly reduce the execution time and handle larger computations more efficiently.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org3edad92" class="outline-2">
+<h2 id="org3edad92"><span class="section-number-2">7.</span> Parallel Pi Computation Using MPI</h2>
+<div class="outline-text-2" id="text-7">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;math.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;sys/time.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">"mpi.h"</span>
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">999999999</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span> **<span style="color: #ffcb6b;">argv</span>)
+{
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span>, <span style="color: #ffcb6b;">j</span>, <span style="color: #ffcb6b;">myid</span>, <span style="color: #ffcb6b;">size</span>,<span style="color: #ffcb6b;">start</span>,<span style="color: #ffcb6b;">end</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">area</span>, <span style="color: #ffcb6b;">pi</span>, <span style="color: #ffcb6b;">recv_area</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">dx</span>, <span style="color: #ffcb6b;">y</span>, <span style="color: #ffcb6b;">x</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">exe_time</span>;
+
+    <span style="color: #89DDFF;">struct</span> <span style="color: #c792ea;">timeval</span> <span style="color: #ffcb6b;">stop_time</span>, <span style="color: #ffcb6b;">start_time</span>;
+
+    dx = <span style="color: #f78c6c; font-weight: bold;">1.0</span>/N;
+    x = <span style="color: #f78c6c; font-weight: bold;">0.0</span>;
+    area = <span style="color: #f78c6c; font-weight: bold;">0.0</span>;
+
+    MPI_Init(&amp;argc, &amp;argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;myid);
+
+    start = myid * (N/size);
+    end = start + (N/size);
+
+    <span style="color: #89DDFF;">if</span>(myid == (size - <span style="color: #f78c6c; font-weight: bold;">1</span>))
+    {
+        end = N;
+    }
+
+    <span style="color: #89DDFF;">if</span>(myid == <span style="color: #f78c6c; font-weight: bold;">0</span>)
+    {
+        gettimeofday(&amp;start_time, <span style="color: #f78c6c;">NULL</span>);
+    }
+
+    <span style="color: #89DDFF;">for</span>(i=start; i&lt;end; i++)
+    {
+        x = i*dx;
+        y = sqrt(<span style="color: #f78c6c; font-weight: bold;">1</span>-x*x);
+        area += y*dx;
+    }
+
+    <span style="color: #89DDFF;">if</span>(myid != <span style="color: #f78c6c; font-weight: bold;">0</span>)
+    {
+        MPI_Send(&amp;area, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_DOUBLE, <span style="color: #f78c6c; font-weight: bold;">0</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+    }
+    <span style="color: #89DDFF;">else</span>
+    {
+        <span style="color: #89DDFF;">for</span>(i=<span style="color: #f78c6c; font-weight: bold;">1</span>; i&lt;size; i++)
+        {
+            MPI_Recv(&amp;recv_area, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_DOUBLE, i, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            area = area + recv_area;
+        }
+
+        gettimeofday(&amp;stop_time, <span style="color: #f78c6c;">NULL</span>);
+        exe_time = (stop_time.tv_sec+(stop_time.tv_usec/<span style="color: #f78c6c; font-weight: bold;">1000000.0</span>)) - (start_time.tv_sec+(start_time.tv_usec/<span style="color: #f78c6c; font-weight: bold;">1000000.0</span>));
+
+        pi = <span style="color: #f78c6c; font-weight: bold;">4.0</span>*area;
+        printf(<span style="color: #c3e88d;">"\n Value of pi is = %.16lf\n Execution time is = %lf seconds\n"</span>, pi, exe_time);
+    }
+
+    <span style="color: #676E95;">//</span><span style="color: #676E95;">End MPI Environment</span>
+    MPI_Finalize();
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-orgff1d858" class="outline-3">
+<h3 id="orgff1d858"><span class="section-number-3">7.1.</span> Compilation and Execution</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash compile.sh mpi_parallel_pi1.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_parallel_pi1.c -o mpi_parallel_pi1.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at mpi_parallel_pi1.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash run.sh ./mpi_parallel_pi.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="org5156349">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 10 ./mpi_parallel_pi.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+
+  Value of pi is = 3.1415926555895561
+  Execution time is = 1.529297 seconds
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org3bf6008" class="outline-2">
+<h2 id="org3bf6008"><span class="section-number-2">8.</span> Prime number count</h2>
+<div class="outline-text-2" id="text-8">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;math.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;time.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;sys/time.h&gt;</span>
+
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">1000000</span>
+<span style="color: #676E95;">/*</span>
+<span style="color: #676E95;">                N  PRIME_NUMBER</span>
+
+<span style="color: #676E95;">                1           0</span>
+<span style="color: #676E95;">               10           4</span>
+<span style="color: #676E95;">              100          25</span>
+<span style="color: #676E95;">            1,000         168</span>
+<span style="color: #676E95;">           10,000       1,229</span>
+<span style="color: #676E95;">          100,000       9,592</span>
+<span style="color: #676E95;">        1,000,000      78,498</span>
+<span style="color: #676E95;">       10,000,000     664,579</span>
+<span style="color: #676E95;">      100,000,000   5,761,455</span>
+<span style="color: #676E95;">    1,000,000,000  50,847,534</span>
+
+<span style="color: #676E95;">*/</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>()
+{
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span>, <span style="color: #ffcb6b;">j</span>;
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">count</span>, <span style="color: #ffcb6b;">flag</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">exe_time</span>;
+    <span style="color: #89DDFF;">struct</span> <span style="color: #c792ea;">timeval</span> <span style="color: #ffcb6b;">stop_time</span>, <span style="color: #ffcb6b;">start_time</span>;
+
+    count = <span style="color: #f78c6c; font-weight: bold;">1</span>; <span style="color: #676E95;">// </span><span style="color: #676E95;">2 is prime. Our loop starts from 3</span>
+
+    gettimeofday(&amp;start_time, <span style="color: #f78c6c;">NULL</span>);
+
+
+    <span style="color: #89DDFF;">for</span>(i=<span style="color: #f78c6c; font-weight: bold;">3</span>;i&lt;N;i++)
+    {
+        flag = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+        <span style="color: #89DDFF;">for</span>(j=<span style="color: #f78c6c; font-weight: bold;">2</span>;j&lt;i;j++)
+        {
+            <span style="color: #89DDFF;">if</span>((i%j) == <span style="color: #f78c6c; font-weight: bold;">0</span>)
+            {
+                flag = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+                <span style="color: #89DDFF;">break</span>;
+            }
+        }
+        <span style="color: #89DDFF;">if</span>(flag == <span style="color: #f78c6c; font-weight: bold;">0</span>)
+        {
+            count++;
+        }
+    }
+
+    gettimeofday(&amp;stop_time, <span style="color: #f78c6c;">NULL</span>);
+    exe_time = (stop_time.tv_sec+(stop_time.tv_usec/<span style="color: #f78c6c; font-weight: bold;">1000000.0</span>)) - (start_time.tv_sec+(start_time.tv_usec/<span style="color: #f78c6c; font-weight: bold;">1000000.0</span>));
+
+    printf(<span style="color: #c3e88d;">"\n Number of prime numbers = %d \n Execution time is = %lf seconds\n"</span>, count, exe_time);
+
+}
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">    gcc prime_count_serial.c -o prime_count_serial.out -lm
+</pre>
+</div></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">    ./prime_count_serial.out
+</pre>
+</div>
+
+<pre class="example">
+
+Number of prime numbers = 78498 
+Execution time is = 119.418229 seconds
+</pre></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga19ae14" class="outline-2">
+<h2 id="orga19ae14"><span class="section-number-2">9.</span> Parallel Prime Number Counting Using MPI</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+This example demonstrates how to parallelize the prime number counting code using MPI. The range of numbers `[2, N]` is divided among multiple processes, each of which counts the primes in its assigned range. The results are then gathered to compute the total number of primes.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;math.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;sys/time.h&gt;</span>
+
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">N</span> <span style="color: #f78c6c; font-weight: bold;">10000000</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>, <span style="color: #ffcb6b;">i</span>, <span style="color: #ffcb6b;">j</span>, <span style="color: #ffcb6b;">count</span>, <span style="color: #ffcb6b;">flag</span>, <span style="color: #ffcb6b;">local_count</span>;
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">start_time</span>, <span style="color: #ffcb6b;">end_time</span>, <span style="color: #ffcb6b;">execution_time</span>;
+
+    MPI_Init(&amp;argc, &amp;argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">range</span> = N / size;
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">start</span> = rank * range + <span style="color: #f78c6c; font-weight: bold;">2</span>;
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">end</span> = (rank + <span style="color: #f78c6c; font-weight: bold;">1</span>) * range + <span style="color: #f78c6c; font-weight: bold;">1</span>;
+    <span style="color: #89DDFF;">if</span> (rank == size - <span style="color: #f78c6c; font-weight: bold;">1</span>) {
+        end = N;
+    }
+
+    local_count = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        local_count = <span style="color: #f78c6c; font-weight: bold;">1</span>; <span style="color: #676E95;">// </span><span style="color: #676E95;">2 is prime. Our loop starts from 3</span>
+    }
+
+    start_time = MPI_Wtime();
+
+    <span style="color: #89DDFF;">for</span> (i = start; i &lt;= end; i++) {
+        flag = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+        <span style="color: #89DDFF;">for</span> (j = <span style="color: #f78c6c; font-weight: bold;">2</span>; j &lt;= sqrt(i); j++) {
+            <span style="color: #89DDFF;">if</span> ((i % j) == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+                flag = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+                <span style="color: #89DDFF;">break</span>;
+            }
+        }
+        <span style="color: #89DDFF;">if</span> (flag == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+            local_count++;
+        }
+    }
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">total_count</span>;
+    MPI_Reduce(&amp;local_count, &amp;total_count, <span style="color: #f78c6c; font-weight: bold;">1</span>, MPI_INT, MPI_SUM, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+
+    end_time = MPI_Wtime();
+    execution_time = end_time - start_time;
+
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        printf(<span style="color: #c3e88d;">"\n Number of prime numbers = %d \n Execution time is = %lf seconds\n"</span>, total_count, execution_time);
+    }
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org58409a1" class="outline-3">
+<h3 id="org58409a1"><span class="section-number-3">9.1.</span> Compilation and Execution</h3>
+<div class="outline-text-3" id="text-9-1">
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash compile.sh mpi_parallel_prime.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_parallel_prime.c -o mpi_parallel_prime.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at mpi_parallel_prime.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash run.sh ./mpi_parallel_prime.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="org607e184">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 10 ./mpi_parallel_prime.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+
+   Number of prime numbers = 664580 
+   Execution time is = 4.211497 seconds
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7b4a07c" class="outline-3">
+<h3 id="org7b4a07c"><span class="section-number-3">9.2.</span> Explanation</h3>
+<div class="outline-text-3" id="text-9-2">
+<ul class="org-ul">
+<li><b><b>MPI Initialization</b></b>:
+<ul class="org-ul">
+<li>`MPI_Init`: Initializes the MPI execution environment.</li>
+<li>`MPI_Comm_rank`: Gets the rank of the process.</li>
+<li>`MPI_Comm_size`: Gets the number of processes.</li>
+</ul></li>
+
+<li><b><b>Range Division</b></b>:
+<ul class="org-ul">
+<li>The range `[2, N]` is divided among the processes.</li>
+<li>Each process computes the number of primes in its assigned range.</li>
+</ul></li>
+
+<li><b><b>Partial Count Computation</b></b>:
+<ul class="org-ul">
+<li>Each process counts the primes in its range.</li>
+</ul></li>
+
+<li><b><b>Reduction</b></b>:
+<ul class="org-ul">
+<li>`MPI_Reduce`: Reduces all partial counts to compute the total number of primes.</li>
+</ul></li>
+
+<li><b><b>Timing</b></b>:
+<ul class="org-ul">
+<li>`MPI_Wtime`: Measures the execution time.</li>
+</ul></li>
+</ul>
+
+<p>
+**Benefits
+</p>
+
+<ul class="org-ul">
+<li><b><b>Parallelism</b></b>: The workload is distributed among multiple processes.</li>
+<li><b><b>Efficiency</b></b>: The parallel version is faster for large values of `N` due to concurrent execution.</li>
+<li><b><b>Scalability</b></b>: The program can scale with the number of processes.</li>
+</ul>
+
+<p>
+By using MPI to parallelize the prime number counting, you can significantly reduce the execution time and handle larger computations more efficiently.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcedc76b" class="outline-2">
+<h2 id="orgcedc76b"><span class="section-number-2">10.</span> Serial Matrix Addition</h2>
+<div class="outline-text-2" id="text-10">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span> **<span style="color: #ffcb6b;">argv</span>){
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span>, <span style="color: #ffcb6b;">j</span>, <span style="color: #ffcb6b;">myid</span>, <span style="color: #ffcb6b;">size</span>, <span style="color: #ffcb6b;">n</span> = <span style="color: #f78c6c; font-weight: bold;">400</span>;
+    <span style="color: #c792ea;">int</span> **<span style="color: #ffcb6b;">m1</span>, **<span style="color: #ffcb6b;">m2</span>, **<span style="color: #ffcb6b;">sumMat</span>;
+    m1 = (<span style="color: #c792ea;">int</span>**)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>*) * n);
+    m2 = (<span style="color: #c792ea;">int</span>**)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>*) * n);
+    sumMat = (<span style="color: #c792ea;">int</span>**)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>*) * n);
+    <span style="color: #89DDFF;">for</span>(i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++){
+        m1[i] = (<span style="color: #c792ea;">int</span>*)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>) * n);
+        m2[i] = (<span style="color: #c792ea;">int</span>*)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>) * n);
+        <span style="color: #89DDFF;">for</span>(j = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; n; j++){
+            m1[i][j] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+            m2[i][j] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+        }
+    }
+    <span style="color: #676E95;">/*</span>
+<span style="color: #676E95;">    for(i = 0; i &lt; n; i++){</span>
+<span style="color: #676E95;">        for(j = 0; j &lt; n; j++){</span>
+<span style="color: #676E95;">            printf("%d ",m1[i][j]);</span>
+<span style="color: #676E95;">        }</span>
+<span style="color: #676E95;">        printf("\n");</span>
+<span style="color: #676E95;">    }</span>
+<span style="color: #676E95;">    for(i = 0; i &lt; n; i++){</span>
+<span style="color: #676E95;">        for(j = 0; j &lt; n; j++){</span>
+<span style="color: #676E95;">            printf("%d ",m2[i][j]);</span>
+<span style="color: #676E95;">        }</span>
+<span style="color: #676E95;">        printf("\n");</span>
+<span style="color: #676E95;">    }</span><span style="color: #676E95;">*/</span>
+
+    <span style="color: #89DDFF;">for</span>(i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++){
+        sumMat[i] = (<span style="color: #c792ea;">int</span>*)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>) * n);
+        <span style="color: #89DDFF;">for</span>(j = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; n; j++){
+            sumMat[i][j] = m1[i][j] + m2[i][j];
+        }
+    }
+    <span style="color: #89DDFF;">for</span>(i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++){
+        <span style="color: #89DDFF;">for</span>(j = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; n; j++){
+            printf(<span style="color: #c3e88d;">"%d "</span>,sumMat[i][j]);
+        }
+        printf(<span style="color: #c3e88d;">"\n"</span>);
+    }
+
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash">bash compile.sh serial_mat_add.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc serial_mat_add.c -o serial_mat_add.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at serial_mat_add.out
+------------------------------------------------------------------
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">bash run.sh ./serial_mat_add.out <span style="color: #f78c6c; font-weight: bold;">10</span> &gt; output.txt
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Abhishek Raj</p>
+<p class="date">Created: 2024-07-13 Sat 07:52</p>
+</div>
+</body>
+</html>

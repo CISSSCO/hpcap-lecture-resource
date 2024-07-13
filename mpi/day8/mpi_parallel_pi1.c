@@ -42,7 +42,11 @@ int main(int argc, char **argv)
 		area += y*dx;
 	}
 
-    if(myid==0)
+    if(myid != 0)
+    {
+        MPI_Send(&area, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
+    }
+    else
     {
         for(i=1; i<size; i++)
         {
@@ -55,10 +59,6 @@ int main(int argc, char **argv)
 
         pi = 4.0*area;
         printf("\n Value of pi is = %.16lf\n Execution time is = %lf seconds\n", pi, exe_time);
-    }
-    else
-    {
-        MPI_Send(&area, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
     }
 
     //End MPI Environment
