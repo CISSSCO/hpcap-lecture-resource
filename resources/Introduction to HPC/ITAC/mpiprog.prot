@@ -1,0 +1,147 @@
+# LOGFILE-NAME was not set explicitly.
+LOGFILE-NAME "mpiprog.stf"
+# PROGNAME was not set explicitly.
+PROGNAME "./mpiprog"
+# LOGFILE-FORMAT was not set explicitly.
+LOGFILE-FORMAT "STF"
+# EXTENDED-VTF was not set explicitly.
+EXTENDED-VTF OFF
+# PROTOFILE-NAME was not set explicitly.
+PROTOFILE-NAME "mpiprog.prot"
+# LOGFILE-PREFIX was not set explicitly.
+LOGFILE-PREFIX "/home/cdacapp/Harsha/itac"
+# CURRENT-DIR was not set explicitly.
+CURRENT-DIR "/home/cdacapp/Harsha/itac"
+# VERBOSE was not set explicitly.
+VERBOSE 1
+# LOGFILE-RANK was not set explicitly.
+LOGFILE-RANK 0
+# STOPFILE-NAME was not set explicitly.
+# PLUGIN was not set explicitly.
+# STATE was not set explicitly.
+
+STATE "*:*" ON
+
+# SYMBOL was not set explicitly.
+# ACTIVITY was not set explicitly.
+# KEEP-RAW-EVENTS was not set explicitly.
+KEEP-RAW-EVENTS OFF
+# COMPRESS-TRACE was not set explicitly.
+COMPRESS-TRACE OFF
+# COMPRESS-RAW-DATA was not set explicitly.
+COMPRESS-RAW-DATA ON
+# START-PAUSED was not set explicitly.
+START-PAUSED OFF
+# DETAILED-STATES was not set explicitly.
+DETAILED-STATES 0
+# DEMANGLE was not set explicitly.
+DEMANGLE OFF
+# ENTER-USERCODE was not set explicitly.
+ENTER-USERCODE ON
+# COUNTER was not set explicitly.
+# INTERNAL-MPI was not set explicitly.
+INTERNAL-MPI ON
+# PCTRACE was not set explicitly.
+PCTRACE 1:0
+# PCTRACE-FAST was not set explicitly.
+PCTRACE-FAST ON
+# PCTRACE-CACHE was not set explicitly.
+PCTRACE-CACHE ON
+# IGNORE-CODE was not set explicitly.
+# PROCESS was not set explicitly.
+# CLUSTER was not set explicitly.
+# TIME-WINDOWS was not set explicitly.
+# MEM-BLOCKSIZE was not set explicitly.
+MEM-BLOCKSIZE 2097152
+# MEM-MAXBLOCKS was not set explicitly.
+MEM-MAXBLOCKS 4096
+# MEM-MINBLOCKS was not set explicitly.
+MEM-MINBLOCKS 0
+# MEM-INFO was not set explicitly.
+MEM-INFO 524288000
+# AUTOFLUSH was not set explicitly.
+AUTOFLUSH ON
+# MEM-FLUSHBLOCKS was not set explicitly.
+MEM-FLUSHBLOCKS 1024
+# MEM-OVERWRITE was not set explicitly.
+MEM-OVERWRITE OFF
+# FLUSH-PREFIX was not set explicitly.
+FLUSH-PREFIX "/tmp"
+# FLUSH-PID was not set explicitly.
+FLUSH-PID ON
+# ENVIRONMENT was not set explicitly.
+ENVIRONMENT ON
+# STATISTICS was not set explicitly.
+STATISTICS 0
+# STF-USE-HW-STRUCTURE was not set explicitly.
+STF-USE-HW-STRUCTURE ON
+# STF-PROCS-PER-FILE was not set explicitly.
+STF-PROCS-PER-FILE 16
+# STF-CHUNKSIZE was not set explicitly.
+STF-CHUNKSIZE 65536
+# GROUP was not set explicitly.
+# OS-COUNTER-DELAY was not set explicitly.
+OS-COUNTER-DELAY 1.000000
+# TIMER was not set explicitly.
+TIMER "gettimeofday"
+# EVENT-BITS was not set explicitly.
+EVENT-BITS 13
+# TIMER-SHIFT was not set explicitly.
+TIMER-SHIFT 0
+# TIMER-DUMP was not set explicitly.
+TIMER-DUMP OFF
+# TIMER-SKIP was not set explicitly.
+TIMER-SKIP 0
+# SYNC-MAX-DURATION was not set explicitly.
+SYNC-MAX-DURATION 60.000000
+# SYNC-MAX-MESSAGES was not set explicitly.
+SYNC-MAX-MESSAGES 100
+# SYNC-SKEW was not set explicitly.
+SYNC-SKEW 0
+# SYNCED-CLUSTER was not set explicitly.
+SYNCED-CLUSTER OFF
+# SYNCED-HOST was not set explicitly.
+SYNCED-HOST ON
+# SYNCED-RUNTIME was not set explicitly.
+SYNCED-RUNTIME OFF
+# NMCMD was not set explicitly.
+NMCMD "nm -P"
+# UNIFY-SYMBOLS was not set explicitly.
+UNIFY-SYMBOLS ON
+# UNIFY-SCLS was not set explicitly.
+UNIFY-SCLS ON
+# UNIFY-GROUPS was not set explicitly.
+UNIFY-GROUPS ON
+# UNIFY-COUNTERS was not set explicitly.
+UNIFY-COUNTERS ON
+# INFO NUMPROCS was not set explicitly.
+INFO NUMPROCS 2
+# INFO CLUSTERDEF was not set explicitly.
+INFO CLUSTERDEF "login02" 0:129202 1:129203
+INFO PROCESS 0 "login02" "172.10.2.5" 129202
+INFO PROCESS 1 "login02" "172.10.2.5" 129203
+# STF-ACT-TIMELINE was not set explicitly.
+STF-ACT-TIMELINE 640
+# SYMBOL-HASHSIZE was not set explicitly.
+SYMBOL-HASHSIZE 1031
+# ACTIVITY-HASHSIZE was not set explicitly.
+ACTIVITY-HASHSIZE 13
+# CLASS-HASHSIZE was not set explicitly.
+CLASS-HASHSIZE 13
+# SCL-HASHSIZE was not set explicitly.
+SCL-HASHSIZE 509
+# FILEHANDLE-HASHSIZE was not set explicitly.
+FILEHANDLE-HASHSIZE 13
+# COUNTER-HASHSIZE was not set explicitly.
+COUNTER-HASHSIZE 13
+# GROUP-HASHSIZE was not set explicitly.
+GROUP-HASHSIZE 13
+# HASHBUFFER-SIZE was not set explicitly.
+HASHBUFFER-SIZE 1024
+# MATCH-HASHSIZE was not set explicitly.
+MATCH-HASHSIZE 251
+# FUNCTRACE-HASHSIZE was not set explicitly.
+FUNCTRACE-HASHSIZE 509
+INFO TIMING "1":2.784000e-03
+INFO TIMING "0":6.461000e-03
+# TIMING <process ()>:<runtime (seconds)>

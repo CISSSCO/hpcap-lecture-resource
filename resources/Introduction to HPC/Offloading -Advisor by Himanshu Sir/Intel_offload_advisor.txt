@@ -1,0 +1,58 @@
+// load intel offload advisor form modules
+module avail
+module avail | grep advisor
+module load advisor/2023.0.0
+// module load advisor/latest
+advisor --help
+
+// spack installation of intel offload advisor
+git clone https://github.com/spack/spack.git
+cd spack
+git checkout releases/v0.19
+
+// locate setup-env.sh
+// cd share/spack
+// source setup-env.sh
+
+source /home/cdacapp/Himanshu/spack/share/spack/setup-env.sh
+spack --version
+
+// install and load intel offload advisor
+spack list | grep advisor
+spack info intel-oneapi-advisor
+spack install -v -j40 intel-oneapi-advisor
+spack find intel-oneapi-advisor
+
+// spack load intel-oneapi-advisor
+// module load advisor/2023.0.0
+// module load advisor/latest
+
+// compiling matrix multiplication program (C++)
+g++ -o mmult_serial mmult_serial.cpp
+
+// running the generated executable
+./mmult_serial
+
+// running offload advisor on the executable
+advisor --collect=offload --config=gen11_icl 
+--project-dir=./mmul_report_gen11_icl -- ./mmult_serial
+
+advisor --collect=offload --config=gen12_tgl 
+--project-dir=./mmul_report_gen12_tgl -- ./mmult_serial
+
+// advisor --collect=offload --dry-run --config=gen11_icl --project-dir=./mmul_report -- ./mmult_serial
+
+// internal commands
+advisor --collect=survey --auto-finalize --static-instruction-mix --project-dir=./mmul_report -- ./mmult_serial
+advisor --collect=tripcounts --flop --stacks --auto-finalize --cache-simulation=single --data-transfer=light --target-device=gen11_icl --project-dir=./mmul_report -- ./mmult_serial
+advisor --collect=projection --no-assume-dependencies --config=gen11_icl --project-dir=./mmul_report -- ./mmult_serial
+
+cd /home/cdacapp/Himanshu/offload_advisor/mmult_Advisor/mmul_report/e000/report
+
+advisor --collect=offload --config=gen11_icl --project-dir=./mmul_report -- python ./mmult_serial.py
+// advisor --collect=offload --config=gen11_icl --project-dir=./mmul_report -- python3 ./mmult_serial.py
+
+spack install -v -j40 nvhpc
+spack load nvhpc
+nvcc.......
+nvprof.......

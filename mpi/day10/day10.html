@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-07-13 Sat 08:07 -->
+<!-- 2024-07-13 Sat 08:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Day10</title>
@@ -233,56 +233,56 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgbde89cc">1. Scripts</a>
+<li><a href="#org7c8d419">1. Scripts</a>
 <ul>
-<li><a href="#org44c74f5">1.1. compile script</a></li>
-<li><a href="#orgdfbb999">1.2. run script</a></li>
+<li><a href="#org0934a88">1.1. compile script</a></li>
+<li><a href="#org9073bdb">1.2. run script</a></li>
 </ul>
 </li>
-<li><a href="#orga6b447e">2. Speedup, Amdahl&rsquo;s Law, and Performance Metrics in MPI</a>
+<li><a href="#org9624fbd">2. Speedup, Amdahl&rsquo;s Law, and Performance Metrics in MPI</a>
 <ul>
-<li><a href="#org54f173c">2.1. Performance Metrics</a></li>
-<li><a href="#org3c474ae">2.2. Speedup</a></li>
-<li><a href="#org5035a04">2.3. Amdahl&rsquo;s Law</a></li>
-<li><a href="#org14b3f36">2.4. Measuring Performance in MPI</a></li>
+<li><a href="#orgff818ab">2.1. Performance Metrics</a></li>
+<li><a href="#org8c432b4">2.2. Speedup</a></li>
+<li><a href="#org6ef620e">2.3. Amdahl&rsquo;s Law</a></li>
+<li><a href="#orgbd24532">2.4. Measuring Performance in MPI</a></li>
 </ul>
 </li>
-<li><a href="#org2d07155">3. Benchmarking in MPI</a>
+<li><a href="#orgb2a94dc">3. Benchmarking in MPI</a>
 <ul>
-<li><a href="#org309e2fc">3.1. Benchmarking</a></li>
-<li><a href="#org0526d97">3.2. Microbenchmarking</a></li>
-<li><a href="#orgfc0472c">3.3. Macrobenchmarking</a></li>
-<li><a href="#orgb55af8e">3.4. How Benchmarking is Done</a></li>
-<li><a href="#org784ea01">3.5. Benchmarking Tools</a></li>
+<li><a href="#orga17440b">3.1. Benchmarking</a></li>
+<li><a href="#org73ba7da">3.2. Microbenchmarking</a></li>
+<li><a href="#org93c3a9d">3.3. Macrobenchmarking</a></li>
+<li><a href="#orgba63b62">3.4. How Benchmarking is Done</a></li>
+<li><a href="#orgde8a444">3.5. Benchmarking Tools</a></li>
 </ul>
 </li>
-<li><a href="#org2abd0db">4. MPI Topology</a>
+<li><a href="#org5000a24">4. MPI Topology</a>
 <ul>
-<li><a href="#orgbbac9a1">4.1. Types of Topologies</a></li>
-<li><a href="#orgf009c28">4.2. Cartesian Topologies</a>
+<li><a href="#orgb3b1092">4.1. Types of Topologies</a></li>
+<li><a href="#org7686519">4.2. Cartesian Topologies</a>
 <ul>
-<li><a href="#orgae299e2">4.2.1. Creating a Cartesian Topology</a></li>
+<li><a href="#orgc25b77e">4.2.1. Creating a Cartesian Topology</a></li>
 </ul>
 </li>
-<li><a href="#orgea0ffff">4.3. Graph Topologies</a>
+<li><a href="#org2fd9de1">4.3. Graph Topologies</a>
 <ul>
-<li><a href="#org79b5e8b">4.3.1. Creating a Graph Topology</a></li>
+<li><a href="#org7e85770">4.3.1. Creating a Graph Topology</a></li>
 </ul>
 </li>
-<li><a href="#orge487bfa">4.4. Cartesian Topology Functions</a></li>
-<li><a href="#org38f6543">4.5. Graph Topology Functions</a></li>
-<li><a href="#orga18bf80">4.6. Benefits of Using MPI Topologies</a></li>
+<li><a href="#orgf8357b4">4.4. Cartesian Topology Functions</a></li>
+<li><a href="#org646d27c">4.5. Graph Topology Functions</a></li>
+<li><a href="#org8b29a67">4.6. Benefits of Using MPI Topologies</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbde89cc" class="outline-2">
-<h2 id="orgbde89cc"><span class="section-number-2">1.</span> Scripts</h2>
+<div id="outline-container-org7c8d419" class="outline-2">
+<h2 id="org7c8d419"><span class="section-number-2">1.</span> Scripts</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org44c74f5" class="outline-3">
-<h3 id="org44c74f5"><span class="section-number-3">1.1.</span> compile script</h3>
+<div id="outline-container-org0934a88" class="outline-3">
+<h3 id="org0934a88"><span class="section-number-3">1.1.</span> compile script</h3>
 <div class="outline-text-3" id="text-1-1">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
@@ -308,8 +308,8 @@ $<span style="color: #ffcb6b;">cmd</span>
 </div>
 </div>
 </div>
-<div id="outline-container-orgdfbb999" class="outline-3">
-<h3 id="orgdfbb999"><span class="section-number-3">1.2.</span> run script</h3>
+<div id="outline-container-org9073bdb" class="outline-3">
+<h3 id="org9073bdb"><span class="section-number-3">1.2.</span> run script</h3>
 <div class="outline-text-3" id="text-1-2">
 <div class="org-src-container">
 <pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
@@ -337,12 +337,12 @@ mpirun -np $<span style="color: #f78c6c; font-weight: bold;">2</span> $<span sty
 </div>
 </div>
 </div>
-<div id="outline-container-orga6b447e" class="outline-2">
-<h2 id="orga6b447e"><span class="section-number-2">2.</span> Speedup, Amdahl&rsquo;s Law, and Performance Metrics in MPI</h2>
+<div id="outline-container-org9624fbd" class="outline-2">
+<h2 id="org9624fbd"><span class="section-number-2">2.</span> Speedup, Amdahl&rsquo;s Law, and Performance Metrics in MPI</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org54f173c" class="outline-3">
-<h3 id="org54f173c"><span class="section-number-3">2.1.</span> Performance Metrics</h3>
+<div id="outline-container-orgff818ab" class="outline-3">
+<h3 id="orgff818ab"><span class="section-number-3">2.1.</span> Performance Metrics</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 When measuring the performance of MPI programs, several metrics are commonly used:
@@ -387,8 +387,8 @@ Efficiency:
 </ol>
 </div>
 </div>
-<div id="outline-container-org3c474ae" class="outline-3">
-<h3 id="org3c474ae"><span class="section-number-3">2.2.</span> Speedup</h3>
+<div id="outline-container-org8c432b4" class="outline-3">
+<h3 id="org8c432b4"><span class="section-number-3">2.2.</span> Speedup</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Speedup measures the improvement in performance of a parallel algorithm over its serial counterpart. It&rsquo;s calculated using the formula:
@@ -407,8 +407,8 @@ where:
 </ul>
 </div>
 </div>
-<div id="outline-container-org5035a04" class="outline-3">
-<h3 id="org5035a04"><span class="section-number-3">2.3.</span> Amdahl&rsquo;s Law</h3>
+<div id="outline-container-org6ef620e" class="outline-3">
+<h3 id="org6ef620e"><span class="section-number-3">2.3.</span> Amdahl&rsquo;s Law</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Amdahl&rsquo;s Law provides a theoretical limit on the speedup that can be achieved by parallelizing a portion of an algorithm. It states that if a fraction \( f \) of the algorithm is inherently serial, then the maximum speedup \( S \) using \( p \) processors is:
@@ -440,8 +440,8 @@ This demonstrates that the speedup is limited by the serial portion of the algor
 </p>
 </div>
 </div>
-<div id="outline-container-org14b3f36" class="outline-3">
-<h3 id="org14b3f36"><span class="section-number-3">2.4.</span> Measuring Performance in MPI</h3>
+<div id="outline-container-orgbd24532" class="outline-3">
+<h3 id="orgbd24532"><span class="section-number-3">2.4.</span> Measuring Performance in MPI</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 To measure the performance of MPI programs, you can use the following methods:
@@ -482,36 +482,36 @@ Tools like Paraver, Vampir, HPCToolkit, and Scalasca can be used to visualize an
 </div>
 </div>
 </div>
-<div id="outline-container-org2d07155" class="outline-2">
-<h2 id="org2d07155"><span class="section-number-2">3.</span> Benchmarking in MPI</h2>
+<div id="outline-container-orgb2a94dc" class="outline-2">
+<h2 id="orgb2a94dc"><span class="section-number-2">3.</span> Benchmarking in MPI</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org309e2fc" class="outline-3">
-<h3 id="org309e2fc"><span class="section-number-3">3.1.</span> Benchmarking</h3>
+<div id="outline-container-orga17440b" class="outline-3">
+<h3 id="orga17440b"><span class="section-number-3">3.1.</span> Benchmarking</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Benchmarking is the process of measuring the performance of a system or application to evaluate its efficiency and effectiveness. In the context of MPI, benchmarking involves assessing the performance of MPI operations and parallel applications.
 </p>
 </div>
 </div>
-<div id="outline-container-org0526d97" class="outline-3">
-<h3 id="org0526d97"><span class="section-number-3">3.2.</span> Microbenchmarking</h3>
+<div id="outline-container-org73ba7da" class="outline-3">
+<h3 id="org73ba7da"><span class="section-number-3">3.2.</span> Microbenchmarking</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Microbenchmarking focuses on measuring the performance of individual operations or small code segments. In MPI, microbenchmarking typically involves assessing the performance of basic MPI operations such as `MPI_Send`, `MPI_Recv`, `MPI_Bcast`, etc.
 </p>
 </div>
 </div>
-<div id="outline-container-orgfc0472c" class="outline-3">
-<h3 id="orgfc0472c"><span class="section-number-3">3.3.</span> Macrobenchmarking</h3>
+<div id="outline-container-org93c3a9d" class="outline-3">
+<h3 id="org93c3a9d"><span class="section-number-3">3.3.</span> Macrobenchmarking</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Macrobenchmarking evaluates the performance of entire applications or larger code segments. It considers the overall performance and scalability of parallel applications, including computation, communication, and I/O.
 </p>
 </div>
 </div>
-<div id="outline-container-orgb55af8e" class="outline-3">
-<h3 id="orgb55af8e"><span class="section-number-3">3.4.</span> How Benchmarking is Done</h3>
+<div id="outline-container-orgba63b62" class="outline-3">
+<h3 id="orgba63b62"><span class="section-number-3">3.4.</span> How Benchmarking is Done</h3>
 <div class="outline-text-3" id="text-3-4">
 <ol class="org-ol">
 <li><b><b>Timing Functions</b></b>: Use functions like `MPI_Wtime` to measure execution time.</li>
@@ -520,8 +520,8 @@ Macrobenchmarking evaluates the performance of entire applications or larger cod
 </ol>
 </div>
 </div>
-<div id="outline-container-org784ea01" class="outline-3">
-<h3 id="org784ea01"><span class="section-number-3">3.5.</span> Benchmarking Tools</h3>
+<div id="outline-container-orgde8a444" class="outline-3">
+<h3 id="orgde8a444"><span class="section-number-3">3.5.</span> Benchmarking Tools</h3>
 <div class="outline-text-3" id="text-3-5">
 <ol class="org-ol">
 <li><b><b>OSU Micro-Benchmarks (OMB)</b></b>: A suite of benchmarks for measuring MPI performance, focusing on latency, bandwidth, and collective operations.</li>
@@ -532,15 +532,15 @@ Macrobenchmarking evaluates the performance of entire applications or larger cod
 </div>
 </div>
 </div>
-<div id="outline-container-org2abd0db" class="outline-2">
-<h2 id="org2abd0db"><span class="section-number-2">4.</span> MPI Topology</h2>
+<div id="outline-container-org5000a24" class="outline-2">
+<h2 id="org5000a24"><span class="section-number-2">4.</span> MPI Topology</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 MPI topologies provide a way to organize the processes in a communicator in a logical structure, which can enhance the performance of parallel applications by optimizing communication patterns.
 </p>
 </div>
-<div id="outline-container-orgbbac9a1" class="outline-3">
-<h3 id="orgbbac9a1"><span class="section-number-3">4.1.</span> Types of Topologies</h3>
+<div id="outline-container-orgb3b1092" class="outline-3">
+<h3 id="orgb3b1092"><span class="section-number-3">4.1.</span> Types of Topologies</h3>
 <div class="outline-text-3" id="text-4-1">
 <ol class="org-ol">
 <li><b><b>Cartesian Topologies</b></b>: Processes are arranged in a grid-like structure.</li>
@@ -548,22 +548,22 @@ MPI topologies provide a way to organize the processes in a communicator in a lo
 </ol>
 </div>
 </div>
-<div id="outline-container-orgf009c28" class="outline-3">
-<h3 id="orgf009c28"><span class="section-number-3">4.2.</span> Cartesian Topologies</h3>
+<div id="outline-container-org7686519" class="outline-3">
+<h3 id="org7686519"><span class="section-number-3">4.2.</span> Cartesian Topologies</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Cartesian topologies are useful for problems that have a natural grid structure.
 </p>
 </div>
-<div id="outline-container-orgae299e2" class="outline-4">
-<h4 id="orgae299e2"><span class="section-number-4">4.2.1.</span> Creating a Cartesian Topology</h4>
+<div id="outline-container-orgc25b77e" class="outline-4">
+<h4 id="orgc25b77e"><span class="section-number-4">4.2.1.</span> Creating a Cartesian Topology</h4>
 <div class="outline-text-4" id="text-4-2-1">
 <p>
 The function `MPI_Cart_create` is used to create a Cartesian topology.
 </p>
 </div>
 <ol class="org-ol">
-<li><a id="org62106e0"></a>Syntax<br />
+<li><a id="orgbdecb95"></a>Syntax<br />
 <div class="outline-text-5" id="text-4-2-1-1">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Cart_create</span>(<span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">comm_old</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">ndims</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">dims</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">periods</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">reorder</span>, <span style="color: #c792ea;">MPI_Comm</span> *<span style="color: #ffcb6b;">comm_cart</span>);
@@ -571,7 +571,7 @@ The function `MPI_Cart_create` is used to create a Cartesian topology.
 </div>
 </div>
 </li>
-<li><a id="org743b56c"></a>Parameters<br />
+<li><a id="orgafe0b4b"></a>Parameters<br />
 <div class="outline-text-5" id="text-4-2-1-2">
 <ul class="org-ul">
 <li>`comm_old`: The original communicator.</li>
@@ -583,7 +583,7 @@ The function `MPI_Cart_create` is used to create a Cartesian topology.
 </ul>
 </div>
 </li>
-<li><a id="org0d33123"></a>Example Code<br />
+<li><a id="orgf957390"></a>Example Code<br />
 <div class="outline-text-5" id="text-4-2-1-3">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
@@ -634,7 +634,7 @@ Compilation successful. Check at mpi_cart.out
 </pre>
 </div>
 
-<pre class="example" id="orgec02c82">
+<pre class="example" id="orge7f4d39">
 ------------------------------------------------------------------
 Command executed: mpirun -np 2 ./mpi_cart.out
 ------------------------------------------------------------------
@@ -654,22 +654,22 @@ Rank 0 has coordinates (0, 0)
 </ol>
 </div>
 </div>
-<div id="outline-container-orgea0ffff" class="outline-3">
-<h3 id="orgea0ffff"><span class="section-number-3">4.3.</span> Graph Topologies</h3>
+<div id="outline-container-org2fd9de1" class="outline-3">
+<h3 id="org2fd9de1"><span class="section-number-3">4.3.</span> Graph Topologies</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 Graph topologies are useful for problems with irregular communication patterns.
 </p>
 </div>
-<div id="outline-container-org79b5e8b" class="outline-4">
-<h4 id="org79b5e8b"><span class="section-number-4">4.3.1.</span> Creating a Graph Topology</h4>
+<div id="outline-container-org7e85770" class="outline-4">
+<h4 id="org7e85770"><span class="section-number-4">4.3.1.</span> Creating a Graph Topology</h4>
 <div class="outline-text-4" id="text-4-3-1">
 <p>
 The function `MPI_Graph_create` is used to create a graph topology.
 </p>
 </div>
 <ol class="org-ol">
-<li><a id="org760a1e4"></a>Syntax<br />
+<li><a id="orgab812a5"></a>Syntax<br />
 <div class="outline-text-5" id="text-4-3-1-1">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Graph_create</span>(<span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">comm_old</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">nnodes</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">index</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">edges</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">reorder</span>, <span style="color: #c792ea;">MPI_Comm</span> *<span style="color: #ffcb6b;">comm_graph</span>);
@@ -677,7 +677,7 @@ The function `MPI_Graph_create` is used to create a graph topology.
 </div>
 </div>
 </li>
-<li><a id="orgabb6f8c"></a>Parameters<br />
+<li><a id="orgb0aceae"></a>Parameters<br />
 <div class="outline-text-5" id="text-4-3-1-2">
 <ul class="org-ul">
 <li>`comm_old`: The original communicator.</li>
@@ -692,8 +692,8 @@ The function `MPI_Graph_create` is used to create a graph topology.
 </ol>
 </div>
 </div>
-<div id="outline-container-orge487bfa" class="outline-3">
-<h3 id="orge487bfa"><span class="section-number-3">4.4.</span> Cartesian Topology Functions</h3>
+<div id="outline-container-orgf8357b4" class="outline-3">
+<h3 id="orgf8357b4"><span class="section-number-3">4.4.</span> Cartesian Topology Functions</h3>
 <div class="outline-text-3" id="text-4-4">
 <ul class="org-ul">
 <li>`MPI_Cart_create`: Creates a Cartesian topology.</li>
@@ -703,8 +703,8 @@ The function `MPI_Graph_create` is used to create a graph topology.
 </ul>
 </div>
 </div>
-<div id="outline-container-org38f6543" class="outline-3">
-<h3 id="org38f6543"><span class="section-number-3">4.5.</span> Graph Topology Functions</h3>
+<div id="outline-container-org646d27c" class="outline-3">
+<h3 id="org646d27c"><span class="section-number-3">4.5.</span> Graph Topology Functions</h3>
 <div class="outline-text-3" id="text-4-5">
 <ul class="org-ul">
 <li>`MPI_Graph_create`: Creates a graph topology.</li>
@@ -715,8 +715,8 @@ The function `MPI_Graph_create` is used to create a graph topology.
 </ul>
 </div>
 </div>
-<div id="outline-container-orga18bf80" class="outline-3">
-<h3 id="orga18bf80"><span class="section-number-3">4.6.</span> Benefits of Using MPI Topologies</h3>
+<div id="outline-container-org8b29a67" class="outline-3">
+<h3 id="org8b29a67"><span class="section-number-3">4.6.</span> Benefits of Using MPI Topologies</h3>
 <div class="outline-text-3" id="text-4-6">
 <ol class="org-ol">
 <li><b><b>Optimized Communication</b></b>: By organizing processes in a logical structure, communication can be optimized for better performance.</li>
@@ -729,7 +729,7 @@ The function `MPI_Graph_create` is used to create a graph topology.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Abhishek Raj</p>
-<p class="date">Created: 2024-07-13 Sat 08:07</p>
+<p class="date">Created: 2024-07-13 Sat 08:12</p>
 </div>
 </body>
 </html>

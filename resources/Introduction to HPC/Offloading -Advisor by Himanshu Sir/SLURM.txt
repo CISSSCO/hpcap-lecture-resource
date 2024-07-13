@@ -1,0 +1,62 @@
+salloc --time=12:00:00 --partition=cpu --nodes=2 --ntasks-per-node=48
+squeue --me
+ssh <allocated_node_name>
+
+// details about partitions
+scontrol show partition
+scontrol show node <node_name>
+scontrol show node cn010
+scontrol show node shavak
+scontrol show job <job_id>
+
+// Batch mode
+// OpenMP slurm script
+#!/bin/bash
+#SBATCH --job-name=openmp			
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --time=10:00
+#SBATCH --output=ompresult.txt
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+srun ./hello.omp
+
+// MPI slurm script
+#!/bin/bash
+#SBATCH --nodes=2  
+#SBATCH --ntasks-per-node=4   
+#SBATCH --nodelist=cn01, cn02       		
+#SBATCH --time=01:00:00           			
+#SBATCH --job-name=mpi_hello      		
+#SBATCH --error=error.err 
+#SBATCH --mail-type=all
+#SBATCH --mail-user=abc@gmail.com
+#SBATCH --output=output.out        	
+#SBATCH --partition=cpu
+module load mpi/latest
+mpirun -np $SLURM_NTASKS ./hello.mpi
+
+// Interactive mode
+salloc --time=12:00:00 --partition=cpu --nodes=2 --ntasks-per-node=48
+module load mpi/latest
+mpirun -np $SLURM_NTASKS ./hello.mpi
+             
+// allocate gpu node with 2 gpu cards
+salloc --time=12:00:00 --partition=gpu --gres=gpu:2 --nodes=1 --ntasks-per-node=48 	
+
+// requires root privilege
+scontrol create reservation StartTime=2022-09-05T09:45:00 EndTime=2022-09-18T12:30:00 user=user4,user5,user6 partition=gpu node=gpu01
+
+
+#!/bin/bash
+#SBATCH --job-name=matrix_mult_offload
+#SBATCH --nodes=1
+#SBATCH --partition=cpu
+#SBATCH --ntasks-per-node=40
+#SBATCH --time=1:00:00
+#SBATCH --output=anugaresult.txt
+#SBATCH --error=error.err
+
+module load advisor/latest
+
+advisor --collect=offload --config=gen11_icl 
+--project-dir=./mmul_report_gen11_icl -- ./mmult_serial

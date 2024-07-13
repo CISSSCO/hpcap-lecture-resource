@@ -1,0 +1,16 @@
+// Practical
+Below is the sample command to run an application with intel offload advisor: advisor --collect=offload --config=gen12_tgl --project-dir=./mmul_report -- ./mmult_serial
+
+Write a SHELL SCRIPT to run any executable file with intel offload advisor. The shell script should:
+- load the required modules for running advisor (ask the user the name of the advisor module and load it using module load command)
+- ask the user for config option (gpu name)
+- ask the user for the absolute path to the executable file
+- ask the user for the absolute path to the project directory (it can be any name)
+
+Empty inputs are not allowed. Based on the input given by the user, the script should create and run the advisor command.
+
+Allowed values for gpu name: xehpg_256xve, xehpg_512xve, gen12_tgl, gen12_tg1, gen11_icl, gen9_gt2, gen9_gt3, gen9_gt4
+If the user inputs any other value, it should prompt again to input
+
+- Open the generated report using firefox browser, Give the option to load available modules 
+- Give the option to compile the program in the same script (based on the program file using gcc or g++)
