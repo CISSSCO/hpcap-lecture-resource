@@ -1,0 +1,268 @@
+#+title: Day10
+
+* Scripts
+** compile script
+#+begin_src bash :tangle compile.sh
+#!/bin/sh
+
+#source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh
+#spack load gcc/5i5y5cb
+#spack load openmpi/c7kvqyq
+source ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+inputFile=$1
+outputFile="${1%.*}.out"      # extract the name of the file without extension and adding extension .out
+#cmd=`mpicc $inputFile -o $outputFile`
+cmd="mpicc $inputFile -o $outputFile -lm -fopenmp"     # running code using MPI
+echo "------------------------------------------------------------------"
+echo "Command executed: $cmd"
+echo "------------------------------------------------------------------"
+$cmd
+
+echo "Compilation successful. Check at $outputFile"
+echo "------------------------------------------------------------------"
+#+end_src
+
+** run script
+#+begin_src bash :tangle run.sh
+#!/bin/sh
+
+#source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh
+#spack load gcc/5i5y5cbc
+source ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+cmd="mpirun -np $2 $1"
+echo "------------------------------------------------------------------"
+echo "Command executed: $cmd"
+echo "------------------------------------------------------------------"
+echo "##################################################################"
+echo "##########                    OUTPUT                    ##########"
+echo "##################################################################"
+echo
+mpirun -np $2 $1
+echo
+echo "##################################################################"
+echo "##########                     DONE                     ##########"
+echo "##################################################################"
+#+end_src
+
+* Speedup, Amdahl's Law, and Performance Metrics in MPI
+** Performance Metrics
+When measuring the performance of MPI programs, several metrics are commonly used:
+
+1. Execution Time:
+   - The total time taken for the program to run.
+
+2. Speedup:
+   - As described above, it measures how much faster the parallel program runs compared to the serial version.
+
+3. Efficiency:
+   - Efficiency measures how effectively the processors are being utilized. It's defined as the speedup divided by the number of processors:
+
+   \[ \text{Efficiency} (E) = \frac{S(p)}{p} = \frac{T_s}{p \times T_p} \]
+
+4. Scalability:
+   - Scalability refers to how well a parallel algorithm performs as the number of processors increases. It is evaluated using strong scaling and weak scaling:
+     - Strong Scaling: Fixing the problem size and increasing the number of processors.
+     - Weak Scaling: Increasing both the problem size and the number of processors proportionally.
+
+5. Latency and Bandwidth:
+   - Latency: The time taken to send a message from one process to another.
+   - Bandwidth: The rate at which data can be transmitted.
+
+** Speedup
+Speedup measures the improvement in performance of a parallel algorithm over its serial counterpart. It's calculated using the formula:
+
+\[ \text{Speedup} (S) = \frac{T_s}{T_p} \]
+
+where:
+- \( T_s \) is the execution time of the serial algorithm.
+- \( T_p \) is the execution time of the parallel algorithm using \( p \) processors.
+
+** Amdahl's Law
+Amdahl's Law provides a theoretical limit on the speedup that can be achieved by parallelizing a portion of an algorithm. It states that if a fraction \( f \) of the algorithm is inherently serial, then the maximum speedup \( S \) using \( p \) processors is:
+
+\[ S(p) = \frac{1}{f + \frac{1 - f}{p}} \]
+
+where:
+- \( f \) is the fraction of the algorithm that is serial (cannot be parallelized).
+- \( 1 - f \) is the fraction that can be parallelized.
+- \( p \) is the number of processors.
+
+As \( p \) approaches infinity, the speedup approaches:
+
+\[ S_{\text{max}} = \frac{1}{f} \]
+
+This demonstrates that the speedup is limited by the serial portion of the algorithm.
+
+** Measuring Performance in MPI
+To measure the performance of MPI programs, you can use the following methods:
+
+1. Timing Functions:
+   - Use `MPI_Wtime()` to measure the wall-clock time before and after the parallel section of the code.
+
+   ```c
+   double start_time, end_time;
+   start_time = MPI_Wtime();
+
+   // Parallel code
+
+   end_time = MPI_Wtime();
+   printf("Execution time: %f seconds\n", end_time - start_time);
+
+2. Profiling Tools
+   Use profiling tools like gprof, TAU, and VTune to analyze the performance of MPI programs.
+
+3. MPI Profiling Interface (PMPI)
+   MPI provides a profiling interface (PMPI) that allows you to intercept and measure MPI calls.
+
+4. Performance Analysis Tools:
+   Tools like Paraver, Vampir, HPCToolkit, and Scalasca can be used to visualize and analyze the performance of MPI programs.
+* Benchmarking in MPI
+** Benchmarking
+Benchmarking is the process of measuring the performance of a system or application to evaluate its efficiency and effectiveness. In the context of MPI, benchmarking involves assessing the performance of MPI operations and parallel applications.
+
+** Microbenchmarking
+Microbenchmarking focuses on measuring the performance of individual operations or small code segments. In MPI, microbenchmarking typically involves assessing the performance of basic MPI operations such as `MPI_Send`, `MPI_Recv`, `MPI_Bcast`, etc.
+
+** Macrobenchmarking
+Macrobenchmarking evaluates the performance of entire applications or larger code segments. It considers the overall performance and scalability of parallel applications, including computation, communication, and I/O.
+
+** How Benchmarking is Done
+1. **Timing Functions**: Use functions like `MPI_Wtime` to measure execution time.
+2. **Profiling Tools**: Utilize profiling tools to analyze performance.
+3. **Performance Analysis Tools**: Use tools for in-depth performance analysis and visualization.
+
+** Benchmarking Tools
+1. **OSU Micro-Benchmarks (OMB)**: A suite of benchmarks for measuring MPI performance, focusing on latency, bandwidth, and collective operations.
+2. **Intel MPI Benchmarks (IMB)**: A set of benchmarks for evaluating the performance of MPI operations.
+3. **HPC Challenge (HPCC)**: A benchmark suite that measures the performance of HPC systems.
+4. **SPEC MPI**: A benchmark suite designed to evaluate the performance of MPI-parallel, floating point, compute-intensive applications.
+
+* MPI Topology
+MPI topologies provide a way to organize the processes in a communicator in a logical structure, which can enhance the performance of parallel applications by optimizing communication patterns.
+
+** Types of Topologies
+1. **Cartesian Topologies**: Processes are arranged in a grid-like structure.
+2. **Graph Topologies**: Processes are arranged in an arbitrary graph structure.
+
+** Cartesian Topologies
+Cartesian topologies are useful for problems that have a natural grid structure.
+
+*** Creating a Cartesian Topology
+The function `MPI_Cart_create` is used to create a Cartesian topology.
+
+**** Syntax
+#+BEGIN_SRC C :results output :exports both
+int MPI_Cart_create(MPI_Comm comm_old, int ndims, int *dims, int *periods, int reorder, MPI_Comm *comm_cart);
+#+END_SRC
+
+**** Parameters
+- `comm_old`: The original communicator.
+- `ndims`: Number of dimensions of the Cartesian grid.
+- `dims`: Array specifying the number of processes in each dimension.
+- `periods`: Array specifying whether the grid is periodic (wrap-around connections) in each dimension (logical array).
+- `reorder`: Ranking may be reordered (1) or not (0).
+- `comm_cart`: New communicator with Cartesian topology.
+
+**** Example Code
+#+BEGIN_SRC C :tangle mpi_cart.c :results output :exports both
+#include <mpi.h>
+#include <stdio.h>
+
+int main(int argc, char** argv) {
+    MPI_Init(&argc, &argv);
+
+    int rank, size;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+    int dims[2] = {0, 0};
+    MPI_Dims_create(size, 2, dims); // Automatically create a balanced 2D grid
+    int periods[2] = {0, 0}; // No wrap-around connections
+    MPI_Comm cart_comm;
+    MPI_Cart_create(MPI_COMM_WORLD, 2, dims, periods, 0, &cart_comm);
+
+    int coords[2];
+    MPI_Cart_coords(cart_comm, rank, 2, coords);
+    printf("Rank %d has coordinates (%d, %d)\n", rank, coords[0], coords[1]);
+
+    // Cleanup
+    MPI_Comm_free(&cart_comm);
+
+    MPI_Finalize();
+    return 0;
+}
+#+END_SRC
+
+#+begin_src bash :results output :exports both
+bash compile.sh mpi_cart.c
+#+end_src
+
+#+RESULTS:
+: ------------------------------------------------------------------
+: Command executed: mpicc mpi_cart.c -o mpi_cart.out -lm -fopenmp
+: ------------------------------------------------------------------
+: Compilation successful. Check at mpi_cart.out
+: ------------------------------------------------------------------
+
+#+begin_src bash :results output :exports both
+bash run.sh ./mpi_cart.out 2
+#+end_src
+
+#+RESULTS:
+#+begin_example
+------------------------------------------------------------------
+Command executed: mpirun -np 2 ./mpi_cart.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+Rank 0 has coordinates (0, 0)
+Rank 1 has coordinates (1, 0)
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+#+end_example
+
+** Graph Topologies
+Graph topologies are useful for problems with irregular communication patterns.
+
+*** Creating a Graph Topology
+The function `MPI_Graph_create` is used to create a graph topology.
+
+**** Syntax
+#+BEGIN_SRC C :results output :exports both
+int MPI_Graph_create(MPI_Comm comm_old, int nnodes, int *index, int *edges, int reorder, MPI_Comm *comm_graph);
+#+END_SRC
+
+**** Parameters
+- `comm_old`: The original communicator.
+- `nnodes`: Number of nodes in the graph.
+- `index`: Array of integers describing the graph structure.
+- `edges`: Array of integers describing the graph structure.
+- `reorder`: Ranking may be reordered (1) or not (0).
+- `comm_graph`: New communicator with graph topology.
+
+** Cartesian Topology Functions
+- `MPI_Cart_create`: Creates a Cartesian topology.
+- `MPI_Cart_coords`: Determines the coordinates of a process in the Cartesian topology.
+- `MPI_Cart_rank`: Determines the rank of a process given its coordinates.
+- `MPI_Cart_shift`: Determines the source and destination ranks for shifts in a Cartesian topology.
+
+** Graph Topology Functions
+- `MPI_Graph_create`: Creates a graph topology.
+- `MPI_Graph_neighbors_count`: Determines the number of neighbors of a process.
+- `MPI_Graph_neighbors`: Determines the neighbors of a process.
+- `MPI_Graphdims_get`: Retrieves the number of nodes and edges in the graph topology.
+- `MPI_Graph_get`: Retrieves the graph structure.
+
+** Benefits of Using MPI Topologies
+1. **Optimized Communication**: By organizing processes in a logical structure, communication can be optimized for better performance.
+2. **Simplified Programming**: Topologies simplify the management of process coordinates and neighbor relationships.
+3. **Improved Scalability**: Topologies can help applications scale more efficiently by reducing communication overhead.
+

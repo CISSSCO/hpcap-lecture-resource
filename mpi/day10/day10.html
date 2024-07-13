@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-07-13 Sat 08:07 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day10</title>
+<meta name="author" content="Abhishek Raj" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Day10</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgbde89cc">1. Scripts</a>
+<ul>
+<li><a href="#org44c74f5">1.1. compile script</a></li>
+<li><a href="#orgdfbb999">1.2. run script</a></li>
+</ul>
+</li>
+<li><a href="#orga6b447e">2. Speedup, Amdahl&rsquo;s Law, and Performance Metrics in MPI</a>
+<ul>
+<li><a href="#org54f173c">2.1. Performance Metrics</a></li>
+<li><a href="#org3c474ae">2.2. Speedup</a></li>
+<li><a href="#org5035a04">2.3. Amdahl&rsquo;s Law</a></li>
+<li><a href="#org14b3f36">2.4. Measuring Performance in MPI</a></li>
+</ul>
+</li>
+<li><a href="#org2d07155">3. Benchmarking in MPI</a>
+<ul>
+<li><a href="#org309e2fc">3.1. Benchmarking</a></li>
+<li><a href="#org0526d97">3.2. Microbenchmarking</a></li>
+<li><a href="#orgfc0472c">3.3. Macrobenchmarking</a></li>
+<li><a href="#orgb55af8e">3.4. How Benchmarking is Done</a></li>
+<li><a href="#org784ea01">3.5. Benchmarking Tools</a></li>
+</ul>
+</li>
+<li><a href="#org2abd0db">4. MPI Topology</a>
+<ul>
+<li><a href="#orgbbac9a1">4.1. Types of Topologies</a></li>
+<li><a href="#orgf009c28">4.2. Cartesian Topologies</a>
+<ul>
+<li><a href="#orgae299e2">4.2.1. Creating a Cartesian Topology</a></li>
+</ul>
+</li>
+<li><a href="#orgea0ffff">4.3. Graph Topologies</a>
+<ul>
+<li><a href="#org79b5e8b">4.3.1. Creating a Graph Topology</a></li>
+</ul>
+</li>
+<li><a href="#orge487bfa">4.4. Cartesian Topology Functions</a></li>
+<li><a href="#org38f6543">4.5. Graph Topology Functions</a></li>
+<li><a href="#orga18bf80">4.6. Benefits of Using MPI Topologies</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbde89cc" class="outline-2">
+<h2 id="orgbde89cc"><span class="section-number-2">1.</span> Scripts</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org44c74f5" class="outline-3">
+<h3 id="org44c74f5"><span class="section-number-3">1.1.</span> compile script</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
+
+<span style="color: #676E95;">#</span><span style="color: #676E95;">source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load gcc/5i5y5cb</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load openmpi/c7kvqyq</span>
+<span style="color: #82aaff;">source</span> ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+<span style="color: #ffcb6b;">inputFile</span>=$<span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #ffcb6b;">outputFile</span>=<span style="color: #c3e88d;">"</span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">{1%.*}</span><span style="color: #c3e88d;">.out"</span>      <span style="color: #676E95;"># </span><span style="color: #676E95;">extract the name of the file without extension and adding extension .out</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">cmd=`mpicc $inputFile -o $outputFile`</span>
+<span style="color: #ffcb6b;">cmd</span>=<span style="color: #c3e88d;">"mpicc </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">inputFile</span><span style="color: #c3e88d;"> -o </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">outputFile</span><span style="color: #c3e88d;"> -lm -fopenmp"</span>     <span style="color: #676E95;"># </span><span style="color: #676E95;">running code using MPI</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Command executed: </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">cmd</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+$<span style="color: #ffcb6b;">cmd</span>
+
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Compilation successful. Check at </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">outputFile</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdfbb999" class="outline-3">
+<h3 id="orgdfbb999"><span class="section-number-3">1.2.</span> run script</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
+
+<span style="color: #676E95;">#</span><span style="color: #676E95;">source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load gcc/5i5y5cbc</span>
+<span style="color: #82aaff;">source</span> ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+<span style="color: #ffcb6b;">cmd</span>=<span style="color: #c3e88d;">"mpirun -np </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">2</span><span style="color: #c3e88d;"> </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">1</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Command executed: </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">cmd</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##########                    OUTPUT                    ##########"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span>
+mpirun -np $<span style="color: #f78c6c; font-weight: bold;">2</span> $<span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #c792ea;">echo</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##########                     DONE                     ##########"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orga6b447e" class="outline-2">
+<h2 id="orga6b447e"><span class="section-number-2">2.</span> Speedup, Amdahl&rsquo;s Law, and Performance Metrics in MPI</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org54f173c" class="outline-3">
+<h3 id="org54f173c"><span class="section-number-3">2.1.</span> Performance Metrics</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+When measuring the performance of MPI programs, several metrics are commonly used:
+</p>
+
+<ol class="org-ol">
+<li>Execution Time:
+<ul class="org-ul">
+<li>The total time taken for the program to run.</li>
+</ul></li>
+
+<li>Speedup:
+<ul class="org-ul">
+<li>As described above, it measures how much faster the parallel program runs compared to the serial version.</li>
+</ul></li>
+
+<li><p>
+Efficiency:
+</p>
+<ul class="org-ul">
+<li>Efficiency measures how effectively the processors are being utilized. It&rsquo;s defined as the speedup divided by the number of processors:</li>
+</ul>
+
+<p>
+\[ \text{Efficiency} (E) = \frac{S(p)}{p} = \frac{T_s}{p \times T_p} \]
+</p></li>
+
+<li>Scalability:
+<ul class="org-ul">
+<li>Scalability refers to how well a parallel algorithm performs as the number of processors increases. It is evaluated using strong scaling and weak scaling:
+<ul class="org-ul">
+<li>Strong Scaling: Fixing the problem size and increasing the number of processors.</li>
+<li>Weak Scaling: Increasing both the problem size and the number of processors proportionally.</li>
+</ul></li>
+</ul></li>
+
+<li>Latency and Bandwidth:
+<ul class="org-ul">
+<li>Latency: The time taken to send a message from one process to another.</li>
+<li>Bandwidth: The rate at which data can be transmitted.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org3c474ae" class="outline-3">
+<h3 id="org3c474ae"><span class="section-number-3">2.2.</span> Speedup</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Speedup measures the improvement in performance of a parallel algorithm over its serial counterpart. It&rsquo;s calculated using the formula:
+</p>
+
+<p>
+\[ \text{Speedup} (S) = \frac{T_s}{T_p} \]
+</p>
+
+<p>
+where:
+</p>
+<ul class="org-ul">
+<li>\( T_s \) is the execution time of the serial algorithm.</li>
+<li>\( T_p \) is the execution time of the parallel algorithm using \( p \) processors.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org5035a04" class="outline-3">
+<h3 id="org5035a04"><span class="section-number-3">2.3.</span> Amdahl&rsquo;s Law</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Amdahl&rsquo;s Law provides a theoretical limit on the speedup that can be achieved by parallelizing a portion of an algorithm. It states that if a fraction \( f \) of the algorithm is inherently serial, then the maximum speedup \( S \) using \( p \) processors is:
+</p>
+
+<p>
+\[ S(p) = \frac{1}{f + \frac{1 - f}{p}} \]
+</p>
+
+<p>
+where:
+</p>
+<ul class="org-ul">
+<li>\( f \) is the fraction of the algorithm that is serial (cannot be parallelized).</li>
+<li>\( 1 - f \) is the fraction that can be parallelized.</li>
+<li>\( p \) is the number of processors.</li>
+</ul>
+
+<p>
+As \( p \) approaches infinity, the speedup approaches:
+</p>
+
+<p>
+\[ S_{\text{max}} = \frac{1}{f} \]
+</p>
+
+<p>
+This demonstrates that the speedup is limited by the serial portion of the algorithm.
+</p>
+</div>
+</div>
+<div id="outline-container-org14b3f36" class="outline-3">
+<h3 id="org14b3f36"><span class="section-number-3">2.4.</span> Measuring Performance in MPI</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+To measure the performance of MPI programs, you can use the following methods:
+</p>
+
+<ol class="org-ol">
+<li><p>
+Timing Functions:
+</p>
+<ul class="org-ul">
+<li>Use `MPI_Wtime()` to measure the wall-clock time before and after the parallel section of the code.</li>
+</ul>
+
+<p>
+```c
+double start_time, end_time;
+start_time = MPI_Wtime();
+</p>
+
+<p>
+// Parallel code
+</p>
+
+<p>
+end_time = MPI_Wtime();
+printf(&ldquo;Execution time: %f seconds\n&rdquo;, end_time - start_time);
+</p></li>
+
+<li>Profiling Tools
+Use profiling tools like gprof, TAU, and VTune to analyze the performance of MPI programs.</li>
+
+<li>MPI Profiling Interface (PMPI)
+MPI provides a profiling interface (PMPI) that allows you to intercept and measure MPI calls.</li>
+
+<li>Performance Analysis Tools:
+Tools like Paraver, Vampir, HPCToolkit, and Scalasca can be used to visualize and analyze the performance of MPI programs.</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org2d07155" class="outline-2">
+<h2 id="org2d07155"><span class="section-number-2">3.</span> Benchmarking in MPI</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org309e2fc" class="outline-3">
+<h3 id="org309e2fc"><span class="section-number-3">3.1.</span> Benchmarking</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Benchmarking is the process of measuring the performance of a system or application to evaluate its efficiency and effectiveness. In the context of MPI, benchmarking involves assessing the performance of MPI operations and parallel applications.
+</p>
+</div>
+</div>
+<div id="outline-container-org0526d97" class="outline-3">
+<h3 id="org0526d97"><span class="section-number-3">3.2.</span> Microbenchmarking</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Microbenchmarking focuses on measuring the performance of individual operations or small code segments. In MPI, microbenchmarking typically involves assessing the performance of basic MPI operations such as `MPI_Send`, `MPI_Recv`, `MPI_Bcast`, etc.
+</p>
+</div>
+</div>
+<div id="outline-container-orgfc0472c" class="outline-3">
+<h3 id="orgfc0472c"><span class="section-number-3">3.3.</span> Macrobenchmarking</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Macrobenchmarking evaluates the performance of entire applications or larger code segments. It considers the overall performance and scalability of parallel applications, including computation, communication, and I/O.
+</p>
+</div>
+</div>
+<div id="outline-container-orgb55af8e" class="outline-3">
+<h3 id="orgb55af8e"><span class="section-number-3">3.4.</span> How Benchmarking is Done</h3>
+<div class="outline-text-3" id="text-3-4">
+<ol class="org-ol">
+<li><b><b>Timing Functions</b></b>: Use functions like `MPI_Wtime` to measure execution time.</li>
+<li><b><b>Profiling Tools</b></b>: Utilize profiling tools to analyze performance.</li>
+<li><b><b>Performance Analysis Tools</b></b>: Use tools for in-depth performance analysis and visualization.</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org784ea01" class="outline-3">
+<h3 id="org784ea01"><span class="section-number-3">3.5.</span> Benchmarking Tools</h3>
+<div class="outline-text-3" id="text-3-5">
+<ol class="org-ol">
+<li><b><b>OSU Micro-Benchmarks (OMB)</b></b>: A suite of benchmarks for measuring MPI performance, focusing on latency, bandwidth, and collective operations.</li>
+<li><b><b>Intel MPI Benchmarks (IMB)</b></b>: A set of benchmarks for evaluating the performance of MPI operations.</li>
+<li><b><b>HPC Challenge (HPCC)</b></b>: A benchmark suite that measures the performance of HPC systems.</li>
+<li><b><b>SPEC MPI</b></b>: A benchmark suite designed to evaluate the performance of MPI-parallel, floating point, compute-intensive applications.</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-org2abd0db" class="outline-2">
+<h2 id="org2abd0db"><span class="section-number-2">4.</span> MPI Topology</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+MPI topologies provide a way to organize the processes in a communicator in a logical structure, which can enhance the performance of parallel applications by optimizing communication patterns.
+</p>
+</div>
+<div id="outline-container-orgbbac9a1" class="outline-3">
+<h3 id="orgbbac9a1"><span class="section-number-3">4.1.</span> Types of Topologies</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li><b><b>Cartesian Topologies</b></b>: Processes are arranged in a grid-like structure.</li>
+<li><b><b>Graph Topologies</b></b>: Processes are arranged in an arbitrary graph structure.</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgf009c28" class="outline-3">
+<h3 id="orgf009c28"><span class="section-number-3">4.2.</span> Cartesian Topologies</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Cartesian topologies are useful for problems that have a natural grid structure.
+</p>
+</div>
+<div id="outline-container-orgae299e2" class="outline-4">
+<h4 id="orgae299e2"><span class="section-number-4">4.2.1.</span> Creating a Cartesian Topology</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<p>
+The function `MPI_Cart_create` is used to create a Cartesian topology.
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org62106e0"></a>Syntax<br />
+<div class="outline-text-5" id="text-4-2-1-1">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Cart_create</span>(<span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">comm_old</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">ndims</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">dims</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">periods</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">reorder</span>, <span style="color: #c792ea;">MPI_Comm</span> *<span style="color: #ffcb6b;">comm_cart</span>);
+</pre>
+</div>
+</div>
+</li>
+<li><a id="org743b56c"></a>Parameters<br />
+<div class="outline-text-5" id="text-4-2-1-2">
+<ul class="org-ul">
+<li>`comm_old`: The original communicator.</li>
+<li>`ndims`: Number of dimensions of the Cartesian grid.</li>
+<li>`dims`: Array specifying the number of processes in each dimension.</li>
+<li>`periods`: Array specifying whether the grid is periodic (wrap-around connections) in each dimension (logical array).</li>
+<li>`reorder`: Ranking may be reordered (1) or not (0).</li>
+<li>`comm_cart`: New communicator with Cartesian topology.</li>
+</ul>
+</div>
+</li>
+<li><a id="org0d33123"></a>Example Code<br />
+<div class="outline-text-5" id="text-4-2-1-3">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">dims</span>[<span style="color: #f78c6c; font-weight: bold;">2</span>] = {<span style="color: #f78c6c; font-weight: bold;">0</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>};
+    MPI_Dims_create(size, <span style="color: #f78c6c; font-weight: bold;">2</span>, dims); <span style="color: #676E95;">// </span><span style="color: #676E95;">Automatically create a balanced 2D grid</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">periods</span>[<span style="color: #f78c6c; font-weight: bold;">2</span>] = {<span style="color: #f78c6c; font-weight: bold;">0</span>, <span style="color: #f78c6c; font-weight: bold;">0</span>}; <span style="color: #676E95;">// </span><span style="color: #676E95;">No wrap-around connections</span>
+    <span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">cart_comm</span>;
+    MPI_Cart_create(MPI_COMM_WORLD, <span style="color: #f78c6c; font-weight: bold;">2</span>, dims, periods, <span style="color: #f78c6c; font-weight: bold;">0</span>, &amp;cart_comm);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">coords</span>[<span style="color: #f78c6c; font-weight: bold;">2</span>];
+    MPI_Cart_coords(cart_comm, rank, <span style="color: #f78c6c; font-weight: bold;">2</span>, coords);
+    printf(<span style="color: #c3e88d;">"Rank %d has coordinates (%d, %d)\n"</span>, rank, coords[<span style="color: #f78c6c; font-weight: bold;">0</span>], coords[<span style="color: #f78c6c; font-weight: bold;">1</span>]);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Cleanup</span>
+    MPI_Comm_free(&amp;cart_comm);
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash">bash compile.sh mpi_cart.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_cart.c -o mpi_cart.out -lm -fopenmp
+------------------------------------------------------------------
+Compilation successful. Check at mpi_cart.out
+------------------------------------------------------------------
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">bash run.sh ./mpi_cart.out <span style="color: #f78c6c; font-weight: bold;">2</span>
+</pre>
+</div>
+
+<pre class="example" id="orgec02c82">
+------------------------------------------------------------------
+Command executed: mpirun -np 2 ./mpi_cart.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+Rank 1 has coordinates (1, 0)
+Rank 0 has coordinates (0, 0)
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgea0ffff" class="outline-3">
+<h3 id="orgea0ffff"><span class="section-number-3">4.3.</span> Graph Topologies</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Graph topologies are useful for problems with irregular communication patterns.
+</p>
+</div>
+<div id="outline-container-org79b5e8b" class="outline-4">
+<h4 id="org79b5e8b"><span class="section-number-4">4.3.1.</span> Creating a Graph Topology</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<p>
+The function `MPI_Graph_create` is used to create a graph topology.
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org760a1e4"></a>Syntax<br />
+<div class="outline-text-5" id="text-4-3-1-1">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #c792ea;">int</span> <span style="color: #82aaff;">MPI_Graph_create</span>(<span style="color: #c792ea;">MPI_Comm</span> <span style="color: #ffcb6b;">comm_old</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">nnodes</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">index</span>, <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">edges</span>, <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">reorder</span>, <span style="color: #c792ea;">MPI_Comm</span> *<span style="color: #ffcb6b;">comm_graph</span>);
+</pre>
+</div>
+</div>
+</li>
+<li><a id="orgabb6f8c"></a>Parameters<br />
+<div class="outline-text-5" id="text-4-3-1-2">
+<ul class="org-ul">
+<li>`comm_old`: The original communicator.</li>
+<li>`nnodes`: Number of nodes in the graph.</li>
+<li>`index`: Array of integers describing the graph structure.</li>
+<li>`edges`: Array of integers describing the graph structure.</li>
+<li>`reorder`: Ranking may be reordered (1) or not (0).</li>
+<li>`comm_graph`: New communicator with graph topology.</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orge487bfa" class="outline-3">
+<h3 id="orge487bfa"><span class="section-number-3">4.4.</span> Cartesian Topology Functions</h3>
+<div class="outline-text-3" id="text-4-4">
+<ul class="org-ul">
+<li>`MPI_Cart_create`: Creates a Cartesian topology.</li>
+<li>`MPI_Cart_coords`: Determines the coordinates of a process in the Cartesian topology.</li>
+<li>`MPI_Cart_rank`: Determines the rank of a process given its coordinates.</li>
+<li>`MPI_Cart_shift`: Determines the source and destination ranks for shifts in a Cartesian topology.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org38f6543" class="outline-3">
+<h3 id="org38f6543"><span class="section-number-3">4.5.</span> Graph Topology Functions</h3>
+<div class="outline-text-3" id="text-4-5">
+<ul class="org-ul">
+<li>`MPI_Graph_create`: Creates a graph topology.</li>
+<li>`MPI_Graph_neighbors_count`: Determines the number of neighbors of a process.</li>
+<li>`MPI_Graph_neighbors`: Determines the neighbors of a process.</li>
+<li>`MPI_Graphdims_get`: Retrieves the number of nodes and edges in the graph topology.</li>
+<li>`MPI_Graph_get`: Retrieves the graph structure.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga18bf80" class="outline-3">
+<h3 id="orga18bf80"><span class="section-number-3">4.6.</span> Benefits of Using MPI Topologies</h3>
+<div class="outline-text-3" id="text-4-6">
+<ol class="org-ol">
+<li><b><b>Optimized Communication</b></b>: By organizing processes in a logical structure, communication can be optimized for better performance.</li>
+<li><b><b>Simplified Programming</b></b>: Topologies simplify the management of process coordinates and neighbor relationships.</li>
+<li><b><b>Improved Scalability</b></b>: Topologies can help applications scale more efficiently by reducing communication overhead.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Abhishek Raj</p>
+<p class="date">Created: 2024-07-13 Sat 08:07</p>
+</div>
+</body>
+</html>
