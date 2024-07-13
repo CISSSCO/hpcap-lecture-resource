@@ -1,0 +1,1281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-07-13 Sat 08:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day9</title>
+<meta name="author" content="Abhishek Raj" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Day9</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org9f08ce5">1. Scripts</a>
+<ul>
+<li><a href="#org7a8724b">1.1. compile script</a></li>
+<li><a href="#orgc27c105">1.2. run script</a></li>
+</ul>
+</li>
+<li><a href="#org9af827c">2. Serial Matrix Addition</a></li>
+<li><a href="#orgd74c409">3. Parallel Matrix Addition Using MPI_Scatter and MPI_Gather</a></li>
+<li><a href="#orgf41ffb0">4. Serial Matrix Multiplication</a></li>
+<li><a href="#orgc7fc18c">5. Parallel Matrix Multiplication Using MPI</a></li>
+<li><a href="#orgc656b52">6. Alter Parallel Matrix Multiplication Using MPI</a></li>
+<li><a href="#orgd8c265c">7. MPI Initialization: MPI_Init vs. MPI_Init_thread</a>
+<ul>
+<li><a href="#org12704d4">7.1. Levels of Thread Support</a></li>
+<li><a href="#orge019809">7.2. MPI_Init Example</a></li>
+<li><a href="#org1bca8c1">7.3. Compilation and Execution (MPI_Init)</a></li>
+<li><a href="#orgcddff0e">7.4. MPI_Init_thread Example</a></li>
+<li><a href="#org663b727">7.5. Compilation and Execution (MPI_Init_thread)</a></li>
+<li><a href="#orgcc97dbe">7.6. Summary</a></li>
+</ul>
+</li>
+<li><a href="#orgeff6e2e">8. Test1</a></li>
+<li><a href="#org11f3f3f">9. Test2</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9f08ce5" class="outline-2">
+<h2 id="org9f08ce5"><span class="section-number-2">1.</span> Scripts</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org7a8724b" class="outline-3">
+<h3 id="org7a8724b"><span class="section-number-3">1.1.</span> compile script</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
+
+<span style="color: #676E95;">#</span><span style="color: #676E95;">source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load gcc/5i5y5cb</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load openmpi/c7kvqyq</span>
+<span style="color: #82aaff;">source</span> ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+<span style="color: #ffcb6b;">inputFile</span>=$<span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #ffcb6b;">outputFile</span>=<span style="color: #c3e88d;">"</span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">{1%.*}</span><span style="color: #c3e88d;">.out"</span>      <span style="color: #676E95;"># </span><span style="color: #676E95;">extract the name of the file without extension and adding extension .out</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">cmd=`mpicc $inputFile -o $outputFile`</span>
+<span style="color: #ffcb6b;">cmd</span>=<span style="color: #c3e88d;">"mpicc </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">inputFile</span><span style="color: #c3e88d;"> -o </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">outputFile</span><span style="color: #c3e88d;"> -lm"</span>     <span style="color: #676E95;"># </span><span style="color: #676E95;">running code using MPI</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Command executed: </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">cmd</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+$<span style="color: #ffcb6b;">cmd</span>
+
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Compilation successful. Check at </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">outputFile</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc27c105" class="outline-3">
+<h3 id="orgc27c105"><span class="section-number-3">1.2.</span> run script</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #676E95;">#</span><span style="color: #676E95;">!/bin/</span><span style="color: #89DDFF;">sh</span>
+
+<span style="color: #676E95;">#</span><span style="color: #676E95;">source /opt/ohpc/pub/apps/spack/share/spack/setup-env.sh</span>
+<span style="color: #676E95;">#</span><span style="color: #676E95;">spack load gcc/5i5y5cbc</span>
+<span style="color: #82aaff;">source</span> ~/git/spack/share/spack/setup-env.sh
+spack load openmpi
+
+<span style="color: #ffcb6b;">cmd</span>=<span style="color: #c3e88d;">"mpirun -np </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">2</span><span style="color: #c3e88d;"> </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">1</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"Command executed: </span><span style="color: #f78c6c;">$</span><span style="color: #ffcb6b;">cmd</span><span style="color: #c3e88d;">"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"------------------------------------------------------------------"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##########                    OUTPUT                    ##########"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span>
+mpirun -np $<span style="color: #f78c6c; font-weight: bold;">2</span> $<span style="color: #f78c6c; font-weight: bold;">1</span>
+<span style="color: #c792ea;">echo</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##########                     DONE                     ##########"</span>
+<span style="color: #c792ea;">echo</span> <span style="color: #c3e88d;">"##################################################################"</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org9af827c" class="outline-2">
+<h2 id="org9af827c"><span class="section-number-2">2.</span> Serial Matrix Addition</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span><span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span> **<span style="color: #ffcb6b;">argv</span>){
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span>, <span style="color: #ffcb6b;">j</span>, <span style="color: #ffcb6b;">myid</span>, <span style="color: #ffcb6b;">size</span>, <span style="color: #ffcb6b;">n</span> = <span style="color: #f78c6c; font-weight: bold;">400</span>;
+    <span style="color: #c792ea;">int</span> **<span style="color: #ffcb6b;">m1</span>, **<span style="color: #ffcb6b;">m2</span>, **<span style="color: #ffcb6b;">sumMat</span>;
+    m1 = (<span style="color: #c792ea;">int</span>**)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>*) * n);
+    m2 = (<span style="color: #c792ea;">int</span>**)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>*) * n);
+    sumMat = (<span style="color: #c792ea;">int</span>**)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>*) * n);
+    <span style="color: #89DDFF;">for</span>(i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++){
+        m1[i] = (<span style="color: #c792ea;">int</span>*)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>) * n);
+        m2[i] = (<span style="color: #c792ea;">int</span>*)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>) * n);
+        <span style="color: #89DDFF;">for</span>(j = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; n; j++){
+            m1[i][j] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+            m2[i][j] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+        }
+    }
+    <span style="color: #676E95;">/*</span>
+<span style="color: #676E95;">      //you can also flaten this matrix and stored it in new array for later computation</span>
+<span style="color: #676E95;">    int arr[n * n], arr1[n * n];</span>
+<span style="color: #676E95;">    for(int i = 0; i &lt; n; i++){</span>
+<span style="color: #676E95;">        for(int j = 0; j &lt; n; j++){</span>
+<span style="color: #676E95;">           arr[i * n + j] = m1[i][j];</span>
+<span style="color: #676E95;">           arr1[i * n + j] = m2[i][j];</span>
+<span style="color: #676E95;">        }</span>
+<span style="color: #676E95;">    }</span><span style="color: #676E95;">*/</span>
+    <span style="color: #676E95;">/*</span>
+<span style="color: #676E95;">    for(i = 0; i &lt; n; i++){</span>
+<span style="color: #676E95;">        for(j = 0; j &lt; n; j++){</span>
+<span style="color: #676E95;">            printf("%d ",m1[i][j]);</span>
+<span style="color: #676E95;">        }</span>
+<span style="color: #676E95;">        printf("\n");</span>
+<span style="color: #676E95;">    }</span>
+<span style="color: #676E95;">    for(i = 0; i &lt; n; i++){</span>
+<span style="color: #676E95;">        for(j = 0; j &lt; n; j++){</span>
+<span style="color: #676E95;">            printf("%d ",m2[i][j]);</span>
+<span style="color: #676E95;">        }</span>
+<span style="color: #676E95;">        printf("\n");</span>
+<span style="color: #676E95;">    }</span><span style="color: #676E95;">*/</span>
+
+    <span style="color: #89DDFF;">for</span>(i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++){
+        sumMat[i] = (<span style="color: #c792ea;">int</span>*)malloc(<span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>) * n);
+        <span style="color: #89DDFF;">for</span>(j = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; n; j++){
+            sumMat[i][j] = m1[i][j] + m2[i][j];
+        }
+    }
+    <span style="color: #89DDFF;">for</span>(i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++){
+        <span style="color: #89DDFF;">for</span>(j = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; n; j++){
+            printf(<span style="color: #c3e88d;">"%d "</span>,sumMat[i][j]);
+        }
+        printf(<span style="color: #c3e88d;">"\n"</span>);
+    }
+
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash">bash compile.sh serial_mat_add.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc serial_mat_add.c -o serial_mat_add.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at serial_mat_add.out
+------------------------------------------------------------------
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">bash run.sh ./serial_mat_add.out <span style="color: #f78c6c; font-weight: bold;">10</span> &gt; output.txt
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd74c409" class="outline-2">
+<h2 id="orgd74c409"><span class="section-number-2">3.</span> Parallel Matrix Addition Using MPI_Scatter and MPI_Gather</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+This example demonstrates how to parallelize a simple matrix addition code using `MPI_Scatter` and `MPI_Gather`. Each process computes the sum for a portion of the matrix and sends the results back to the root process.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>() {
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span>, <span style="color: #ffcb6b;">j</span>, <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>, <span style="color: #ffcb6b;">n</span> = <span style="color: #f78c6c; font-weight: bold;">10000</span>;
+    <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">m1</span>, *<span style="color: #ffcb6b;">m2</span>, *<span style="color: #ffcb6b;">sumMat</span>, *<span style="color: #ffcb6b;">sub_m1</span>, *<span style="color: #ffcb6b;">sub_m2</span>, *<span style="color: #ffcb6b;">sub_sumMat</span>;
+
+    MPI_Init(<span style="color: #f78c6c;">NULL</span>, <span style="color: #f78c6c;">NULL</span>);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">chunksize</span> = (n * n) / size;
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Allocate memory for the full matrices on the root process</span>
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        m1 = (<span style="color: #c792ea;">int</span>*)malloc(n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        m2 = (<span style="color: #c792ea;">int</span>*)malloc(n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        sumMat = (<span style="color: #c792ea;">int</span>*)malloc(n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n * n; i++) {
+            m1[i] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+            m2[i] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+        }
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Allocate memory for the submatrices on each process</span>
+    sub_m1 = (<span style="color: #c792ea;">int</span>*)malloc(chunksize * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    sub_m2 = (<span style="color: #c792ea;">int</span>*)malloc(chunksize * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    sub_sumMat = (<span style="color: #c792ea;">int</span>*)malloc(chunksize * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">startTime</span> = MPI_Wtime();
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Scatter the elements of the matrices to all processes</span>
+    MPI_Scatter(m1, chunksize, MPI_INT, sub_m1, chunksize, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+    MPI_Scatter(m2, chunksize, MPI_INT, sub_m2, chunksize, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Perform the addition on the submatrices</span>
+    <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; chunksize; i++) {
+        sub_sumMat[i] = sub_m1[i] + sub_m2[i];
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Gather the results from all processes</span>
+    MPI_Gather(sub_sumMat, chunksize, MPI_INT, sumMat, chunksize, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+
+    <span style="color: #c792ea;">double</span> <span style="color: #ffcb6b;">endTime</span> = MPI_Wtime();
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Print the result on the root process</span>
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">flag</span> = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+        <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n * n; i++) {
+            <span style="color: #89DDFF;">if</span> (sumMat[i] != <span style="color: #f78c6c; font-weight: bold;">2</span>) {
+                flag = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+                <span style="color: #89DDFF;">break</span>;
+            }
+        }
+        <span style="color: #89DDFF;">if</span> (flag){
+          printf(<span style="color: #c3e88d;">"_____PASS_____\n"</span>);
+          printf(<span style="color: #c3e88d;">"Execution time: %lf\n"</span>, endTime - startTime);
+        }
+        <span style="color: #89DDFF;">else</span> printf(<span style="color: #c3e88d;">"_____FAIL_____\n"</span>);
+        <span style="color: #676E95;">// </span><span style="color: #676E95;">Free the allocated memory</span>
+        free(m1);
+        free(m2);
+        free(sumMat);
+    }
+    free(sub_m1);
+    free(sub_m2);
+    free(sub_sumMat);
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><p>
+Compile
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">   bash compile.sh mpi_matrix_addition1.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_matrix_addition1.c -o mpi_matrix_addition1.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at mpi_matrix_addition1.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">   bash run.sh ./mpi_matrix_addition1.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="orgff6e2be">
+   ------------------------------------------------------------------
+   Command executed: mpirun -np 10 ./mpi_matrix_addition1.out
+   ------------------------------------------------------------------
+   ##################################################################
+   ##########                    OUTPUT                    ##########
+   ##################################################################
+
+   _____PASS_____
+   Execution time: 1.178934
+
+   ##################################################################
+   ##########                     DONE                     ##########
+   ##################################################################
+</pre></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf41ffb0" class="outline-2">
+<h2 id="orgf41ffb0"><span class="section-number-2">4.</span> Serial Matrix Multiplication</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+This example demonstrates a simple serial matrix multiplication code.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>() {
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">n</span> = <span style="color: #f78c6c; font-weight: bold;">400</span>;
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span>, <span style="color: #ffcb6b;">j</span>, <span style="color: #ffcb6b;">k</span>;
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Allocate memory for matrices</span>
+    <span style="color: #c792ea;">int</span> **<span style="color: #ffcb6b;">A</span> = (<span style="color: #c792ea;">int</span> **)malloc(n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span> *));
+    <span style="color: #c792ea;">int</span> **<span style="color: #ffcb6b;">B</span> = (<span style="color: #c792ea;">int</span> **)malloc(n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span> *));
+    <span style="color: #c792ea;">int</span> **<span style="color: #ffcb6b;">C</span> = (<span style="color: #c792ea;">int</span> **)malloc(n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span> *));
+    <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
+        A[i] = (<span style="color: #c792ea;">int</span> *)malloc(n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        B[i] = (<span style="color: #c792ea;">int</span> *)malloc(n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        C[i] = (<span style="color: #c792ea;">int</span> *)malloc(n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Initialize matrices</span>
+    <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
+        <span style="color: #89DDFF;">for</span> (j = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; n; j++) {
+            A[i][j] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+            B[i][j] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+            C[i][j] = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+        }
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Matrix multiplication</span>
+    <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
+        <span style="color: #89DDFF;">for</span> (j = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; n; j++) {
+            <span style="color: #89DDFF;">for</span> (k = <span style="color: #f78c6c; font-weight: bold;">0</span>; k &lt; n; k++) {
+                C[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Print result</span>
+    <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
+        <span style="color: #89DDFF;">for</span> (j = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; n; j++) {
+            printf(<span style="color: #c3e88d;">"%d "</span>, C[i][j]);
+        }
+        printf(<span style="color: #c3e88d;">"\n"</span>);
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Free allocated memory</span>
+    <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n; i++) {
+        free(A[i]);
+        free(B[i]);
+        free(C[i]);
+    }
+    free(A);
+    free(B);
+    free(C);
+
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sh">bash compile.sh serial_matrix_multiplication.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc serial_matrix_multiplication.c -o serial_matrix_multiplication.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at serial_matrix_multiplication.out
+------------------------------------------------------------------
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-sh">bash run.sh ./serial_matrix_multiplication.out <span style="color: #f78c6c; font-weight: bold;">10</span> &gt; output.txt
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc7fc18c" class="outline-2">
+<h2 id="orgc7fc18c"><span class="section-number-2">5.</span> Parallel Matrix Multiplication Using MPI</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+This example demonstrates parallel matrix multiplication using `MPI_Scatter` and `MPI_Gather`.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span> **<span style="color: #ffcb6b;">argv</span>) {
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span>, <span style="color: #ffcb6b;">j</span>, <span style="color: #ffcb6b;">k</span>, <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>, <span style="color: #ffcb6b;">n</span> = <span style="color: #f78c6c; font-weight: bold;">400</span>;
+    <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">A</span>, *<span style="color: #ffcb6b;">B</span>, *<span style="color: #ffcb6b;">C</span>, *<span style="color: #ffcb6b;">sub_A</span>, *<span style="color: #ffcb6b;">sub_C</span>;
+
+    MPI_Init(&amp;argc, &amp;argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">chunksize</span> = n * n / size;
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Allocate memory for matrices on the root process</span>
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        A = (<span style="color: #c792ea;">int</span>*)malloc(n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        B = (<span style="color: #c792ea;">int</span>*)malloc(n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        C = (<span style="color: #c792ea;">int</span>*)malloc(n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n * n; i++) {
+            A[i] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+            B[i] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+            C[i] = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+        }
+    } <span style="color: #89DDFF;">else</span> {
+        B = (<span style="color: #c792ea;">int</span>*)malloc(n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Allocate memory for submatrices</span>
+    sub_A = (<span style="color: #c792ea;">int</span>*)malloc(chunksize * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    sub_C = (<span style="color: #c792ea;">int</span>*)malloc(chunksize * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; chunksize; i++) {
+        sub_C[i] = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Broadcast matrix B to all processes</span>
+    MPI_Bcast(B, n * n, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Scatter the rows of matrix A to all processes</span>
+    MPI_Scatter(A, chunksize, MPI_INT, sub_A, chunksize, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Perform the multiplication on the submatrices</span>
+    <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; chunksize / n; i++) {
+        <span style="color: #89DDFF;">for</span> (j = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; n; j++) {
+            <span style="color: #89DDFF;">for</span> (k = <span style="color: #f78c6c; font-weight: bold;">0</span>; k &lt; n; k++) {
+                sub_C[i * n + j] += sub_A[i * n + k] * B[k * n + j];
+            }
+        }
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Gather the results from all processes</span>
+    MPI_Gather(sub_C, chunksize, MPI_INT, C, chunksize, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Print the result on the root process</span>
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">flag</span> = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+        <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n * n; i++) {
+            <span style="color: #89DDFF;">if</span> (C[i] != n) {
+                flag = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+                <span style="color: #89DDFF;">break</span>;
+            }
+        }
+        <span style="color: #89DDFF;">if</span> (flag) printf(<span style="color: #c3e88d;">"_____PASS_____\n"</span>);
+        <span style="color: #89DDFF;">else</span> printf(<span style="color: #c3e88d;">"_____FAIL_____\n"</span>);
+
+        <span style="color: #676E95;">// </span><span style="color: #676E95;">Free allocated memory</span>
+        free(A);
+        free(B);
+        free(C);
+    } <span style="color: #89DDFF;">else</span> {
+        free(B);
+    }
+
+    free(sub_A);
+    free(sub_C);
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sh">bash compile.sh parallel_matrix_multiplication.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc parallel_matrix_multiplication.c -o parallel_matrix_multiplication.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at parallel_matrix_multiplication.out
+------------------------------------------------------------------
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-sh">bash run.sh ./parallel_matrix_multiplication.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="org29ed7f9">
+------------------------------------------------------------------
+Command executed: mpirun -np 10 ./parallel_matrix_multiplication.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+_____PASS_____
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+</pre>
+
+<p>
+<b><b>Explanation:</b></b>
+</p>
+<ol class="org-ol">
+<li>The program initializes the MPI environment and retrieves the rank and size of the processes.</li>
+<li>Memory for the matrices is allocated, and matrices are initialized with 1&rsquo;s.</li>
+<li>The matrix B is broadcasted to all processes to ensure each process has the full matrix B.</li>
+<li>Matrix A is scattered among all processes so that each process receives a portion (submatrix).</li>
+<li>Each process performs the multiplication on its portion of the matrix.</li>
+<li>The resulting submatrices are gathered back into the full matrix C on the root process.</li>
+<li>The root process verifies and prints the result, and all allocated memory is freed.</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgc656b52" class="outline-2">
+<h2 id="orgc656b52"><span class="section-number-2">6.</span> Alter Parallel Matrix Multiplication Using MPI</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+This example demonstrates parallel matrix multiplication using `MPI_Scatter` and `MPI_Gather`.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span> **<span style="color: #ffcb6b;">argv</span>) {
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span>, <span style="color: #ffcb6b;">j</span>, <span style="color: #ffcb6b;">k</span>, <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>, <span style="color: #ffcb6b;">n</span> = <span style="color: #f78c6c; font-weight: bold;">400</span>;
+    <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">A</span>, *<span style="color: #ffcb6b;">B</span>, *<span style="color: #ffcb6b;">C</span>, *<span style="color: #ffcb6b;">sub_A</span>, *<span style="color: #ffcb6b;">sub_C</span>;
+
+    MPI_Init(&amp;argc, &amp;argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rows_per_process</span> = n / size;
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">remainder</span> = n % size;
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Allocate memory for matrices on the root process</span>
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        A = (<span style="color: #c792ea;">int</span>*)malloc(n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        B = (<span style="color: #c792ea;">int</span>*)malloc(n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        C = (<span style="color: #c792ea;">int</span>*)malloc(n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+        <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n * n; i++) {
+            A[i] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+            B[i] = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+            C[i] = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+        }
+    } <span style="color: #89DDFF;">else</span> {
+        B = (<span style="color: #c792ea;">int</span>*)malloc(n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Allocate memory for submatrices</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">sub_n</span> = rows_per_process + (rank &lt; remainder ? <span style="color: #f78c6c; font-weight: bold;">1</span> : <span style="color: #f78c6c; font-weight: bold;">0</span>);
+    sub_A = (<span style="color: #c792ea;">int</span>*)malloc(sub_n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    sub_C = (<span style="color: #c792ea;">int</span>*)malloc(sub_n * n * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; sub_n * n; i++) {
+        sub_C[i] = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Broadcast matrix B to all processes</span>
+    MPI_Bcast(B, n * n, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Scatter the rows of matrix A to all processes</span>
+    <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">sendcounts</span> = (<span style="color: #c792ea;">int</span>*)malloc(size * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    <span style="color: #c792ea;">int</span> *<span style="color: #ffcb6b;">displs</span> = (<span style="color: #c792ea;">int</span>*)malloc(size * <span style="color: #89DDFF;">sizeof</span>(<span style="color: #c792ea;">int</span>));
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">offset</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+    <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; size; i++) {
+        sendcounts[i] = (rows_per_process + (i &lt; remainder ? <span style="color: #f78c6c; font-weight: bold;">1</span> : <span style="color: #f78c6c; font-weight: bold;">0</span>)) * n;
+        displs[i] = offset;
+        offset += sendcounts[i];
+    }
+    MPI_Scatterv(A, sendcounts, displs, MPI_INT, sub_A, sendcounts[rank], MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Perform the multiplication on the submatrices</span>
+    <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; sub_n; i++) {
+        <span style="color: #89DDFF;">for</span> (j = <span style="color: #f78c6c; font-weight: bold;">0</span>; j &lt; n; j++) {
+            <span style="color: #89DDFF;">for</span> (k = <span style="color: #f78c6c; font-weight: bold;">0</span>; k &lt; n; k++) {
+                sub_C[i * n + j] += sub_A[i * n + k] * B[k * n + j];
+            }
+        }
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Gather the results from all processes</span>
+    MPI_Gatherv(sub_C, sendcounts[rank], MPI_INT, C, sendcounts, displs, MPI_INT, <span style="color: #f78c6c; font-weight: bold;">0</span>, MPI_COMM_WORLD);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Print the result on the root process</span>
+    <span style="color: #89DDFF;">if</span> (rank == <span style="color: #f78c6c; font-weight: bold;">0</span>) {
+        <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">flag</span> = <span style="color: #f78c6c; font-weight: bold;">1</span>;
+        <span style="color: #89DDFF;">for</span> (i = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; n * n; i++) {
+            <span style="color: #89DDFF;">if</span> (C[i] != n) {
+                flag = <span style="color: #f78c6c; font-weight: bold;">0</span>;
+                <span style="color: #89DDFF;">break</span>;
+            }
+        }
+        <span style="color: #89DDFF;">if</span> (flag) printf(<span style="color: #c3e88d;">"_____PASS_____\n"</span>);
+        <span style="color: #89DDFF;">else</span> printf(<span style="color: #c3e88d;">"_____FAIL_____\n"</span>);
+
+        <span style="color: #676E95;">// </span><span style="color: #676E95;">Free allocated memory</span>
+        free(A);
+        free(B);
+        free(C);
+    } <span style="color: #89DDFF;">else</span> {
+        free(B);
+    }
+
+    free(sub_A);
+    free(sub_C);
+    free(sendcounts);
+    free(displs);
+
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-sh">bash compile.sh parallel_matrix_multiplication1.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc parallel_matrix_multiplication1.c -o parallel_matrix_multiplication1.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at parallel_matrix_multiplication1.out
+------------------------------------------------------------------
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-sh">bash run.sh ./parallel_matrix_multiplication1.out <span style="color: #f78c6c; font-weight: bold;">10</span>
+</pre>
+</div>
+
+<pre class="example" id="org1d6160b">
+------------------------------------------------------------------
+Command executed: mpirun -np 10 ./parallel_matrix_multiplication1.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+_____PASS_____
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+</pre>
+
+<p>
+<b><b>Explanation:</b></b>
+</p>
+<ol class="org-ol">
+<li>The program initializes the MPI environment and retrieves the rank and size of the processes.</li>
+<li>Memory for the matrices is allocated, and matrices are initialized with 1&rsquo;s.</li>
+<li>The matrix B is broadcasted to all processes to ensure each process has the full matrix B.</li>
+<li>Matrix A is scattered among all processes so that each process receives a portion (submatrix).</li>
+<li>Each process performs the multiplication on its portion of the matrix.</li>
+<li>The resulting submatrices are gathered back into the full matrix C on the root process.</li>
+<li>The root process verifies and prints the result, and all allocated memory is freed.</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgd8c265c" class="outline-2">
+<h2 id="orgd8c265c"><span class="section-number-2">7.</span> MPI Initialization: MPI_Init vs. MPI_Init_thread</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+MPI provides two main functions to initialize the MPI environment: `MPI_Init` and `MPI_Init_thread`. The primary difference is that `MPI_Init_thread` allows you to specify the desired level of thread support.
+</p>
+</div>
+<div id="outline-container-org12704d4" class="outline-3">
+<h3 id="org12704d4"><span class="section-number-3">7.1.</span> Levels of Thread Support</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li>`MPI_THREAD_SINGLE`: Only one thread will execute.</li>
+<li>`MPI_THREAD_FUNNELED`: The process may be multi-threaded, but only the main thread will make MPI calls.</li>
+<li>`MPI_THREAD_SERIALIZED`: Multiple threads may make MPI calls, but only one at a time.</li>
+<li>`MPI_THREAD_MULTIPLE`: Multiple threads may make MPI calls with no restrictions.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge019809" class="outline-3">
+<h3 id="orge019809"><span class="section-number-3">7.2.</span> MPI_Init Example</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+This example uses `MPI_Init` to initialize the MPI environment.
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Initialize the MPI environment</span>
+    MPI_Init(&amp;argc, &amp;argv);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Get the number of processes</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">world_size</span>;
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;world_size);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Get the rank of the process</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">world_rank</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;world_rank);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Print off a hello world message</span>
+    printf(<span style="color: #c3e88d;">"Hello world from processor %d out of %d processors\n"</span>, world_rank, world_size);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Finalize the MPI environment.</span>
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1bca8c1" class="outline-3">
+<h3 id="org1bca8c1"><span class="section-number-3">7.3.</span> Compilation and Execution (MPI_Init)</h3>
+<div class="outline-text-3" id="text-7-3">
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">bash compile.sh mpi_init.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_init.c -o mpi_init.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at mpi_init.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">  bash run.sh ./mpi_init.out <span style="color: #f78c6c; font-weight: bold;">6</span>
+</pre>
+</div>
+
+<pre class="example" id="org17cdade">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 6 ./mpi_init.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  Hello world from processor 1 out of 6 processors
+  Hello world from processor 3 out of 6 processors
+  Hello world from processor 4 out of 6 processors
+  Hello world from processor 2 out of 6 processors
+  Hello world from processor 5 out of 6 processors
+  Hello world from processor 0 out of 6 processors
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgcddff0e" class="outline-3">
+<h3 id="orgcddff0e"><span class="section-number-3">7.4.</span> MPI_Init_thread Example</h3>
+<div class="outline-text-3" id="text-7-4">
+<p>
+This example uses `MPI_Init_thread` to initialize the MPI environment with thread support.
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>** <span style="color: #ffcb6b;">argv</span>) {
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">provided</span>;
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Initialize the MPI environment with thread support</span>
+    MPI_Init_thread(&amp;argc, &amp;argv, MPI_THREAD_MULTIPLE, &amp;provided);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Check the level of thread support provided</span>
+    <span style="color: #89DDFF;">if</span> (provided !=  MPI_THREAD_MULTIPLE) {
+        printf(<span style="color: #c3e88d;">"MPI does not provide required thread support\n"</span>);
+        MPI_Abort(MPI_COMM_WORLD, <span style="color: #f78c6c; font-weight: bold;">1</span>);
+    }
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Get the number of processes</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">world_size</span>;
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;world_size);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Get the rank of the process</span>
+    <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">world_rank</span>;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;world_rank);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Print off a hello world message</span>
+    printf(<span style="color: #c3e88d;">"Hello world from processor %d out of %d processors with thread support level %d\n"</span>, world_rank, world_size, provided);
+
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Finalize the MPI environment.</span>
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org663b727" class="outline-3">
+<h3 id="org663b727"><span class="section-number-3">7.5.</span> Compilation and Execution (MPI_Init_thread)</h3>
+<div class="outline-text-3" id="text-7-5">
+<ul class="org-ul">
+<li><p>
+Compile the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">bash compile.sh mpi_init_thread.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc mpi_init_thread.c -o mpi_init_thread.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at mpi_init_thread.out
+------------------------------------------------------------------
+</pre></li>
+
+<li><p>
+Run the program:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">bash run.sh ./mpi_init_thread.out <span style="color: #f78c6c; font-weight: bold;">5</span>
+</pre>
+</div>
+
+<pre class="example" id="org9518dbe">
+  ------------------------------------------------------------------
+  Command executed: mpirun -np 5 ./mpi_init_thread.out
+  ------------------------------------------------------------------
+  ##################################################################
+  ##########                    OUTPUT                    ##########
+  ##################################################################
+
+  Hello world from processor 0 out of 5 processors with thread support level 3
+  Hello world from processor 1 out of 5 processors with thread support level 3
+  Hello world from processor 4 out of 5 processors with thread support level 3
+  Hello world from processor 2 out of 5 processors with thread support level 3
+  Hello world from processor 3 out of 5 processors with thread support level 3
+
+  ##################################################################
+  ##########                     DONE                     ##########
+  ##################################################################
+</pre></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgcc97dbe" class="outline-3">
+<h3 id="orgcc97dbe"><span class="section-number-3">7.6.</span> Summary</h3>
+<div class="outline-text-3" id="text-7-6">
+<ul class="org-ul">
+<li>`MPI_Init` is used for standard MPI initialization without considering threading.</li>
+<li>`MPI_Init_thread` allows the program to specify and check the level of thread support.
+<ul class="org-ul">
+<li>Important for applications that require multi-threading in conjunction with MPI.</li>
+<li>Ensures that the required thread support is available.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgeff6e2e" class="outline-2">
+<h2 id="orgeff6e2e"><span class="section-number-2">8.</span> Test1</h2>
+<div class="outline-text-2" id="text-8">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;pthread.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">NUM_THREADS</span> <span style="color: #f78c6c; font-weight: bold;">4</span>
+
+<span style="color: #c792ea;">void</span> *<span style="color: #82aaff;">thread_function</span>(<span style="color: #c792ea;">void</span>* <span style="color: #ffcb6b;">arg</span>) {
+  <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>;
+  MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+
+  <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">thread_id</span> = *(<span style="color: #c792ea;">int</span>*)arg;
+  printf(<span style="color: #c3e88d;">"Thread %d in process %d: Hello World!\n"</span>, thread_id, rank);
+
+  <span style="color: #676E95;">// </span><span style="color: #676E95;">Simulate some work done by the thread</span>
+  <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; <span style="color: #f78c6c; font-weight: bold;">100000</span>; i++) {
+    <span style="color: #676E95;">// </span><span style="color: #676E95;">Do some calculations or operations here</span>
+  }
+
+  <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c;">NULL</span>;
+}
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>* <span style="color: #ffcb6b;">argv</span>[]) {
+  <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">thread_provided</span>;
+  <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">provided</span> = MPI_THREAD_SINGLE;
+  <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">thread_level</span> = MPI_Init_thread(&amp;argc, &amp;argv, provided, &amp;thread_provided);
+
+  <span style="color: #676E95;">// </span><span style="color: #676E95;">Check the level of thread support provided by MPI</span>
+  <span style="color: #89DDFF;">if</span> (thread_level != MPI_SUCCESS) {
+    printf(<span style="color: #c3e88d;">"Error initializing MPI threads\n"</span>);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">1</span>;
+  }
+
+  <span style="color: #89DDFF;">if</span> (thread_provided != MPI_THREAD_MULTIPLE) {
+    printf(<span style="color: #c3e88d;">"Warning: MPI_THREAD_MULTIPLE requested but not provided\n"</span>);
+  }
+
+  <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>;
+  MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+  MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+
+  <span style="color: #89DDFF;">if</span> (size != <span style="color: #f78c6c; font-weight: bold;">4</span>) {
+    printf(<span style="color: #c3e88d;">"This program requires exactly 4 processes\n"</span>);
+    MPI_Finalize();
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">1</span>;
+  }
+
+
+  <span style="color: #676E95;">// </span><span style="color: #676E95;">Create threads within each process</span>
+  <span style="color: #c792ea;">pthread_t</span> <span style="color: #ffcb6b;">threads</span>[NUM_THREADS];
+  <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">thread_ids</span>[NUM_THREADS];
+  <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; NUM_THREADS; i++) {
+    thread_ids[i] = i;
+    pthread_create(&amp;threads[i], <span style="color: #f78c6c;">NULL</span>, thread_function, &amp;thread_ids[i]);
+  }
+
+  <span style="color: #676E95;">// </span><span style="color: #676E95;">Wait for all threads to finish</span>
+  <span style="color: #89DDFF;">for</span> (<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">i</span> = <span style="color: #f78c6c; font-weight: bold;">0</span>; i &lt; NUM_THREADS; i++) {
+    pthread_join(threads[i], <span style="color: #f78c6c;">NULL</span>);
+  }
+
+  MPI_Finalize();
+
+  <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash">bash compile.sh test1.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc test1.c -o test1.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at test1.out
+------------------------------------------------------------------
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">bash run.sh ./test1.out <span style="color: #f78c6c; font-weight: bold;">4</span>
+</pre>
+</div>
+
+<pre class="example" id="org70a1687">
+------------------------------------------------------------------
+Command executed: mpirun -np 4 ./test1.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+Warning: MPI_THREAD_MULTIPLE requested but not provided
+Thread 0 in process 1: Hello World!
+Warning: MPI_THREAD_MULTIPLE requested but not provided
+Warning: MPI_THREAD_MULTIPLE requested but not provided
+Warning: MPI_THREAD_MULTIPLE requested but not provided
+Thread 1 in process 1: Hello World!
+Thread 0 in process 3: Hello World!
+Thread 0 in process 2: Hello World!
+Thread 2 in process 1: Hello World!
+Thread 0 in process 0: Hello World!
+Thread 3 in process 0: Hello World!
+Thread 3 in process 1: Hello World!
+Thread 1 in process 2: Hello World!
+Thread 1 in process 3: Hello World!
+Thread 2 in process 2: Hello World!
+Thread 2 in process 3: Hello World!
+Thread 1 in process 0: Hello World!
+Thread 3 in process 2: Hello World!
+Thread 3 in process 3: Hello World!
+Thread 2 in process 0: Hello World!
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+</pre>
+</div>
+</div>
+<div id="outline-container-org11f3f3f" class="outline-2">
+<h2 id="org11f3f3f"><span class="section-number-2">9.</span> Test2</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdio.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;stdlib.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;unistd.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;mpi.h&gt;</span>
+<span style="color: #89DDFF; font-weight: bold;">#include</span> <span style="color: #c3e88d;">&lt;omp.h&gt;</span>
+
+<span style="color: #89DDFF; font-weight: bold;">#define</span> <span style="color: #ffcb6b;">NUM_THREADS</span> <span style="color: #f78c6c; font-weight: bold;">6</span>
+
+<span style="color: #c792ea;">int</span> <span style="color: #82aaff;">main</span>(<span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">argc</span>, <span style="color: #c792ea;">char</span>* <span style="color: #ffcb6b;">argv</span>[]) {
+  <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">thread_provided</span>;
+  <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">provided</span> = MPI_THREAD_SINGLE;
+  <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">thread_level</span> = MPI_Init_thread(&amp;argc, &amp;argv, provided, &amp;thread_provided);
+  <span style="color: #c792ea;">int</span> <span style="color: #ffcb6b;">rank</span>, <span style="color: #ffcb6b;">size</span>;
+  MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+  MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
+  <span style="color: #676E95;">// </span><span style="color: #676E95;">Check the level of thread support provided by MPI</span>
+  <span style="color: #89DDFF;">if</span> (thread_level != MPI_SUCCESS) {
+    printf(<span style="color: #c3e88d;">"Error initializing MPI threads\n"</span>);
+    <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">1</span>;
+  }
+  <span style="color: #89DDFF;">if</span> (thread_provided != MPI_THREAD_MULTIPLE) {
+    printf(<span style="color: #c3e88d;">"Warning: MPI_THREAD_MULTIPLE requested but not provided\n"</span>);
+  }
+<span style="color: #89DDFF; font-weight: bold;">  #pragma</span> omp parallel num_threads(NUM_THREADS)
+  {
+        printf(<span style="color: #c3e88d;">"Hello openmp from thread %d inside process %d\n"</span>, omp_get_thread_num(), rank);
+  }
+
+  MPI_Finalize();
+  <span style="color: #89DDFF;">return</span> <span style="color: #f78c6c; font-weight: bold;">0</span>;
+}
+
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash">bash compile.sh test2.c
+</pre>
+</div>
+
+<pre class="example">
+------------------------------------------------------------------
+Command executed: mpicc test2.c -o test2.out -lm
+------------------------------------------------------------------
+Compilation successful. Check at test2.out
+------------------------------------------------------------------
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">bash run.sh ./test2.out <span style="color: #f78c6c; font-weight: bold;">4</span>
+</pre>
+</div>
+
+<pre class="example" id="org6717ff6">
+------------------------------------------------------------------
+Command executed: mpirun -np 4 ./test2.out
+------------------------------------------------------------------
+##################################################################
+##########                    OUTPUT                    ##########
+##################################################################
+
+
+##################################################################
+##########                     DONE                     ##########
+##################################################################
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Abhishek Raj</p>
+<p class="date">Created: 2024-07-13 Sat 08:04</p>
+</div>
+</body>
+</html>

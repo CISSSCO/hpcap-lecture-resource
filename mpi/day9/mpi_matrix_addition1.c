@@ -56,17 +56,14 @@ int main() {
           printf("Execution time: %lf\n", endTime - startTime);
         }
         else printf("_____FAIL_____\n");
-
         // Free the allocated memory
         free(m1);
         free(m2);
         free(sumMat);
     }
-
     free(sub_m1);
     free(sub_m2);
     free(sub_sumMat);
-
     MPI_Finalize();
     return 0;
 }
